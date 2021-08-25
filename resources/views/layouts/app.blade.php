@@ -13,7 +13,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -29,8 +29,9 @@
         @component('components.navigation-menu')@endcomponent
 
         <main class="py-4 container bg-light">
-            {{-- @yield('content') --}}
-            <router-view />
+            @yield('content')
+            {{-- <router-view /> --}}
+
         </main>
     </div>
 </body>

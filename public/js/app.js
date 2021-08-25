@@ -1941,6 +1941,9 @@ vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE
 var routes = [{
   path: '',
   component: __webpack_require__(/*! ./components/Clientes/Clientes.vue */ "./resources/js/components/Clientes/Clientes.vue").default
+}, {
+  path: '/clientes',
+  component: __webpack_require__(/*! ./components/Clientes/Clientes.vue */ "./resources/js/components/Clientes/Clientes.vue").default
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__.default({
   routes: routes // short for `routes: routes`

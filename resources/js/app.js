@@ -27,8 +27,8 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.use(VueRouter)
 
 const routes = [
-
     { path: '', component: require('./components/Clientes/Clientes.vue').default },
+    { path: '/clientes', component: require('./components/Clientes/Clientes.vue').default },
 
 ]
 
