@@ -6,7 +6,9 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue').default;
+// window.Vue = require('vue').default;
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
 /**
  * The following block of code may be used to automatically register your
@@ -18,8 +20,23 @@ window.Vue = require('vue').default;
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('pagination', require('laravel-vue-pagination'));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+Vue.use(VueRouter)
+
+const routes = [
+
+    { path: '', component: require('./components/Clientes/Clientes.vue').default },
+
+]
+
+const router = new VueRouter({
+    routes // short for `routes: routes`
+})
+
+export default router;
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +46,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    router
 });

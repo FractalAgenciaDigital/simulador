@@ -15,6 +15,7 @@ class ClienteController extends Controller
     public function index()
     {
         //
+        return Cliente::paginate(15);
     }
 
     /**
