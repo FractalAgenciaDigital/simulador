@@ -5,8 +5,7 @@
       id="formUsuarioModal"
       tabindex="-1"
       aria-labelledby="formUsuarioModalLabel"
-      aria-hidden="true"
-    >
+      aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -15,9 +14,10 @@
               type="button"
               class="close"
               data-dismiss="modal"
+              @click="editar=false"
               aria-label="Close"
             >
-              <span aria-hidden="true">&times;</span>
+              <span aria-hidden="true" >&times;</span>
             </button>
           </div>
           <div class="modal-body">
@@ -116,15 +116,94 @@
               </div>
             </form>
           </div>
+          </div>
           <div class="modal-footer">
             <button
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
+              @click="editar = false"
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" @click="crearUsuario">
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="editar ? editarUsuario() : crearUsuario()"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      editar : false,
+      formUsuario: {
+        nombres: "",
+        apellidos: "",
+        tipo_documento: 0,
+        nro_documento: 0,
+        fecha_nacimiento: "",
+        email: "",
+        celular1: "",
+        celular2: "",
+        genero: "",
+        number: "",
+        estado_civil: "",
+        independiente: 0,
+        lugar_trabjo: "",
+        cargo: "",
+      },
+    };
+  },
+  // Function crearUsuarios
+  methods: {
+    crearUsuario() {
+      let me = this;
+      axios.post("api/usuarios", this.formUsuario).then(function () {
+        $("#formUsuarioModal").modal("hide");
+        me.formUsuario = {};
+      });
+    },
+    abirEditarUsuario(cliente) {
+      this.editar = true;
+      let me = this;
+      $("#formUsuarioModal").modal("show");
+      me.formUsuario = cliente;
+    },
+    editarUsuario() {
+      let me = this;
+      axios
+        .put("api/usuarios/" + this.formUsuario.id, this.formUsuario)
+        .then(function () {
+          $("#formUsuarioModal").modal("hide");
+          me.formUsuario = {};
+        });
+        this.editar = false;
+    },
+  },
+};
+</script></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              @click="editar = false"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="editar ? editarUsuario() : crearUsuario()"
+            >
               Guardar
             </button>
           </div>
@@ -138,16 +217,22 @@
 export default {
   data() {
     return {
+      editar : false,
       formUsuario: {
-        name: "",
-        email: "",
-        password: "",
-        nombre: "",
-        celular: "",
-        direccion: "",
+        nombres: "",
+        apellidos: "",
         tipo_documento: 0,
-        documento: 0,
-        foto: "",
+        nro_documento: 0,
+        fecha_nacimiento: "",
+        email: "",
+        celular1: "",
+        celular2: "",
+        genero: "",
+        number: "",
+        estado_civil: "",
+        independiente: 0,
+        lugar_trabjo: "",
+        cargo: "",
       },
     };
   },
@@ -157,8 +242,24 @@ export default {
       let me = this;
       axios.post("api/usuarios", this.formUsuario).then(function () {
         $("#formUsuarioModal").modal("hide");
-        // me.formClient = {};
+        me.formUsuario = {};
       });
+    },
+    abirEditarUsuario(cliente) {
+      this.editar = true;
+      let me = this;
+      $("#formUsuarioModal").modal("show");
+      me.formUsuario = cliente;
+    },
+    editarUsuario() {
+      let me = this;
+      axios
+        .put("api/usuarios/" + this.formUsuario.id, this.formUsuario)
+        .then(function () {
+          $("#formUsuarioModal").modal("hide");
+          me.formUsuario = {};
+        });
+        this.editar = false;
     },
   },
 };

@@ -53,6 +53,7 @@
         </table>
       </section>
     </div>
+    <crear-editar-usuario ref="CrearEditarUsuario" />
   </div>
 </template>
 <script>
@@ -74,17 +75,22 @@ export default {
         me.listaUsuarios = response.data;
       });
     },
-    created() {
-        this.listarUsuarios(1);
+    mostrarDatos: function (usuario) {
+      this.$refs.CrearEditarUsuario.abirEditarUsuario(usuario);
     },
-    methods: {
-        listarUsuarios(page = 1) {
-            let me = this;
-            axios.get("api/usuarios?page=" + page).then(function(response) {
-                me.listaUsuarios = response.data;
-            });
-        }
-    }
-}
-}
+    
+    destroy: function (usuario) {
+      this.destroy(usuario);
+    },
+
+    DesactivarUsuario: function (id) {
+      let me = this;
+      axios
+        .delete("api/clientes/" + id)
+        .then(function () {
+          me.listUsuarios(1);
+        });
+    },
+  },
+};
 </script>
