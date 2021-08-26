@@ -40,7 +40,7 @@
                 </button>
               </td>
               <td class="text-center">
-                <button class="btn btn-outline-primary">
+                <button class="btn btn-outline-primary" @click="mostrarDatos(c)">
                   <i class="bi bi-pen"></i>
                 </button>
               </td>
@@ -49,7 +49,7 @@
         </table>
       </section>
     </div>
-    <crear-editar-cliente />
+    <crear-editar-cliente ref="CrearEditarCliente" />
   </div>
 </template>
 <script>
@@ -71,17 +71,9 @@ export default {
         me.listaClientes = response.data;
       });
     },
-    created() {
-        this.listarClientes(1);
+    mostrarDatos: function (cliente) {
+      this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
     },
-    methods: {
-        listarClientes(page = 1) {
-            let me = this;
-            axios.get("api/clientes?page=" + page).then(function(response) {
-                me.listaClientes = response.data;
-            });
-        }
-    }
-}
-}
+  },
+};
 </script>

@@ -87,7 +87,23 @@ class ClienteController extends Controller
 	 */
 	public function update(Request $request, Cliente $cliente)
 	{
-		//
+		$cliente = Cliente::find($request->id);
+		$cliente->nombres = $request['nombres'];
+		$cliente->apellidos = $request['apellidos'];
+		$cliente->tipo_documento = $request['tipo_documento'];
+		$cliente->nro_documento = $request['nro_documento'];
+		$cliente->email = $request['email'];
+		$cliente->fecha_nacimiento = $request['fecha_nacimiento'];
+		$cliente->genero = $request['genero'];
+		$cliente->celular1 = $request['celular1'];
+		$cliente->celular2 = $request['celular2'];
+		$cliente->direccion = $request['direccion'];
+		$cliente->estado_civil = $request['estado_civil'];
+		$cliente->lugar_trabajo = $request['lugar_trabajo'];
+		$cliente->cargo = $request['cargo'];
+		$cliente->independiente = $request['independiente'];
+		$cliente->foto = 'undefindef';
+		$cliente->save();
 	}
 
 	/**

@@ -1921,31 +1921,8 @@ __webpack_require__.r(__webpack_exports__);
         me.listaClientes = response.data;
       });
     },
-    created: function created() {
-      this.listarClientes(1);
-    },
-    methods: {
-      listarClientes: function listarClientes() {
-        var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-        var me = this;
-        axios.get("api/clientes?page=" + page).then(function (response) {
-          me.listaClientes = response.data;
-        });
-      }
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Clientes/CrearEditarCliente.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Clientes/CrearEditarCliente.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -2170,9 +2147,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      editar: false,
       formCliente: {
         nombres: "",
         apellidos: "",
@@ -2196,8 +2180,23 @@ __webpack_require__.r(__webpack_exports__);
     crearCliente: function crearCliente() {
       var me = this;
       axios.post("api/clientes", this.formCliente).then(function () {
-        $("#formClienteModal").modal("hide"); // me.formClient = {};
+        $("#formClienteModal").modal("hide");
+        me.formCliente = {};
       });
+    },
+    abirEditarCliente: function abirEditarCliente(cliente) {
+      this.editar = true;
+      var me = this;
+      $("#formClienteModal").modal("show");
+      me.formCliente = cliente;
+    },
+    editarCliente: function editarCliente() {
+      var me = this;
+      axios.put("api/clientes/" + this.formCliente.id, this.formCliente).then(function () {
+        $("#formClienteModal").modal("hide");
+        me.formCliente = {};
+      });
+      this.editar = false;
     }
   }
 });
@@ -38915,7 +38914,20 @@ var render = function() {
                     _vm._v(" "),
                     _vm._m(2, true),
                     _vm._v(" "),
-                    _vm._m(3, true)
+                    _c("td", { staticClass: "text-center" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-primary",
+                          on: {
+                            click: function($event) {
+                              return _vm.mostrarDatos(c)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "bi bi-pen" })]
+                      )
+                    ])
                   ])
                 }),
                 0
@@ -38925,7 +38937,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("crear-editar-cliente")
+      _c("crear-editar-cliente", { ref: "CrearEditarCliente" })
     ],
     1
   )
@@ -38985,16 +38997,6 @@ var staticRenderFns = [
         _c("i", { staticClass: "bi bi-eye" })
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("button", { staticClass: "btn btn-outline-primary" }, [
-        _c("i", { staticClass: "bi bi-pen" })
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -39034,7 +39036,38 @@ var render = function() {
       [
         _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(0),
+            _c("div", { staticClass: "modal-header" }, [
+              _c(
+                "h5",
+                {
+                  staticClass: "modal-title",
+                  attrs: { id: "formClienteModalLabel" }
+                },
+                [_vm._v("Modal title")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: {
+                    type: "button",
+                    "data-dismiss": "modal",
+                    "aria-label": "Close"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.editar = false
+                    }
+                  }
+                },
+                [
+                  _c("span", { attrs: { "aria-hidden": "true" } }, [
+                    _vm._v("×")
+                  ])
+                ]
+              )
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _c("form", [
@@ -39683,7 +39716,12 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-secondary",
-                  attrs: { type: "button", "data-dismiss": "modal" }
+                  attrs: { type: "button", "data-dismiss": "modal" },
+                  on: {
+                    click: function($event) {
+                      _vm.editar = false
+                    }
+                  }
                 },
                 [_vm._v("\n            Close\n          ")]
               ),
@@ -39693,7 +39731,11 @@ var render = function() {
                 {
                   staticClass: "btn btn-primary",
                   attrs: { type: "button" },
-                  on: { click: _vm.crearCliente }
+                  on: {
+                    click: function($event) {
+                      _vm.editar ? _vm.editarCliente() : _vm.crearCliente()
+                    }
+                  }
                 },
                 [_vm._v("\n            Guardar\n          ")]
               )
@@ -39704,33 +39746,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "formClienteModalLabel" } },
-        [_vm._v("Modal title")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -55789,5 +55805,4 @@ Vue.compile = compileToFunctions;
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/sass/app.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
-/******/ })()
-;
+/******/ })();
