@@ -5,13 +5,15 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Nombres</th>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
                         <th>Documento</th>
                         <th>Celular</th>
-                        <th>Correo Electronico</th>
-                        <th>Dirección</th>
-                        <td>Créditos</td>
-                        <th></th>
+                        <td>Sede</td>
+                        <td>Rol</td>
+                        <td>Estado</td>
+                        <th>Options</th>
                     </tr>
                 </thead>
                 <tbody>

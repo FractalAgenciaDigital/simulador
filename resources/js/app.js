@@ -29,6 +29,7 @@ Vue.use(VueRouter)
 const routes = [
     { path: '', component: require('./components/Clientes/Clientes.vue').default },
     { path: '/clientes', component: require('./components/Clientes/Clientes.vue').default },
+    { path: '/usuarios', component: require('./components/Usuarios/Usuarios.vue').default },
 
 ]
 
