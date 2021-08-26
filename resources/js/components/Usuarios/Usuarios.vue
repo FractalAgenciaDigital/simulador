@@ -6,9 +6,9 @@
         type="button"
         class="btn btn-primary"
         data-toggle="modal"
-        data-target="#formClienteModal"
+        data-target="#formUsuarioModal"
       >
-        Crear cliente
+        Crear Usuario
       </button>
     </div>
     <div class="page-content">
@@ -31,13 +31,13 @@
           <tbody>
             <tr v-for="c in listaUsuarios.data" :key="c.id">
               <td>{{ c.id }}</td>
-              <td>{{ c.name }} {{ c.apellidos }}</td>
+              <td>{{ c.name }}</td>
               <td>{{ c.nombre }}</td>
               <td>{{ c.email }}</td>
               <td>{{ c.documento }}</td>
-              <td>{{ c.celular }}</td>
-              <td>{{ c.email }}</td>
-              <td>{{ c.direccion }}</td>
+              <td>{{ c.sede }}</td>
+              <td>{{ c.rol }}</td>
+              <td>{{ c.estado }}</td>
               <td class="text-center">
                 <button class="btn btn-outline-primary">
                   <i class="bi bi-eye"></i>
@@ -53,13 +53,12 @@
         </table>
       </section>
     </div>
-    <crear-editar-cliente />
   </div>
 </template>
 <script>
-import CrearEditarCliente from "./CrearEditarCliente.vue";
+import CrearEditarUsuario from "./CrearEditarUsuario.vue";
 export default {
-  components: { CrearEditarCliente },
+  components: { CrearEditarUsuario },
   data() {
     return {
       listaUsuarios: {},
@@ -71,7 +70,7 @@ export default {
   methods: {
     listarUsuarios(page = 1) {
       let me = this;
-      axios.get("api/clientes?page=" + page).then(function (response) {
+      axios.get("api/usuarios?page=" + page).then(function (response) {
         me.listaUsuarios = response.data;
       });
     },
@@ -81,7 +80,7 @@ export default {
     methods: {
         listarUsuarios(page = 1) {
             let me = this;
-            axios.get("api/clientes?page=" + page).then(function(response) {
+            axios.get("api/usuarios?page=" + page).then(function(response) {
                 me.listaUsuarios = response.data;
             });
         }

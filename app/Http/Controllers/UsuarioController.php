@@ -14,7 +14,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        return Usuario::paginate(15);
+        return Usuario::paginate(10);
     }
 
     /**
@@ -36,6 +36,17 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         //
+        $usuario = new Usuario();
+        $usuario->name = $request['name'];
+        $usuario->email = $request['email'];
+        $usuario->password = $request['password'];
+        $usuario->nombre = $request['nombre'];
+        $usuario->celular = $request['celular'];
+        $usuario->direccion = $request['direccion'];
+        $usuario->tipo_documento = $request['tipo_documento'];
+        $usuario->documento = $request['documento'];
+        $usuario->foto = 'undefindef';
+        $usuario->save();
     }
 
     /**

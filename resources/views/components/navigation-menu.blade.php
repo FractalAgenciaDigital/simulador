@@ -34,6 +34,7 @@
 
                     <li class="nav-item">
                         <router-link to="/clientes" > Clientes </router-link>
+                        <router-link to="/usuarios" > Usuarios </router-link>
                     </li>
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

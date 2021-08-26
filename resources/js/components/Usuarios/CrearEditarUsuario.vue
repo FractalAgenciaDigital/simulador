@@ -2,15 +2,15 @@
   <div>
     <div
       class="modal fade"
-      id="formClienteModal"
+      id="formUsuarioModal"
       tabindex="-1"
-      aria-labelledby="formClienteModalLabel"
+      aria-labelledby="formUsuarioModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="formClienteModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="formUsuarioModalLabel">Modal title</h5>
             <button
               type="button"
               class="close"
@@ -24,30 +24,39 @@
             <form>
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  <label for="nombres">Nombres</label>
+                  <label for="name">Usuario</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="nombres"
-                    v-model="formCliente.nombres"
+                    id="name"
+                    v-model="formUsuario.name"
                   />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="Apellidos">Apellidos</label>
+                  <label for="nombre">Nombre</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="Apellidos"
-                    v-model="formCliente.apellidos"
+                    id="nombre"
+                    v-model="formUsuario.nombre"
                   />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="fecha_nacimiento">Fecha nacimiento</label>
+                  <label for="email">Email</label>
                   <input
                     type="date"
                     class="form-control"
-                    id="fecha_nacimiento"
-                    v-model="formCliente.fecha_nacimiento"
+                    id="email"
+                    v-model="formUsuario.email"
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="celular">Celular</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="celular"
+                    v-model="formUsuario.celular"
                   />
                 </div>
                 <div class="form-group col-md-4">
@@ -56,147 +65,53 @@
                     name="tipo_documento"
                     id="tipo_documento"
                     class="custom-select"
-                    v-model="formCliente.tipo_documento"
-                  >
+                    v-model="formUsuario.tipo_documento">
                     <option value="0" disabled>--Seleccionar--</option>
                     <option value="1">Cédula de ciudadanía</option>
-                    <option value="2">Passaporte</option>
+                    <option value="2">Pasaporte</option>
                   </select>
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="Apellidos">Nro. Documento</label>
+                  <label for="documento">Nro. Documento</label>
 
                   <input
                     type="number"
                     class="form-control"
-                    id="Documento"
-                    v-model="formCliente.nro_documento"
+                    id="documento"
+                    v-model="formUsuario.documento"
                   />
                 </div>
-
                 <div class="form-group col-md-4">
-                  <label for="tipo_documento">Estado civil</label>
+                  <label for="id_sede">Sede</label>
+
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="id_sede"
+                    v-model="formUsuario.id_sede"
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="id_rol">Rol</label>
                   <select
-                    name="estado_civil"
-                    id="estado_civil"
+                    name="id_rol"
+                    id="id_rol"
                     class="custom-select"
-                    v-model="formCliente.estado_civil"
+                    v-model="formUsuario.id_rol"
                   >
                     <option value="0" disabled>--Seleccionar--</option>
-                    <option value="Soltero">Soltero</option>
-                    <option value="Casado">Casado</option>
-                    <option value="Union libre">Union libre</option>
-                    <option value="Divorciado">Divorciado</option>
-                    <option value="Viudo">Viudo</option>
+                    <option value="1">Administrador</option>
+                    <option value="2">Operario</option>
                   </select>
                 </div>
-
-                <div class="form-group">
-                  <label for="genero">Género</label>
-                  <br />
-                  <div class="form-check form-check-inline">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="Hombre"
-                      value="option1"
-                      v-model="formCliente.genero"
-                    />
-                    <label class="form-check-label" for="Hombre">Hombre</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="Mujer"
-                      value="option2"
-                      v-model="formCliente.genero"
-                    />
-                    <label class="form-check-label" for="Mujer">Mujer</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="Otro"
-                      value="option3"
-                      v-model="formCliente.genero"
-                    />
-                    <label class="form-check-label" for="Otro">Otro</label>
-                  </div>
-                </div>
-              </div>
-              <div class="form-row">
                 <div class="form-group col-4">
-                  <label for="email">Correo Electronico</label>
+                  <label for="id_sede">Sede</label>
                   <input
-                    type="email"
+                    type="id_sede"
                     class="form-control"
-                    id="email"
-                    v-model="formCliente.email"
+                    id="id_sede"
+                    v-model="formUsuario.id_sede"
                   />
-                </div>
-                <div class="form-group col-4">
-                  <label for="direccion">Dirección</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="direccion"
-                    v-model="formCliente.direccion"
-                  />
-                </div>
-                <div class="form-group col-4">
-                  <label for="celular1">Celular 1</label>
-                  <input
-                    type="tel"
-                    class="form-control"
-                    id="celular1"
-                    v-model="formCliente.celular1"
-                  />
-                </div>
-                <div class="form-group col-4">
-                  <label for="celular2">Celular 2</label>
-                  <input
-                    type="tel"
-                    class="form-control"
-                    id="celular2"
-                    v-model="formCliente.celular2"
-                  />
-                </div>
-                <!-- </div>
-              <div class="form-row"> -->
-                <div class="form-group col-md-4">
-                  <label for="lugar_trabajo">Lugar de trabajo</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="lugar_trabajo"
-                    v-model="formCliente.lugar_trabajo"
-                  />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="cargo">Cargo</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="cargo"
-                    v-model="formCliente.cargo"
-                  />
-                </div>
-                <div class="form-check col-md-4 ml-4">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value="1"
-                    id="independiente"
-                    v-model="formCliente.independiente"
-                  />
-                  <label class="form-check-label" for="independiente">
-                    Independiente
-                  </label>
                 </div>
               </div>
             </form>
@@ -209,7 +124,7 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" @click="crearCliente">
+            <button type="button" class="btn btn-primary" @click="crearUsuario">
               Guardar
             </button>
           </div>
@@ -223,30 +138,25 @@
 export default {
   data() {
     return {
-      formCliente: {
-        nombres: "",
-        apellidos: "",
-        tipo_documento: 0,
-        nro_documento: 0,
-        fecha_nacimiento: "",
+      formUsuario: {
+        name: "",
         email: "",
-        celular1: "",
-        celular2: "",
-        genero: "",
-        number: "",
-        estado_civil: "",
-        independiente: 0,
-        lugar_trabjo: "",
-        cargo: "",
+        password: "",
+        nombre: "",
+        celular: "",
+        direccion: "",
+        tipo_documento: 0,
+        documento: 0,
+        foto: "",
       },
     };
   },
-  // Function crearClientes
+  // Function crearUsuarios
   methods: {
-    crearCliente() {
+    crearUsuario() {
       let me = this;
-      axios.post("api/clientes", this.formCliente).then(function () {
-        $("#formClienteModal").modal("hide");
+      axios.post("api/usuarios", this.formUsuario).then(function () {
+        $("#formUsuarioModal").modal("hide");
         // me.formClient = {};
       });
     },
