@@ -1900,6 +1900,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2195,6 +2207,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("api/clientes", this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
         me.formCliente = {};
+        this.$emit("listar-clientes");
       });
     },
     abirEditarCliente: function abirEditarCliente(cliente) {
@@ -2209,6 +2222,7 @@ __webpack_require__.r(__webpack_exports__);
         $("#formClienteModal").modal("hide");
         me.formCliente = {};
       });
+      this.$emit("listar-clientes");
       this.editar = false;
     }
   }
@@ -38458,69 +38472,101 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    {},
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "page-content" }, [
-        _c("section", [
-          _c(
-            "table",
-            { staticClass: "table table-sm table-bordered table-responsive" },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.listaClientes.data, function(c) {
-                  return _c("tr", { key: c.id }, [
-                    _c("td", [_vm._v(_vm._s(c.id))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(_vm._s(c.nombres) + " " + _vm._s(c.apellidos))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.nro_documento))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "( " +
-                          _vm._s(c.celular1) +
-                          " ) - ( " +
-                          _vm._s(c.celular2) +
-                          " )"
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.email))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.direccion))]),
-                    _vm._v(" "),
-                    _vm._m(2, true),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-center" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-outline-primary",
-                          on: {
-                            click: function($event) {
-                              return _vm.mostrarDatos(c)
+      _c("div", { staticClass: "page-content mt-4" }, [
+        _c(
+          "section",
+          {},
+          [
+            _c(
+              "table",
+              {
+                staticClass: "table table-sm table-bordered table-responsive "
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.listaClientes.data, function(c) {
+                    return _c("tr", { key: c.id }, [
+                      _c("td", [_vm._v(_vm._s(c.id))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(c.nombres) + " " + _vm._s(c.apellidos))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(c.nro_documento))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "( " +
+                            _vm._s(c.celular1) +
+                            " ) - ( " +
+                            _vm._s(c.celular2) +
+                            " )"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(c.email))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(c.direccion))]),
+                      _vm._v(" "),
+                      _vm._m(2, true),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-outline-primary",
+                            on: {
+                              click: function($event) {
+                                return _vm.mostrarDatos(c)
+                              }
                             }
-                          }
-                        },
-                        [_c("i", { staticClass: "bi bi-pen" })]
-                      )
+                          },
+                          [_c("i", { staticClass: "bi bi-pen" })]
+                        )
+                      ])
                     ])
-                  ])
-                }),
-                0
-              )
-            ]
-          )
-        ])
+                  }),
+                  0
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "pagination",
+              {
+                attrs: { align: "center", data: _vm.listaClientes, limit: 8 },
+                on: { "pagination-change-page": _vm.listarClientes }
+              },
+              [
+                _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
+                  _vm._v("< Previous")
+                ]),
+                _vm._v(" "),
+                _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
+                  _vm._v("Next >")
+                ])
+              ]
+            )
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
-      _c("crear-editar-cliente", { ref: "CrearEditarCliente" })
+      _c("crear-editar-cliente", {
+        ref: "CrearEditarCliente",
+        on: {
+          "listar-clientes": function($event) {
+            return _vm.listarClientes(1)
+          }
+        }
+      })
     ],
     1
   )
@@ -38530,22 +38576,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-header" }, [
-      _c("h3", [_vm._v("Clientes")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          attrs: {
-            type: "button",
-            "data-toggle": "modal",
-            "data-target": "#formClienteModal"
-          }
-        },
-        [_vm._v("\n      Crear cliente\n    ")]
-      )
-    ])
+    return _c(
+      "div",
+      {
+        staticClass:
+          "page-header d-flex justify-content-between p-4 border my-2"
+      },
+      [
+        _c("h3", [_vm._v("Clientes")]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            attrs: {
+              type: "button",
+              "data-toggle": "modal",
+              "data-target": "#formClienteModal"
+            }
+          },
+          [_vm._v("\n      Crear cliente\n    ")]
+        )
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -39209,7 +39262,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "password", id: "cargo" },
+                      attrs: { type: "text", id: "cargo" },
                       domProps: { value: _vm.formCliente.cargo },
                       on: {
                         input: function($event) {
@@ -39306,13 +39359,13 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Close\n          ")]
+                [_vm._v("\n            Cerrar\n          ")]
               ),
               _vm._v(" "),
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-primary",
+                  staticClass: "btn btn-primary rounded",
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {

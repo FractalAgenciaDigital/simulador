@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="page-header">
+  <div class="">
+    <div class="page-header d-flex justify-content-between p-4 border my-2">
       <h3>Clientes</h3>
       <button
         type="button"
@@ -11,9 +11,9 @@
         Crear cliente
       </button>
     </div>
-    <div class="page-content">
-      <section>
-        <table class="table table-sm table-bordered table-responsive">
+    <div class="page-content mt-4">
+      <section class="">
+        <table class="table table-sm table-bordered table-responsive ">
           <thead>
             <tr>
               <th>id</th>
@@ -40,16 +40,28 @@
                 </button>
               </td>
               <td class="text-center">
-                <button class="btn btn-outline-primary" @click="mostrarDatos(c)">
+                <button
+                  class="btn btn-outline-primary"
+                  @click="mostrarDatos(c)"
+                >
                   <i class="bi bi-pen"></i>
                 </button>
               </td>
             </tr>
           </tbody>
         </table>
+         <pagination
+            :align="'center'"
+            :data="listaClientes"
+            :limit="8"
+            @pagination-change-page="listarClientes"
+          >
+            <span slot="prev-nav">&lt; Previous</span>
+            <span slot="next-nav">Next &gt;</span>
+          </pagination>
       </section>
     </div>
-    <crear-editar-cliente ref="CrearEditarCliente" />
+    <crear-editar-cliente ref="CrearEditarCliente" @listar-clientes="listarClientes(1)" />
   </div>
 </template>
 <script>

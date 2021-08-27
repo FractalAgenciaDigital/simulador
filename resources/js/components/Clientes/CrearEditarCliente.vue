@@ -15,10 +15,10 @@
               type="button"
               class="close"
               data-dismiss="modal"
-              @click="editar=false"
+              @click="editar = false"
               aria-label="Close"
             >
-              <span aria-hidden="true" >&times;</span>
+              <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
@@ -181,7 +181,7 @@
                 <div class="form-group col-md-4">
                   <label for="cargo">Cargo</label>
                   <input
-                    type="password"
+                    type="text"
                     class="form-control"
                     id="cargo"
                     v-model="formCliente.cargo"
@@ -209,11 +209,11 @@
               data-dismiss="modal"
               @click="editar = false"
             >
-              Close
+              Cerrar
             </button>
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-primary rounded"
               @click="editar ? editarCliente() : crearCliente()"
             >
               Guardar
@@ -229,7 +229,7 @@
 export default {
   data() {
     return {
-      editar : false,
+      editar: false,
       formCliente: {
         nombres: "",
         apellidos: "",
@@ -254,6 +254,7 @@ export default {
       axios.post("api/clientes", this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
         me.formCliente = {};
+        this.$emit("listar-clientes");
       });
     },
     abirEditarCliente(cliente) {
@@ -270,7 +271,9 @@ export default {
           $("#formClienteModal").modal("hide");
           me.formCliente = {};
         });
-        this.editar = false;
+      this.$emit("listar-clientes");
+
+      this.editar = false;
     },
   },
 };

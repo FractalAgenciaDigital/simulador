@@ -24,11 +24,11 @@
 
 </head>
 
-<body>
+<body class="bg-gray">
     <div id="app">
         @component('components.navigation-menu')@endcomponent
 
-        <main class="py-4 container bg-light">
+        <main class="p-4 bg-light container">
             @yield('content')
             {{-- <router-view /> --}}
 
