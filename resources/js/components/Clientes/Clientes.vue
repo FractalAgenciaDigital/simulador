@@ -51,23 +51,23 @@
                   class="btn"
                   @click="CambiarEstado(c.id)"
                   :class="
-                    c.activo == 0 ? 'btn-outline-success' : 'btn-outline-danger'
+                    c.estado == 0 ? 'btn-outline-success' : 'btn-outline-danger'
                   "
                 >
                   <i
-                    v-if="c.activo == 1"
+                    v-if="c.estado == 1"
                     onclick="return confirm('¿Desea Desactivar?')"
                     class="bi bi-trash"
                   ></i>
 
                   <i
-                    v-if="c.activo == 0"
+                    v-if="c.estado == 0"
                     onclick="return confirm('¿Desea Activar?')"
                     class="bi bi-check2-circle"
                   ></i>
                 </button> -->
                 <button
-                  v-if="c.activo == 1"
+                  v-if="c.estado == 1"
                   onclick="return confirm('¿Desea Desactivar?')"
                   class="btn btn-outline-danger"
                   @click="CambiarEstado(c.id)"
@@ -75,7 +75,7 @@
                   <i class="bi bi-trash"></i>
                 </button>
                 <button
-                  v-if="c.activo == 0"
+                  v-if="c.estado == 0"
                   onclick="return confirm('¿Desea Activar?')"
                   class="btn btn-outline-success"
                   @click="CambiarEstado(c.id)"
@@ -91,6 +91,7 @@
     <crear-editar-cliente ref="CrearEditarCliente" />
   </div>
 </template>
+
 <script>
 import CrearEditarCliente from "./CrearEditarCliente.vue";
 export default {

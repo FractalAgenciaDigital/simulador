@@ -22,5 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::resource('/clientes',  ClienteController::class);
-Route::resource('/usuarios',  UsuarioController::class);
 Route::post('/clientes/{cliente}/camEstado',  [ClienteController::class, 'camEstado']);
+
+Route::resource('/usuarios',  UsuarioController::class);
+Route::post('/usuarios/{usuario}/camEstado',  [UsuarioController::class, 'camEstado']);

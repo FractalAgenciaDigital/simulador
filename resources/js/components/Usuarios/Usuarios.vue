@@ -29,23 +29,38 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="c in listaUsuarios.data" :key="c.id">
-              <td>{{ c.id }}</td>
-              <td>{{ c.name }}</td>
-              <td>{{ c.nombre }}</td>
-              <td>{{ c.email }}</td>
-              <td>{{ c.documento }}</td>
-              <td>{{ c.sede }}</td>
-              <td>{{ c.rol }}</td>
-              <td>{{ c.estado }}</td>
+            <tr v-for="u in listaUsuarios.data" :key="u.id">
+              <td>{{ u.id }}</td>
+              <td>{{ u.name }}</td>
+              <td>{{ u.nombre }}</td>
+              <td>{{ u.email }}</td>
+              <td>{{ u.documento }}</td>
+              <td>{{ u.celular }}</td>
+              <td>{{ u.sede }}</td>
+              <td>{{ u.rol }}</td>
+              <td>{{ u.estado }}</td>
               <td class="text-center">
-                <button class="btn btn-outline-primary">
-                  <i class="bi bi-eye"></i>
-                </button>
-              </td>
-              <td class="text-center">
-                <button class="btn btn-outline-primary">
+                <button
+                  class="btn btn-outline-primary"
+                  @click="mostrarDatos(u)"
+                >
                   <i class="bi bi-pen"></i>
+                </button>
+                <button
+                  v-if="u.estado == 1"
+                  onclick="return confirm('¿Desea Desactivar?')"
+                  class="btn btn-outline-danger"
+                  @click="CambiarEstado(u.id)"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+                <button
+                  v-if="u.estado == 0"
+                  onclick="return confirm('¿Desea Activar?')"
+                  class="btn btn-outline-success"
+                  @click="CambiarEstado(u.id)"
+                >
+                  <i class="bi bi-check2-circle"></i>
                 </button>
               </td>
             </tr>
@@ -78,18 +93,16 @@ export default {
     mostrarDatos: function (usuario) {
       this.$refs.CrearEditarUsuario.abirEditarUsuario(usuario);
     },
-    
+
     destroy: function (usuario) {
       this.destroy(usuario);
     },
 
     DesactivarUsuario: function (id) {
       let me = this;
-      axios
-        .delete("api/clientes/" + id)
-        .then(function () {
-          me.listUsuarios(1);
-        });
+      axios.delete("api/clientes/" + id).then(function () {
+        me.listarUsuarios(1);
+      });
     },
   },
 };

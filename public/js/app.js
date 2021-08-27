@@ -1939,6 +1939,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -1985,6 +1986,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -2406,87 +2410,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2502,7 +2425,10 @@ __webpack_require__.r(__webpack_exports__);
         celular2: "",
         genero: "",
         number: "",
+        estado: "",
         estado_civil: "",
+        id_sede: "",
+        id_rol: "",
         independiente: 0,
         lugar_trabjo: "",
         cargo: ""
@@ -2518,11 +2444,11 @@ __webpack_require__.r(__webpack_exports__);
         me.formUsuario = {};
       });
     },
-    abirEditarUsuario: function abirEditarUsuario(cliente) {
+    abirEditarUsuario: function abirEditarUsuario(usuario) {
       this.editar = true;
       var me = this;
       $("#formUsuarioModal").modal("show");
-      me.formUsuario = cliente;
+      me.formUsuario = usuario;
     },
     editarUsuario: function editarUsuario() {
       var me = this;
@@ -2549,6 +2475,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _CrearEditarUsuario_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CrearEditarUsuario.vue */ "./resources/js/components/Usuarios/CrearEditarUsuario.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2637,7 +2578,7 @@ __webpack_require__.r(__webpack_exports__);
     DesactivarUsuario: function DesactivarUsuario(id) {
       var me = this;
       axios["delete"]("api/clientes/" + id).then(function () {
-        me.listUsuarios(1);
+        me.listarUsuarios(1);
       });
     }
   }
@@ -38820,8 +38761,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CrearEditarUsuario_vue_vue_type_template_id_c071920a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CrearEditarUsuario.vue?vue&type=template&id=c071920a& */ "./resources/js/components/Usuarios/CrearEditarUsuario.vue?vue&type=template&id=c071920a&");
 /* harmony import */ var _CrearEditarUsuario_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CrearEditarUsuario.vue?vue&type=script&lang=js& */ "./resources/js/components/Usuarios/CrearEditarUsuario.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-/* harmony import */ var _CrearEditarUsuario_vue_vue_type_custom_index_0_blockType_div_class_modal_footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CrearEditarUsuario.vue?vue&type=custom&index=0&blockType=div&class=modal-footer */ "./resources/js/components/Usuarios/CrearEditarUsuario.vue?vue&type=custom&index=0&blockType=div&class=modal-footer");
-/* harmony import */ var _CrearEditarUsuario_vue_vue_type_custom_index_0_blockType_div_class_modal_footer__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_CrearEditarUsuario_vue_vue_type_custom_index_0_blockType_div_class_modal_footer__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
@@ -38839,10 +38778,6 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
   null
   
 )
-
-/* custom blocks */
-;
-if (typeof (_CrearEditarUsuario_vue_vue_type_custom_index_0_blockType_div_class_modal_footer__WEBPACK_IMPORTED_MODULE_3___default()) === 'function') _CrearEditarUsuario_vue_vue_type_custom_index_0_blockType_div_class_modal_footer__WEBPACK_IMPORTED_MODULE_3___default()(component)
 
 /* hot reload */
 if (false) { var api; }
@@ -38988,16 +38923,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Usuarios/CrearEditarUsuario.vue?vue&type=custom&index=0&blockType=div&class=modal-footer":
-/*!**************************************************************************************************************************!*\
-  !*** ./resources/js/components/Usuarios/CrearEditarUsuario.vue?vue&type=custom&index=0&blockType=div&class=modal-footer ***!
-  \**************************************************************************************************************************/
-/***/ (() => {
-
-
-
-/***/ }),
-
 /***/ "./resources/js/components/Usuarios/CrearEditarUsuario.vue?vue&type=template&id=c071920a&":
 /*!************************************************************************************************!*\
   !*** ./resources/js/components/Usuarios/CrearEditarUsuario.vue?vue&type=template&id=c071920a& ***!
@@ -39103,7 +39028,7 @@ var render = function() {
                         [_c("i", { staticClass: "bi bi-pen" })]
                       ),
                       _vm._v(" "),
-                      c.activo == 1
+                      c.estado == 1
                         ? _c(
                             "button",
                             {
@@ -39121,7 +39046,7 @@ var render = function() {
                           )
                         : _vm._e(),
                       _vm._v(" "),
-                      c.activo == 0
+                      c.estado == 0
                         ? _c(
                             "button",
                             {
@@ -39254,7 +39179,7 @@ var render = function() {
                   staticClass: "modal-title",
                   attrs: { id: "formClienteModalLabel" }
                 },
-                [_vm._v("Modal title")]
+                [_vm._v("\n            Gestionar Cliente\n          ")]
               ),
               _vm._v(" "),
               _c(
@@ -40136,7 +40061,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "date", id: "celular" },
+                      attrs: { type: "number", id: "celular" },
                       domProps: { value: _vm.formUsuario.celular },
                       on: {
                         input: function($event) {
@@ -40321,38 +40246,6 @@ var render = function() {
                         ])
                       ]
                     )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-4" }, [
-                    _c("label", { attrs: { for: "id_sede" } }, [
-                      _vm._v("Sede")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formUsuario.id_sede,
-                          expression: "formUsuario.id_sede"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "id_sede", id: "id_sede" },
-                      domProps: { value: _vm.formUsuario.id_sede },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formUsuario,
-                            "id_sede",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
                   ])
                 ])
               ])
@@ -40371,7 +40264,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n            Close\n          ")]
+              [_vm._v("\n          Close\n        ")]
             ),
             _vm._v(" "),
             _c(
@@ -40385,7 +40278,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n            Guardar\n          ")]
+              [_vm._v("\n          Guardar\n        ")]
             )
           ])
         ])
@@ -40431,27 +40324,76 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.listaUsuarios.data, function(c) {
-                  return _c("tr", { key: c.id }, [
-                    _c("td", [_vm._v(_vm._s(c.id))]),
+                _vm._l(_vm.listaUsuarios.data, function(u) {
+                  return _c("tr", { key: u.id }, [
+                    _c("td", [_vm._v(_vm._s(u.id))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.name))]),
+                    _c("td", [_vm._v(_vm._s(u.name))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.nombre))]),
+                    _c("td", [_vm._v(_vm._s(u.nombre))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.email))]),
+                    _c("td", [_vm._v(_vm._s(u.email))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.documento))]),
+                    _c("td", [_vm._v(_vm._s(u.documento))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.sede))]),
+                    _c("td", [_vm._v(_vm._s(u.celular))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.rol))]),
+                    _c("td", [_vm._v(_vm._s(u.sede))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.estado))]),
+                    _c("td", [_vm._v(_vm._s(u.rol))]),
                     _vm._v(" "),
-                    _vm._m(2, true),
+                    _c("td", [_vm._v(_vm._s(u.estado))]),
                     _vm._v(" "),
-                    _vm._m(3, true)
+                    _c("td", { staticClass: "text-center" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-primary",
+                          on: {
+                            click: function($event) {
+                              return _vm.mostrarDatos(u)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "bi bi-pen" })]
+                      ),
+                      _vm._v(" "),
+                      u.estado == 1
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-danger",
+                              attrs: {
+                                onclick: "return confirm('¿Desea Desactivar?')"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.CambiarEstado(u.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "bi bi-trash" })]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      u.estado == 0
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-success",
+                              attrs: {
+                                onclick: "return confirm('¿Desea Activar?')"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.CambiarEstado(u.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "bi bi-check2-circle" })]
+                          )
+                        : _vm._e()
+                    ])
                   ])
                 }),
                 0
@@ -40513,26 +40455,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", [_vm._v("Opciones")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("button", { staticClass: "btn btn-outline-primary" }, [
-        _c("i", { staticClass: "bi bi-eye" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("button", { staticClass: "btn btn-outline-primary" }, [
-        _c("i", { staticClass: "bi bi-pen" })
       ])
     ])
   }
@@ -55921,18 +55843,6 @@ Vue.compile = compileToFunctions;
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	

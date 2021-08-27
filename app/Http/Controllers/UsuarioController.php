@@ -22,9 +22,12 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
+        $usuario = Usuario::findOrFail($id);
+        Usuario::destroy($id);
+        return redirect('usuario')->with('mensaje', 'Usuario eliminado correctamente');
     }
 
     /**
@@ -46,6 +49,8 @@ class UsuarioController extends Controller
         $usuario->tipo_documento = $request['tipo_documento'];
         $usuario->documento = $request['documento'];
         $usuario->foto = 'undefindef';
+        $usuario->id_rol = $request['id_rol'];
+        $usuario->id_sede = $request['id_sede'];
         $usuario->save();
     }
 
@@ -93,13 +98,22 @@ class UsuarioController extends Controller
         $usuario->save();
     }
 
+
+    public function camEstado(Usuario $usuario)
+    {
+        //
+        $u = Usuario::find($usuario->id);
+        // $usuario->activo = '0';
+        $u->activo = !$u->activo;
+        $u->save();
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Usuario $usuario)
+    public function destroy($id)
     {
         //
     }

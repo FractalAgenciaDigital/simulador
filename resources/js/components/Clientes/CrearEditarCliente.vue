@@ -5,19 +5,22 @@
       id="formClienteModal"
       tabindex="-1"
       aria-labelledby="formClienteModalLabel"
-      aria-hidden="true">
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="formClienteModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="formClienteModalLabel">
+              Gestionar Cliente
+            </h5>
             <button
               type="button"
               class="close"
               data-dismiss="modal"
-              @click="editar=false"
+              @click="editar = false"
               aria-label="Close"
             >
-              <span aria-hidden="true" >&times;</span>
+              <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
@@ -228,7 +231,7 @@
 export default {
   data() {
     return {
-      editar : false,
+      editar: false,
       formCliente: {
         nombres: "",
         apellidos: "",
@@ -270,7 +273,7 @@ export default {
           $("#formClienteModal").modal("hide");
           me.formCliente = {};
         });
-        this.editar = false;
+      this.editar = false;
     },
   },
 };
