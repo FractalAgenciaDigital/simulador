@@ -23,9 +23,12 @@ class ClienteController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create()
+	public function create($id)
 	{
 		//
+		$cliente = Cliente::findOrFail($id);
+		Cliente::destroy($id);
+		return redirect('cliente')->with('mensaje', 'Cliente eliminado correctamente');
 	}
 
 	/**
@@ -112,7 +115,15 @@ class ClienteController extends Controller
 	 * @param  \App\Models\Cliente  $cliente
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Cliente $cliente)
+	public function cambiarEstado(Cliente $cliente)
+	{
+		//
+		$c = Cliente::find($cliente->id);
+		// $cliente->activo = '0';
+		$c->activo = !$c->activo;
+		$c->save();
+	}
+	public function destroy($id)
 	{
 		//
 	}

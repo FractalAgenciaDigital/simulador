@@ -13,7 +13,7 @@
     </div>
     <div class="page-content mt-4">
       <section class="">
-        <table class="table table-sm table-bordered table-responsive ">
+        <table class="table table-sm table-bordered table-responsive">
           <thead>
             <tr>
               <th>id</th>
@@ -46,22 +46,39 @@
                 >
                   <i class="bi bi-pen"></i>
                 </button>
+                <button
+                  v-if="c.activo == 1"
+                  class="btn btn-outline-danger"
+                  @click="CambiarEstado(c.id)"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+                <button
+                  v-if="c.activo == 0"
+                  class="btn btn-outline-success"
+                  @click="CambiarEstado(c.id)"
+                >
+                  <i class="bi bi-check2-circle"></i>
+                </button>
               </td>
             </tr>
           </tbody>
         </table>
-         <pagination
-            :align="'center'"
-            :data="listaClientes"
-            :limit="8"
-            @pagination-change-page="listarClientes"
-          >
-            <span slot="prev-nav">&lt; Previous</span>
-            <span slot="next-nav">Next &gt;</span>
-          </pagination>
+        <pagination
+          :align="'center'"
+          :data="listaClientes"
+          :limit="8"
+          @pagination-change-page="listarClientes"
+        >
+          <span slot="prev-nav">&lt; Previous</span>
+          <span slot="next-nav">Next &gt;</span>
+        </pagination>
       </section>
     </div>
-    <crear-editar-cliente ref="CrearEditarCliente" @listar-clientes="listarClientes(1)" />
+    <crear-editar-cliente
+      ref="CrearEditarCliente"
+      @listar-clientes="listarClientes(1)"
+    />
   </div>
 </template>
 <script>
@@ -85,6 +102,35 @@ export default {
     },
     mostrarDatos: function (cliente) {
       this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
+    },
+    showAlert() {
+      // Use sweetalert2
+      this.$swal("Hello Vue world!!!");
+    },
+    CambiarEstado: function (id) {
+      let me = this;
+
+      Swal.fire({
+        title: "¿Quieres cambiar el estado del cliente?",
+        showDenyButton: true,
+        denyButtonText: `Cancelar`,
+        confirmButtonText: `Guardar`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .post(
+              "api/clientes/" + id + "/cambiar-estado",
+              null,
+              me.$root.config
+            )
+            .then(function () {
+              me.listarClientes(1);
+            });
+          Swal.fire("Cambios realizados!", "", "success");
+        } else if (result.isDenied) {
+          Swal.fire("Operación no realizada", "", "info");
+        }
+      });
     },
   },
 };
