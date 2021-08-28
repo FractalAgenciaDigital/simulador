@@ -1,0 +1,58 @@
+<template>
+  <div>
+    <div class="page-header d-flex justify-content-between p-4 border my-2">
+      <h3>Creditos</h3>
+      <button class="btn btn-primary" type="button">Crear Credito</button>
+    </div>
+    <div class="page-content mt-4">
+      <section>
+        <table class="table table-sm table-responsive table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Valor crédito</th>
+              <th>Valor Abonado</th>
+              <th>Nro Cuotas</th>
+              <th>día limite</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="c in listaCreditos.data" :key="c.id">
+              <td>{{ c.id }}</td>
+              <td>{{ c.cliente.nombres }} {{ c.cliente.apellidos }}</td>
+              <td>{{ c.valor_credito }}</td>
+              <td>{{ c.valor_abonado }}</td>
+              <td>{{ c.cant_cuotas }}</td>
+              <td>{{c.dia_limite}}</td>
+              <td>{{c.estado == 1 ? 'Activp' : 'Inactivo'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      listaCreditos: {},
+    };
+  },
+  created() {
+    this.listarCreditos(1);
+  },
+  methods: {
+    listarCreditos(page = 1) {
+      let me = this;
+      axios.get("api/creditos").then(function (response) {
+        console.log(response);
+        me.listaCreditos = response.data;
+      });
+    },
+  },
+};
+</script>

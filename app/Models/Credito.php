@@ -9,6 +9,8 @@ class Credito extends Model
 {
     use HasFactory;
 
+    protected $table = 'creditos';
+
     protected $fillable = [
         'cliente_id',
         'deudor_id',
@@ -29,4 +31,28 @@ class Credito extends Model
         'valor_capital',
         'valor_interes',
     ];
+ 
+    protected $with = [
+        'cliente'
+    ];
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class, 'cliente_id');
+    }
+
+    public function deudor()
+    {
+        return $this->belongsTo(Cliente::class, 'deudor_id');
+    }
+
+    public function asesor()
+    {
+        return $this->belongsTo(User::class, 'usu_crea');
+    }
+
+    public function sede()
+    {
+        return $this->belongsTo(Sede::class, 'sede_id');
+    }
 }
