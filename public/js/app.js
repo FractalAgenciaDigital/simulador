@@ -2317,6 +2317,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2331,7 +2343,6 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var me = this;
       axios.get("api/creditos").then(function (response) {
-        console.log(response);
         me.listaCreditos = response.data;
       });
     }
@@ -43308,7 +43319,7 @@ var render = function() {
       _c("section", [
         _c(
           "table",
-          { staticClass: "table table-sm table-responsive table-bordered" },
+          { staticClass: "table table-sm table-responsive-sm table-bordered" },
           [
             _vm._m(1),
             _vm._v(" "),
@@ -43335,8 +43346,12 @@ var render = function() {
                   _c("td", [_vm._v(_vm._s(c.dia_limite))]),
                   _vm._v(" "),
                   _c("td", [
-                    _vm._v(_vm._s(c.estado == 1 ? "Activp" : "Inactivo"))
-                  ])
+                    _vm._v(_vm._s(c.estado == 1 ? "Activo" : "Inactivo"))
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(2, true),
+                  _vm._v(" "),
+                  _vm._m(3, true)
                 ])
               }),
               0
@@ -43387,7 +43402,31 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("día limite")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Estado")])
+        _c("th", [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cuotas")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ediatr")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-outline-primary" }, [
+        _c("i", { staticClass: "bi bi-eye" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-outline-primary" }, [
+        _c("i", { staticClass: "bi bi-pen" })
       ])
     ])
   }

@@ -6,7 +6,7 @@
     </div>
     <div class="page-content mt-4">
       <section>
-        <table class="table table-sm table-responsive table-bordered">
+        <table class="table table-sm table-responsive-sm table-bordered">
           <thead>
             <tr>
               <th>ID</th>
@@ -16,6 +16,8 @@
               <th>Nro Cuotas</th>
               <th>día limite</th>
               <th>Estado</th>
+              <th>Cuotas</th>
+              <th>Ediatr</th>
             </tr>
           </thead>
           <tbody>
@@ -25,8 +27,18 @@
               <td>{{ c.valor_credito }}</td>
               <td>{{ c.valor_abonado }}</td>
               <td>{{ c.cant_cuotas }}</td>
-              <td>{{c.dia_limite}}</td>
-              <td>{{c.estado == 1 ? 'Activp' : 'Inactivo'}}</td>
+              <td>{{ c.dia_limite }}</td>
+              <td>{{ c.estado == 1 ? "Activo" : "Inactivo" }}</td>
+              <td>
+                <button class="btn btn-outline-primary">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </td>
+              <td>
+                <button class="btn btn-outline-primary">
+                  <i class="bi bi-pen"></i>
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -49,7 +61,6 @@ export default {
     listarCreditos(page = 1) {
       let me = this;
       axios.get("api/creditos").then(function (response) {
-        console.log(response);
         me.listaCreditos = response.data;
       });
     },
