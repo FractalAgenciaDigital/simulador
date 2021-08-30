@@ -1,28 +1,19 @@
 <template>
   <div>
     <div class="page-header">
-      <h3>Clientes</h3>
+      <h3>Creditos</h3>
       <button
         type="button"
         class="btn btn-primary"
         data-toggle="modal"
-        data-target="#formClienteModal"
+        data-target="#formCreditoModal"
       >
-        Crear cliente
+        Crear credito
       </button>
     </div>
     <div class="page-content">
       <section>
-        <table
-          class="
-            table
-            table-sm
-            table-bordered
-            table-responsive
-            table-hover
-            table-striped
-          "
-        >
+        <table class="table table-sm table-bordered table-responsive">
           <thead>
             <tr>
               <th>id</th>
@@ -36,7 +27,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="c in listaClientes.data" :key="c.id">
+            <tr v-for="c in listaCreditos.data" :key="c.id">
               <td>{{ c.id }}</td>
               <td>{{ c.nombres }} {{ c.apellidos }}</td>
               <td>{{ c.nro_documento }}</td>
@@ -55,6 +46,26 @@
                 >
                   <i class="bi bi-pen"></i>
                 </button>
+
+                <!-- <button
+                  class="btn"
+                  @click="CambiarEstado(c.id)"
+                  :class="
+                    c.estado == 0 ? 'btn-outline-success' : 'btn-outline-danger'
+                  "
+                >
+                  <i
+                    v-if="c.estado == 1"
+                    onclick="return confirm('¿Desea Desactivar?')"
+                    class="bi bi-trash"
+                  ></i>
+
+                  <i
+                    v-if="c.estado == 0"
+                    onclick="return confirm('¿Desea Activar?')"
+                    class="bi bi-check2-circle"
+                  ></i>
+                </button> -->
                 <button
                   v-if="c.estado == 1"
                   onclick="return confirm('¿Desea Desactivar?')"
@@ -77,38 +88,38 @@
         </table>
       </section>
     </div>
-    <crear-editar-cliente ref="CrearEditarCliente" />
+    <crear-editar-credito ref="CrearEditarCredito" />
   </div>
 </template>
 
 <script>
-import CrearEditarCliente from "./CrearEditarCliente.vue";
+import CrearEditarCredito from "./CrearEditarCredito.vue";
 export default {
-  components: { CrearEditarCliente },
+  components: { CrearEditarCredito },
   data() {
     return {
-      listaClientes: {},
+      listaCreditos: {},
     };
   },
   created() {
-    this.listarClientes(1);
+    this.listarCreditos(1);
   },
   methods: {
-    listarClientes(page = 1) {
+    listarCreditos(page = 1) {
       let me = this;
-      axios.get("api/clientes?page=" + page).then(function (response) {
-        me.listaClientes = response.data;
+      axios.get("api/creditos?page=" + page).then(function (response) {
+        me.listaCreditos = response.data;
       });
     },
-    mostrarDatos: function (cliente) {
-      this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
+    mostrarDatos: function (credito) {
+      this.$refs.CrearEditarCredito.abirEditarCredito(credito);
     },
     CambiarEstado: function (id) {
       let me = this;
       axios
-        .post("api/clientes/" + id + "/camEstado", null, me.$root.config)
+        .post("api/creditos/" + id + "/camEstado", null, me.$root.config)
         .then(function () {
-          me.listarClientes(1);
+          me.listarCreditos(1);
         });
     },
   },

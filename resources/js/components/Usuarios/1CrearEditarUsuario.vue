@@ -2,7 +2,6 @@
   <div>
     <div
       class="modal fade"
-      id="formUsuarioModal"
       tabindex="-1"
       aria-labelledby="formUsuarioModalLabel"
       aria-hidden="true"
@@ -10,7 +9,9 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="formUsuarioModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="formUsuarioModalLabel">
+              {{ titleModal }}
+            </h5>
             <button
               type="button"
               class="close"
