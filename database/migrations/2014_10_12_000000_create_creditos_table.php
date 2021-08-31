@@ -33,6 +33,28 @@ class CreateCreditosTable extends Migration
             $table->double('valor_abonado', 12, 4)->nullable();
             $table->double('valor_capital', 12, 4)->nullable();
             $table->double('valor_interes', 12, 4)->nullable();
+
+            // $table->foreign('id_cliente')
+            //     ->references('id')
+            //     ->on('clientes')
+            //     ->onDelete('cascade');
+
+            // $table->foreign('id_deudor')
+            //     ->references('id')
+            //     ->on('clientes')
+            //     ->onDelete('cascade');
+
+            // $table->foreign('id_sede')
+            //     ->references('id')
+            //     ->on('sedes')
+            //     ->onDelete('cascade');
+
+            // $table->foreign('usu_crea')
+            //     ->references('id')
+            //     ->on('users')
+            //     ->onDelete('cascade');
+
+
             $table->timestamps();
         });
 

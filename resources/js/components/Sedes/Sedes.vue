@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-header">
-      <h3>Usuarios</h3>
+      <h3>Sedes</h3>
       <hr />
       <button
         @click="
@@ -11,7 +11,7 @@
         type="button"
         class="btn btn-primary"
       >
-        Crear Usuario
+        Crear Sede
       </button>
       <br />
       <br />
@@ -37,94 +37,76 @@
               <form>
                 <div class="form-row">
                   <div class="form-group col-md-4">
-                    <label for="name">Usuario</label>
+                    <label for="sede">Sede</label>
                     <input
                       type="text"
                       class="form-control"
-                      id="name"
-                      v-model="usuario.name"
+                      id="sede"
+                      v-model="sede.sede"
                     />
                   </div>
+
                   <div class="form-group col-md-4">
-                    <label for="nombre">Nombre</label>
+                    <label for="estado_sede">Estado</label>
+                    <select
+                      name="estado_sede"
+                      id="estado_sede"
+                      class="custom-select"
+                      v-model="sede.estado_sede"
+                    >
+                      <option value="" disabled>--Seleccionar--</option>
+                      <option value="1">Activo</option>
+                      <option value="0">Inactivo</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-4">
+                    <label for="direccion">Dirección</label>
                     <input
                       type="text"
                       class="form-control"
-                      id="nombre"
-                      v-model="usuario.nombre"
+                      id="direccion"
+                      v-model="sede.direccion"
                     />
                   </div>
                   <div class="form-group col-md-4">
-                    <label for="email">Email</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="email"
-                      v-model="usuario.email"
-                    />
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="celular">Celular</label>
+                    <label for="nit">NIT</label>
                     <input
                       type="number"
                       class="form-control"
-                      id="celular"
-                      v-model="usuario.celular"
+                      id="nit"
+                      v-model="sede.nit"
                     />
                   </div>
                   <div class="form-group col-md-4">
-                    <label for="tipo_documento">Tipo Documento</label>
-                    <select
-                      name="tipo_documento"
-                      id="tipo_documento"
-                      class="custom-select"
-                      v-model="usuario.tipo_documento"
-                    >
-                      <option value="0" disabled>--Seleccionar--</option>
-                      <option value="1">Cédula de ciudadanía</option>
-                      <option value="2">Pasaporte</option>
-                    </select>
+                    <label for="correo_contacto">Correo Contacto</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="correo_contacto"
+                      v-model="sede.correo_contacto"
+                    />
                   </div>
+
                   <div class="form-group col-md-4">
-                    <label for="documento">Nro. Documento</label>
+                    <label for="representante">Representante</label>
+
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="representante"
+                      v-model="sede.representante"
+                    />
+                  </div>
+
+                  <div class="form-group col-md-4">
+                    <label for="celular_contacto">Celular Contacto</label>
 
                     <input
                       type="number"
                       class="form-control"
-                      id="documento"
-                      v-model="usuario.documento"
-                    />
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="id_sede">Sede</label>
-
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="id_sede"
-                      v-model="usuario.id_sede"
-                    />
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="id_rol">Rol</label>
-                    <select
-                      name="id_rol"
-                      id="id_rol"
-                      class="custom-select"
-                      v-model="usuario.id_rol"
-                    >
-                      <option value="0" disabled>--Seleccionar--</option>
-                      <option value="1">Administrador</option>
-                      <option value="2">Operario</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="password">Contraseña</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="password"
-                      v-model="usuario.password"
+                      id="celular_contacto"
+                      v-model="sede.celular_contacto"
                     />
                   </div>
                 </div>
@@ -164,64 +146,62 @@
           <thead>
             <tr>
               <th>id</th>
-              <th>Usuario</th>
-              <th>Nombre</th>
-              <th>Correo</th>
-              <th>Documento</th>
-              <th>Celular</th>
               <th>Sede</th>
-              <th>Rol</th>
-              <th>Estado</th>
+              <th>Estado Sede</th>
+              <th>Dirección</th>
+              <th>NIT</th>
+              <th>Correo Contacto</th>
+              <th>Representante</th>
+              <th>Celular Contacto</th>
               <th>Opciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="usuario in usuarios" :key="usuario.id">
-              <td>{{ usuario.id }}</td>
-              <td>{{ usuario.name }}</td>
-              <td>{{ usuario.nombre }}</td>
-              <td>{{ usuario.email }}</td>
-              <td>{{ usuario.documento }}</td>
-              <td>{{ usuario.celular }}</td>
-              <td>{{ usuario.id_sede }}</td>
-              <td v-if="usuario.id_rol == 1">Administrador</td>
-              <td v-if="usuario.id_rol == 2">Operario</td>
-              <td v-if="usuario.estado == 1">Activo</td>
-              <td v-if="usuario.estado == 0">Inactivo</td>
+            <tr v-for="sede in sedes" :key="sede.id">
+              <td>{{ sede.id }}</td>
+              <td>{{ sede.sede }}</td>
+              <td v-if="sede.estado_sede == 1">Activo</td>
+              <td v-if="sede.estado_sede == 0">Inactivo</td>
+              <td>{{ sede.direccion }}</td>
+              <td>{{ sede.nit }}</td>
+              <td>{{ sede.correo_contacto }}</td>
+              <td>{{ sede.representante }}</td>
+              <td>{{ sede.celular_contacto }}</td>
               <td class="text-center">
                 <button
+                  v-if="sede.estado_sede == 1"
                   class="btn btn-outline-primary"
                   @click="
                     update = true;
-                    openModal(usuario);
+                    openModal(sede);
                   "
                 >
                   <i class="bi bi-pen"></i>
                 </button>
                 <button
-                  v-if="usuario.estado == 1"
+                  v-if="sede.estado_sede == 1"
                   onclick="return confirm('¿Desea Desactivar?')"
                   class="btn btn-outline-danger"
-                  @click="CambiarEstado(usuario.id)"
+                  @click="CambiarEstado(sede.id)"
                 >
                   <i class="bi bi-trash"></i>
                 </button>
                 <button
-                  v-if="usuario.estado == 0"
+                  v-if="sede.estado_sede == 0"
                   onclick="return confirm('¿Desea Activar?')"
                   class="btn btn-outline-success"
-                  @click="CambiarEstado(usuario.id)"
+                  @click="CambiarEstado(sede.id)"
                 >
                   <i class="bi bi-check2-circle"></i>
                 </button>
-                <button
-                  v-if="usuario.estado == 1"
+                <!-- <button
+                  v-if="sede.estado_sede == 1"
                   onclick="return confirm('¿Desea Eliminar?')"
                   class="btn btn-outline-info"
-                  @click="eliminar(usuario.id)"
+                  @click="eliminar(sede.id)"
                 >
                   <i class="bi bi-trash"></i>
-                </button>
+                </button> -->
               </td>
             </tr>
           </tbody>
@@ -235,19 +215,14 @@ export default {
   data() {
     return {
       // Este array lo enlazamos con v-model en los campos del modal
-      usuario: {
-        name: "",
-        email: "",
-        password: "",
-        nombre: "",
-        celular: "",
+      sede: {
+        sede: "",
+        estado_sede: "1",
         direccion: "",
-        tipo_documento: 0,
-        documento: 0,
-        foto: "",
-        estado: "1",
-        id_rol: "",
-        id_sede: "",
+        nit: "",
+        correo_contacto: "",
+        representante: "",
+        celular_contacto: "",
       },
 
       // Cuando abrimos el modal lo que hacemos es cargar el id
@@ -258,32 +233,29 @@ export default {
       titleModal: "",
       // Aqui vamos a guardar todos los registros para recorrerlos
       // En plural contiene todos los registros que se han agragado a la BD
-      usuarios: [],
+      sedes: [],
     };
   },
   methods: {
     async list() {
       // axios el poder de JS
-      const res = await axios.get("usuarios");
+      const res = await axios.get("sedes");
 
-      this.usuarios = res.data;
+      this.sedes = res.data;
     },
     // Eliminar
     async eliminar(id) {
       // axios el poder de JS
-      const res = await axios.delete("/usuarios/" + id);
+      const res = await axios.delete("/sedes/" + id);
       // para que actualicen los arrays o no tener que recargar el navegador
       this.list();
     },
     async save() {
       if (this.update) {
-        const res = await axios.put(
-          "/usuarios/" + this.usuario.id,
-          this.usuario
-        );
+        const res = await axios.put("/sedes/" + this.sede.id, this.sede);
         //Para guardar nuevo registro
       } else {
-        const res = await axios.post("/usuarios/", this.usuario);
+        const res = await axios.post("/sedes/", this.sede);
       }
       this.closeModal();
       this.list();
@@ -294,25 +266,25 @@ export default {
     openModal(data) {
       this.modal = 1;
       if (data) {
-        // if (this.usuario.id != "undefined") {
+        // if (this.sede.id != "undefined") {
         // this.id = data.id;
-        this.usuario = data;
+        this.sede = data;
         // this.id = data.id;
-        this.titleModal = "Modificar Usuario";
+        this.titleModal = "Modificar Sede";
       } else {
-        this.titleModal = "Crear Usuario";
+        this.titleModal = "Crear Sede";
       }
     },
     closeModal() {
       this.modal = 0;
       let me = this;
-      Object.keys(this.usuario).forEach(function (key, index) {
-        me.usuario[key] = "";
+      Object.keys(this.sede).forEach(function (key, index) {
+        me.sede[key] = "";
       });
     },
     CambiarEstado: function (id) {
       let me = this;
-      axios.post("api/usuarios/" + id + "/camEstado").then(function () {
+      axios.post("api/sedes/" + id + "/camEstado").then(function () {
         me.list(1);
       });
     },

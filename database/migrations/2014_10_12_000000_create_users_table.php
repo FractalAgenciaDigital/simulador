@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->text('profile_photo_path')->nullable();
             $table->foreignId('current_team_id')->nullable();
             $table->tinyInteger('estado')->default(1);
-            $table->foreignId('id_rol')->default(null)->nullable();
+            $table->foreignId('id_rol')->default(1);
             $table->foreignId('id_sede')->default(null)->nullable();
             $table->rememberToken();
             $table->timestamps();
