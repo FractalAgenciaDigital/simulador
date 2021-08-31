@@ -6,41 +6,42 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateClientesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('clientes', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombres');
-            $table->string('apellidos');
-            $table->tinyInteger(1);
-            $table->integer('documento');
-            $table->string('celular1');
-            $table->string('celular2');
-            $table->string('direccion');
-            $table->string('email');
-            $table->date('fecha_nacimiento');
-            $table->tinyText('genero');
-            $table->tinyInteger('activo');
-            $table->string('estado_civil');
-            $table->string('lugar_trabajo');
-            $table->string('cargo');
-            $table->tinyInteger('independiente');
-            $table->timestamps();
-        });
-    }
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::create('clientes', function (Blueprint $table) {
+      $table->id();
+      $table->string('nombres');
+      $table->string('apellidos');
+      $table->tinyInteger('tipo_documento')->default(null);
+      $table->integer('nro_documento');
+      $table->string('celular1')->default(null)->nullable();
+      $table->string('celular2')->default(null)->nullable();
+      $table->string('direccion')->default(null)->nullable();
+      $table->string('email')->default(null)->nullable();
+      $table->date('fecha_nacimiento')->default(null)->nullable();
+      $table->tinyText('genero')->default(null)->nullable();
+      $table->tinyInteger('estado')->default(1);
+      $table->string('estado_civil')->default(null)->nullable();
+      $table->string('lugar_trabajo')->default(null)->nullable();
+      $table->string('cargo')->default(null)->nullable();
+      $table->tinyInteger('independiente')->default(null)->nullable();
+      $table->string('foto')->default(null)->nullable();
+      $table->timestamps();
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('clientes');
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('clientes');
+  }
 }
