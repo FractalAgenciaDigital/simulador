@@ -36,7 +36,7 @@ const routes = [
     { path: '/usuarios', component: require('./components/Usuarios/Usuarios.vue').default },
     { path: '/creditos', component: require('./components/Creditos/Creditos.vue').default },
     { path: '/sedes', component: require('./components/Sedes/Sedes.vue').default },
-
+    
 ]
 
 const router = new VueRouter({
