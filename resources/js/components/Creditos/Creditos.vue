@@ -36,17 +36,18 @@
             <div class="modal-body">
               <form>
                 <div class="form-row">
-                  <div class="search-box">
-                    <label for="id_cliente">Cliente:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name=""
-                      id=""
-                      placeholder="Buscar Cliente"
-                    />
+                  <div class="form-group col-md-4">
+                    <label for="id_cliente"></label>
+                    <multiselect
+                      :options="clientes"
+                      @search-change="onSearchClientesChange"
+                      @input="onSelectedClienteid"
+                      label="nombres"
+                      track-by="id"
+                      id="id_cliente"
+                      aria-placeholder="Buscar Cliente"
+                    ></multiselect>
                   </div>
-
                   <!-- <div class="form-group col-md-4">
                     <label for="id_cliente">Cliente</label>
                     <select v-model="credito.nombres">
@@ -333,6 +334,13 @@ import Multiselect from "vue-multiselect";
 export default {
   components: {
     Multiselect,
+  },
+
+  props: {
+    clientes: {
+      type: Array,
+      default
+    },
   },
 
   data() {
