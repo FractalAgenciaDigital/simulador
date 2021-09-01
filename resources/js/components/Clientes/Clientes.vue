@@ -13,7 +13,16 @@
     </div>
     <div class="page-content">
       <section>
-        <table class="table table-sm table-bordered table-responsive">
+        <table
+          class="
+            table
+            table-sm
+            table-bordered
+            table-responsive
+            table-hover
+            table-striped
+          "
+        >
           <thead>
             <tr>
               <th>id</th>
@@ -40,8 +49,27 @@
                 </button>
               </td>
               <td class="text-center">
-                <button class="btn btn-outline-primary">
+                <button
+                  class="btn btn-outline-primary"
+                  @click="mostrarDatos(c)"
+                >
                   <i class="bi bi-pen"></i>
+                </button>
+                <button
+                  v-if="c.estado == 1"
+                  onclick="return confirm('¿Desea Desactivar?')"
+                  class="btn btn-outline-danger"
+                  @click="CambiarEstado(c.id)"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+                <button
+                  v-if="c.estado == 0"
+                  onclick="return confirm('¿Desea Activar?')"
+                  class="btn btn-outline-success"
+                  @click="CambiarEstado(c.id)"
+                >
+                  <i class="bi bi-check2-circle"></i>
                 </button>
               </td>
             </tr>
@@ -49,9 +77,10 @@
         </table>
       </section>
     </div>
-    <crear-editar-cliente />
+    <crear-editar-cliente ref="CrearEditarCliente" />
   </div>
 </template>
+
 <script>
 import CrearEditarCliente from "./CrearEditarCliente.vue";
 export default {
@@ -71,17 +100,17 @@ export default {
         me.listaClientes = response.data;
       });
     },
-    created() {
-        this.listarClientes(1);
+    mostrarDatos: function (cliente) {
+      this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
     },
-    methods: {
-        listarClientes(page = 1) {
-            let me = this;
-            axios.get("api/clientes?page=" + page).then(function(response) {
-                me.listaClientes = response.data;
-            });
-        }
-    }
-}
-}
+    CambiarEstado: function (id) {
+      let me = this;
+      axios
+        .post("api/clientes/" + id + "/camEstado", null, me.$root.config)
+        .then(function () {
+          me.listarClientes(1);
+        });
+    },
+  },
+};
 </script>

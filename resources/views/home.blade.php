@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <router-view />
-</div>
+    <div class="container">
+        {{-- <usuarios /> --}}
+        <router-view />
+    </div>
 @endsection

@@ -23,9 +23,12 @@ class ClienteController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create()
+	public function create($id)
 	{
 		//
+		$cliente = Cliente::findOrFail($id);
+		Cliente::destroy($id);
+		return redirect('cliente')->with('mensaje', 'Cliente eliminado correctamente');
 	}
 
 	/**
@@ -87,16 +90,41 @@ class ClienteController extends Controller
 	 */
 	public function update(Request $request, Cliente $cliente)
 	{
-		//
+		$cliente = Cliente::find($request->id);
+		$cliente->nombres = $request['nombres'];
+		$cliente->apellidos = $request['apellidos'];
+		$cliente->tipo_documento = $request['tipo_documento'];
+		$cliente->nro_documento = $request['nro_documento'];
+		$cliente->email = $request['email'];
+		$cliente->fecha_nacimiento = $request['fecha_nacimiento'];
+		$cliente->genero = $request['genero'];
+		$cliente->celular1 = $request['celular1'];
+		$cliente->celular2 = $request['celular2'];
+		$cliente->direccion = $request['direccion'];
+		$cliente->estado_civil = $request['estado_civil'];
+		$cliente->lugar_trabajo = $request['lugar_trabajo'];
+		$cliente->cargo = $request['cargo'];
+		$cliente->independiente = $request['independiente'];
+		$cliente->foto = 'undefindef';
+		$cliente->save();
 	}
 
+
+	public function camEstado(Cliente $cliente)
+	{
+		//
+		$client = Cliente::find($cliente->id);
+		// $cliente->estado = '0';
+		$client->estado = !$client->estado;
+		$client->save();
+	}
 	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  \App\Models\Cliente  $cliente
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Cliente $cliente)
+	public function destroy($id)
 	{
 		//
 	}

@@ -10,11 +10,14 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="formClienteModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="formClienteModalLabel">
+              Gestionar Cliente
+            </h5>
             <button
               type="button"
               class="close"
               data-dismiss="modal"
+              @click="editar = false"
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
@@ -180,7 +183,7 @@
                 <div class="form-group col-md-4">
                   <label for="cargo">Cargo</label>
                   <input
-                    type="password"
+                    type="text"
                     class="form-control"
                     id="cargo"
                     v-model="formCliente.cargo"
@@ -206,10 +209,15 @@
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
+              @click="editar = false"
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" @click="crearCliente">
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="editar ? editarCliente() : crearCliente()"
+            >
               Guardar
             </button>
           </div>
@@ -223,6 +231,7 @@
 export default {
   data() {
     return {
+      editar: false,
       formCliente: {
         nombres: "",
         apellidos: "",
@@ -247,8 +256,24 @@ export default {
       let me = this;
       axios.post("api/clientes", this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
-        // me.formClient = {};
+        me.formCliente = {};
       });
+    },
+    abirEditarCliente(cliente) {
+      this.editar = true;
+      let me = this;
+      $("#formClienteModal").modal("show");
+      me.formCliente = cliente;
+    },
+    editarCliente() {
+      let me = this;
+      axios
+        .put("api/clientes/" + this.formCliente.id, this.formCliente)
+        .then(function () {
+          $("#formClienteModal").modal("hide");
+          me.formCliente = {};
+        });
+      this.editar = false;
     },
   },
 };
