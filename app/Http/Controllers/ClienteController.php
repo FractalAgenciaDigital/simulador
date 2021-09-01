@@ -124,6 +124,14 @@ class ClienteController extends Controller
 	 * @param  \App\Models\Cliente  $cliente
 	 * @return \Illuminate\Http\Response
 	 */
+	public function cambiarEstado(Cliente $cliente)
+	{
+		//
+		$c = Cliente::find($cliente->id);
+		// $cliente->activo = '0';
+		$c->activo = !$c->activo;
+		$c->save();
+	}
 	public function destroy($id)
 	{
 		//

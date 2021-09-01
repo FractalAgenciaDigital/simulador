@@ -11,7 +11,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/clientes"> Clientes </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link"  to="/usuarios"> Usuarios </router-link>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
