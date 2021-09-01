@@ -1,14 +1,14 @@
 <template>
   <div class="">
     <div class="page-header d-flex justify-content-between p-4 border my-2">
-      <h3>Clientes</h3>
+      <h3>Proveedores</h3>
       <button
         type="button"
         class="btn btn-primary"
         data-toggle="modal"
-        data-target="#formClienteModal"
+        data-target="#formProveedorModal"
       >
-        Crear cliente
+        Crear proveedor
       </button>
     </div>
     <div class="page-content mt-4">
@@ -18,20 +18,24 @@
             <tr>
               <th>id</th>
               <th>Nombres</th>
-              <th>Documento</th>
-              <th>Celular</th>
+              <th>Apellidos</th>
+              <th>Tipo Documento</th>
+              <th>Num Documento</th>
+              <th>Celular1</th>
+              <th>Celular2</th>
               <th>Correo Electronico</th>
               <th>Dirección</th>
-              <th>Créditos</th>
               <th>Opciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="c in listaClientes.data" :key="c.id">
+            <tr v-for="c in listaProveedores.data" :key="c.id">
               <td>{{ c.id }}</td>
-              <td>{{ c.nombres }} {{ c.apellidos }}</td>
+              <td>{{ c.nombres }}</td>
+              <td>{{ c.apellidos }}</td>
               <td>{{ c.nro_documento }}</td>
-              <td>( {{ c.celular1 }} ) - ( {{ c.celular2 }} )</td>
+              <td>{{ c.celular1 }}</td>
+              <td>{{ c.celular2 }}</td>
               <td>{{ c.email }}</td>
               <td>{{ c.direccion }}</td>
               <td class="text-center">
@@ -66,42 +70,42 @@
         </table>
         <pagination
           :align="'center'"
-          :data="listaClientes"
+          :data="listaProveedores"
           :limit="8"
-          @pagination-change-page="listarClientes"
+          @pagination-change-page="listarProveedores"
         >
           <span slot="prev-nav">&lt; Previous</span>
           <span slot="next-nav">Next &gt;</span>
         </pagination>
       </section>
     </div>
-    <crear-editar-cliente
-      ref="CrearEditarCliente"
-      @listar-clientes="listarClientes(1)"
+    <crear-editar-proveedor
+      ref="CrearEditarProveedor"
+      @listar-proveedor="listarProveedor(1)"
     />
   </div>
 </template>
 <script>
-import CrearEditarCliente from "./CrearEditarCliente.vue";
+import CrearEditarProveedor from "./CrearEditarProveedor.vue";
 export default {
-  components: { CrearEditarCliente },
+  components: { CrearEditarProveedor },
   data() {
     return {
-      listaClientes: {},
+      listaProveedores: {},
     };
   },
   created() {
-    this.listarClientes(1);
+    this.listarProveedores(1);
   },
   methods: {
-    listarClientes(page = 1) {
+    listarProveedores(page = 1) {
       let me = this;
-      axios.get("api/clientes?page=" + page).then(function (response) {
-        me.listaClientes = response.data;
+      axios.get("api/proveedores?page=" + page).then(function (response) {
+        me.listaProveedores = response.data;
       });
     },
-    mostrarDatos: function (cliente) {
-      this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
+    mostrarDatos: function (proveedor) {
+      this.$refs.CrearEditarProveedor.abirEditarProveedor(proveedor);
     },
     showAlert() {
       // Use sweetalert2
@@ -111,7 +115,7 @@ export default {
       let me = this;
 
       Swal.fire({
-        title: "¿Quieres cambiar el estado del cliente?",
+        title: "¿Quieres cambiar el estado del proveedor?",
         showDenyButton: true,
         denyButtonText: `Cancelar`,
         confirmButtonText: `Guardar`,
@@ -119,12 +123,12 @@ export default {
         if (result.isConfirmed) {
           axios
             .post(
-              "api/clientes/" + id + "/cambiar-estado",
+              "api/proveedores/" + id + "/cambiar-estado",
               null,
               me.$root.config
             )
             .then(function () {
-              me.listarClientes(1);
+              me.listarProveedores(1);
             });
           Swal.fire("Cambios realizados!", "", "success");
         } else if (result.isDenied) {

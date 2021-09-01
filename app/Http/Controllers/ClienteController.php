@@ -109,15 +109,6 @@ class ClienteController extends Controller
 		$cliente->save();
 	}
 
-
-	public function camEstado(Cliente $cliente)
-	{
-		//
-		$client = Cliente::find($cliente->id);
-		// $cliente->estado = '0';
-		$client->estado = !$client->estado;
-		$client->save();
-	}
 	/**
 	 * Remove the specified resource from storage.
 	 *

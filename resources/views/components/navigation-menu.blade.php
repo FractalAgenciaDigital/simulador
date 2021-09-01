@@ -17,6 +17,12 @@
                 <li class="nav-item">
                     <router-link class="nav-link"  to="/usuarios"> Usuarios </router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link class="nav-link"  to="/proveedores"> Proveedores </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link"  to="/pagos"> Pagos </router-link>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -36,13 +42,6 @@
                 @endif
                 @else
                 <li class="nav-item dropdown">
-
-                    <li class="nav-item">
-                        <router-link to="/clientes" > Clientes </router-link>
-                        <router-link to="/usuarios" > Usuarios </router-link>
-                        <router-link to="/creditos" > Creditos </router-link>
-                        <router-link to="/sedes" > Sedes </router-link>
-                    </li>
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }}

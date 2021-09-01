@@ -9,7 +9,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="formProveedorModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="formProveedorModalLabel">Modal proveedores</h5>
             <button
               type="button"
               class="close"
@@ -42,6 +42,15 @@
                   />
                 </div>
                 <div class="form-group col-md-4">
+                  <label for="fecha_nacimiento">Fecha nacimiento</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="fecha_nacimiento"
+                    v-model="formProveedor.fecha_nacimiento"
+                  />
+                </div>
+                <div class="form-group col-md-4">
                   <label for="tipo_documento">Tipo Documento</label>
                   <select
                     name="tipo_documento"
@@ -64,7 +73,6 @@
                     v-model="formProveedor.nro_documento"
                   />
                 </div>
-
               </div>
               <div class="form-row">
                 <div class="form-group col-4">
@@ -103,8 +111,6 @@
                     v-model="formProveedor.celular2"
                   />
                 </div>
-                <!-- </div>
-              <div class="form-row"> -->
               </div>
             </form>
           </div>
@@ -141,13 +147,15 @@ export default {
         apellidos: "",
         tipo_documento: 0,
         nro_documento: 0,
-        email: "",
         celular1: "",
         celular2: "",
+        genero: "",
         number: "",
+        email: "",
       },
     };
   },
+  // Function crearProveedores
   methods: {
     crearProveedor() {
       let me = this;
@@ -163,15 +171,15 @@ export default {
       $("#formProveedorModal").modal("show");
       me.formProveedor = proveedor;
     },
-    editarCliente() {
+    editarProveedor() {
       let me = this;
       axios
-        .put("api/clientes/" + this.formCliente.id, this.formCliente)
+        .put("api/proveedores/" + this.formProveedor.id, this.formProveedor)
         .then(function () {
-          $("#formClienteModal").modal("hide");
-          me.formCliente = {};
+          $("#formProveedorModal").modal("hide");
+          me.formProveedor = {};
         });
-      this.$emit("listar-clientes");
+      this.$emit("listar-proveedores");
 
       this.editar = false;
     },

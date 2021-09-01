@@ -14,8 +14,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        // return Usuario::paginate(10);
-        return Usuario::orderBy('id', 'desc')->get();
+        return Usuario::paginate(10);
     }
 
     /**
@@ -23,12 +22,9 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
         //
-        // $usuario = Usuario::findOrFail($id);
-        // Usuario::destroy($id);
-        // return redirect('usuario')->with('mensaje', 'Usuario eliminado correctamente');
     }
 
     /**
@@ -40,21 +36,17 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         //
-        $usuario = new Usuario;
-        $usuario->create($request->all());
-
-        // $usuario->name = $request['name'];
-        // $usuario->email = $request['email'];
-        // $usuario->password = $request['password'];
-        // $usuario->nombre = $request['nombre'];
-        // $usuario->celular = $request['celular'];
-        // $usuario->direccion = $request['direccion'];
-        // $usuario->tipo_documento = $request['tipo_documento'];
-        // $usuario->documento = $request['documento'];
-        // $usuario->foto = 'undefindef';
-        // $usuario->id_rol = $request['id_rol'];
-        // $usuario->id_sede = $request['id_sede'];
-        // $usuario->save();
+        $usuario = new Usuario();
+        $usuario->name = $request['name'];
+        $usuario->email = $request['email'];
+        $usuario->password = $request['password'];
+        $usuario->nombre = $request['nombre'];
+        $usuario->celular = $request['celular'];
+        $usuario->direccion = $request['direccion'];
+        $usuario->tipo_documento = $request['tipo_documento'];
+        $usuario->documento = $request['documento'];
+        $usuario->foto = 'undefindef';
+        $usuario->save();
     }
 
     /**
@@ -65,7 +57,7 @@ class UsuarioController extends Controller
      */
     public function show(Usuario $usuario)
     {
-        return $usuario;
+        //
     }
 
     /**
@@ -88,30 +80,19 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, Usuario $usuario)
     {
-        $usuario->update($request->all());
-
-        // $usuario = Usuario::find($request->id);
-        // $usuario->name = $request['name'];
-        // $usuario->email = $request['email'];
-        // $usuario->password = $request['password'];
-        // $usuario->nombre = $request['nombre'];
-        // $usuario->celular = $request['celular'];
-        // $usuario->direccion = $request['direccion'];
-        // $usuario->tipo_documento = $request['tipo_documento'];
-        // $usuario->documento = $request['documento'];
-        // $usuario->foto = 'undefindef';
-        // $usuario->save();
+        $usuario = Usuario::find($request->id);
+        $usuario->name = $request['name'];
+        $usuario->email = $request['email'];
+        $usuario->password = $request['password'];
+        $usuario->nombre = $request['nombre'];
+        $usuario->celular = $request['celular'];
+        $usuario->direccion = $request['direccion'];
+        $usuario->tipo_documento = $request['tipo_documento'];
+        $usuario->documento = $request['documento'];
+        $usuario->foto = 'undefindef';
+        $usuario->save();
     }
 
-
-    public function camEstado(Usuario $usuario)
-    {
-        //
-        $u = Usuario::find($usuario->id);
-        // $usuario->estado = '0';
-        $u->estado = !$u->estado;
-        $u->save();
-    }
     /**
      * Remove the specified resource from storage.
      *
@@ -120,6 +101,6 @@ class UsuarioController extends Controller
      */
     public function destroy(Usuario $usuario)
     {
-        $usuario->delete();
+        //
     }
 }

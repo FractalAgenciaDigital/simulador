@@ -22,11 +22,7 @@ import Swal from 'sweetalert2'
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-// Vue.component('usuarios', require('./components/Usuarios/Usuarios.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
-
-// Optimizar el Usuariocontroller en el component de Vue
 
 
 Vue.use(VueRouter)
@@ -35,12 +31,10 @@ window.Swal = Swal
 
 
 const routes = [
-    // { path: '', component: require('./components/Clientes/Clientes.vue').default },
+    { path: '', component: require('./components/Clientes/Clientes.vue').default },
     { path: '/clientes', component: require('./components/Clientes/Clientes.vue').default },
     { path: '/usuarios', component: require('./components/Usuarios/Usuarios.vue').default },
-    { path: '/creditos', component: require('./components/Creditos/Creditos.vue').default },
-    { path: '/sedes', component: require('./components/Sedes/Sedes.vue').default },
-    
+
 ]
 
 const router = new VueRouter({
