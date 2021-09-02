@@ -44280,29 +44280,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "page-header d-flex justify-content-between p-4 border my-2"
-      },
-      [
-        _c("h3", [_vm._v("Pagos")]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary",
-            attrs: {
-              type: "button",
-              "data-toggle": "modal",
-              "data-target": "#formPagosModal"
-            }
-          },
-          [_vm._v("\n      Crear pago\n    ")]
-        )
-      ]
-    )
+    return _c("div", { staticClass: "page-header" }, [
+      _c("h3", [_vm._v("Pagos")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: {
+            type: "button",
+            "data-toggle": "modal",
+            "data-target": "#formPagosModal"
+          }
+        },
+        [_vm._v("\n      Crear pago\n    ")]
+      )
+    ])
   },
   function() {
     var _vm = this
@@ -44387,7 +44380,7 @@ var render = function() {
                   staticClass: "modal-title",
                   attrs: { id: "formProveedorModalLabel" }
                 },
-                [_vm._v("Modal proveedores")]
+                [_vm._v("Modal title")]
               ),
               _vm._v(" "),
               _c(
@@ -44564,10 +44557,8 @@ var render = function() {
                         }
                       }
                     })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-row" }, [
+                  ]),
+                  _vm._v(" "),
                   _c("div", { staticClass: "form-group col-4" }, [
                     _c("label", { attrs: { for: "celular1" } }, [
                       _vm._v("Celular 1")
@@ -44633,38 +44624,6 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-4" }, [
-                    _c("label", { attrs: { for: "direccion" } }, [
-                      _vm._v("Dirección")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formProveedor.direccion,
-                          expression: "formProveedor.direccion"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", id: "direccion" },
-                      domProps: { value: _vm.formProveedor.direccion },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formProveedor,
-                            "direccion",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-4" }, [
                     _c("label", { attrs: { for: "email" } }, [
                       _vm._v("Correo Electronico")
                     ]),
@@ -44689,6 +44648,38 @@ var render = function() {
                           _vm.$set(
                             _vm.formProveedor,
                             "email",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-4" }, [
+                    _c("label", { attrs: { for: "direccion" } }, [
+                      _vm._v("Dirección")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formProveedor.direccion,
+                          expression: "formProveedor.direccion"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "direccion" },
+                      domProps: { value: _vm.formProveedor.direccion },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formProveedor,
+                            "direccion",
                             $event.target.value
                           )
                         }
@@ -44776,23 +44767,23 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.listaProveedores.data, function(c) {
-                    return _c("tr", { key: c.id }, [
-                      _c("td", [_vm._v(_vm._s(c.id))]),
+                  _vm._l(_vm.listaProveedores.data, function(p) {
+                    return _c("tr", { key: p.id }, [
+                      _c("td", [_vm._v(_vm._s(p.id))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(c.nombres))]),
+                      _c("td", [_vm._v(_vm._s(p.nombres))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(c.apellidos))]),
+                      _c("td", [_vm._v(_vm._s(p.apellidos))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(c.nro_documento))]),
+                      _c("td", [_vm._v(_vm._s(p.nro_documento))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(c.celular1))]),
+                      _c("td", [_vm._v(_vm._s(p.celular1))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(c.celular2))]),
+                      _c("td", [_vm._v(_vm._s(p.celular2) + " ")]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(c.email))]),
+                      _c("td", [_vm._v(_vm._s(p.email))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(c.direccion))]),
+                      _c("td", [_vm._v(_vm._s(p.direccion))]),
                       _vm._v(" "),
                       _vm._m(2, true),
                       _vm._v(" "),
@@ -44803,21 +44794,21 @@ var render = function() {
                             staticClass: "btn btn-outline-primary",
                             on: {
                               click: function($event) {
-                                return _vm.mostrarDatos(c)
+                                return _vm.mostrarDatos(p)
                               }
                             }
                           },
                           [_c("i", { staticClass: "bi bi-pen" })]
                         ),
                         _vm._v(" "),
-                        c.activo == 1
+                        p.activo == 1
                           ? _c(
                               "button",
                               {
                                 staticClass: "btn btn-outline-danger",
                                 on: {
                                   click: function($event) {
-                                    return _vm.CambiarEstado(c.id)
+                                    return _vm.CambiarEstado(p.id)
                                   }
                                 }
                               },
@@ -44825,14 +44816,14 @@ var render = function() {
                             )
                           : _vm._e(),
                         _vm._v(" "),
-                        c.activo == 0
+                        p.activo == 0
                           ? _c(
                               "button",
                               {
                                 staticClass: "btn btn-outline-success",
                                 on: {
                                   click: function($event) {
-                                    return _vm.CambiarEstado(c.id)
+                                    return _vm.CambiarEstado(p.id)
                                   }
                                 }
                               },
@@ -44875,8 +44866,8 @@ var render = function() {
       _c("crear-editar-proveedor", {
         ref: "CrearEditarProveedor",
         on: {
-          "listar-proveedor": function($event) {
-            return _vm.listarProveedor(1)
+          "listar-proveedores": function($event) {
+            return _vm.listarProveedores(1)
           }
         }
       })
@@ -44889,29 +44880,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "page-header d-flex justify-content-between p-4 border my-2"
-      },
-      [
-        _c("h3", [_vm._v("Proveedores")]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary",
-            attrs: {
-              type: "button",
-              "data-toggle": "modal",
-              "data-target": "#formProveedorModal"
-            }
-          },
-          [_vm._v("\n      Crear proveedor\n    ")]
-        )
-      ]
-    )
+    return _c("div", { staticClass: "page-header" }, [
+      _c("h3", [_vm._v("proveedores")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: {
+            type: "button",
+            "data-toggle": "modal",
+            "data-target": "#formProveedorModal"
+          }
+        },
+        [_vm._v("\n      Crear proveedor\n    ")]
+      )
+    ])
   },
   function() {
     var _vm = this

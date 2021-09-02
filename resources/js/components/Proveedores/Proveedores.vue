@@ -1,7 +1,7 @@
 <template>
   <div class="">
-    <div class="page-header d-flex justify-content-between p-4 border my-2">
-      <h3>Proveedores</h3>
+    <div class="page-header">
+      <h3>proveedores</h3>
       <button
         type="button"
         class="btn btn-primary"
@@ -29,15 +29,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="c in listaProveedores.data" :key="c.id">
-              <td>{{ c.id }}</td>
-              <td>{{ c.nombres }}</td>
-              <td>{{ c.apellidos }}</td>
-              <td>{{ c.nro_documento }}</td>
-              <td>{{ c.celular1 }}</td>
-              <td>{{ c.celular2 }}</td>
-              <td>{{ c.email }}</td>
-              <td>{{ c.direccion }}</td>
+            <tr v-for="p in listaProveedores.data" :key="p.id">
+              <td>{{ p.id }}</td>
+              <td>{{ p.nombres }}</td>
+              <td>{{ p.apellidos }}</td>
+              <td>{{ p.nro_documento }}</td>
+              <td>{{ p.celular1 }}</td>
+              <td>{{ p.celular2 }} </td>
+              <td>{{ p.email }}</td>
+              <td>{{ p.direccion }}</td>
               <td class="text-center">
                 <button class="btn btn-outline-primary">
                   <i class="bi bi-eye"></i>
@@ -46,21 +46,21 @@
               <td class="text-center">
                 <button
                   class="btn btn-outline-primary"
-                  @click="mostrarDatos(c)"
+                  @click="mostrarDatos(p)"
                 >
                   <i class="bi bi-pen"></i>
                 </button>
                 <button
-                  v-if="c.activo == 1"
+                  v-if="p.activo == 1"
                   class="btn btn-outline-danger"
-                  @click="CambiarEstado(c.id)"
+                  @click="CambiarEstado(p.id)"
                 >
                   <i class="bi bi-trash"></i>
                 </button>
                 <button
-                  v-if="c.activo == 0"
+                  v-if="p.activo == 0"
                   class="btn btn-outline-success"
-                  @click="CambiarEstado(c.id)"
+                  @click="CambiarEstado(p.id)"
                 >
                   <i class="bi bi-check2-circle"></i>
                 </button>
@@ -81,7 +81,7 @@
     </div>
     <crear-editar-proveedor
       ref="CrearEditarProveedor"
-      @listar-proveedor="listarProveedor(1)"
+      @listar-proveedores="listarProveedores(1)"
     />
   </div>
 </template>

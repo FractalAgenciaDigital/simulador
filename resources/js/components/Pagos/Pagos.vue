@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="page-header d-flex justify-content-between p-4 border my-2">
+    <div class="page-header">
       <h3>Pagos</h3>
       <button
         type="button"

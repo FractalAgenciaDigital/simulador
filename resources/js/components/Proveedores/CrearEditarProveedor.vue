@@ -9,7 +9,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="formProveedorModalLabel">Modal proveedores</h5>
+            <h5 class="modal-title" id="formProveedorModalLabel">Modal title</h5>
             <button
               type="button"
               class="close"
@@ -64,8 +64,7 @@
                     v-model="formProveedor.nro_documento"
                   />
                 </div>
-              </div>
-              <div class="form-row">
+                
                 <div class="form-group col-4">
                   <label for="celular1">Celular 1</label>
                   <input
@@ -84,15 +83,7 @@
                     v-model="formProveedor.celular2"
                   />
                 </div>
-                <div class="form-group col-4">
-                  <label for="direccion">Dirección</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="direccion"
-                    v-model="formProveedor.direccion"
-                  />
-                </div>
+                
                 <div class="form-group col-4">
                   <label for="email">Correo Electronico</label>
                   <input
@@ -100,6 +91,15 @@
                     class="form-control"
                     id="email"
                     v-model="formProveedor.email"
+                  />
+                </div>
+                <div class="form-group col-4">
+                  <label for="direccion">Dirección</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="direccion"
+                    v-model="formProveedor.direccion"
                   />
                 </div>
               </div>
