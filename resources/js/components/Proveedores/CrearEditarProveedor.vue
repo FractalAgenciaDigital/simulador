@@ -42,15 +42,6 @@
                   />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="fecha_nacimiento">Fecha nacimiento</label>
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="fecha_nacimiento"
-                    v-model="formProveedor.fecha_nacimiento"
-                  />
-                </div>
-                <div class="form-group col-md-4">
                   <label for="tipo_documento">Tipo Documento</label>
                   <select
                     name="tipo_documento"
@@ -76,24 +67,6 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-4">
-                  <label for="email">Correo Electronico</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    v-model="formProveedor.email"
-                  />
-                </div>
-                <div class="form-group col-4">
-                  <label for="direccion">Dirección</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="direccion"
-                    v-model="formProveedor.direccion"
-                  />
-                </div>
-                <div class="form-group col-4">
                   <label for="celular1">Celular 1</label>
                   <input
                     type="tel"
@@ -109,6 +82,24 @@
                     class="form-control"
                     id="celular2"
                     v-model="formProveedor.celular2"
+                  />
+                </div>
+                <div class="form-group col-4">
+                  <label for="direccion">Dirección</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="direccion"
+                    v-model="formProveedor.direccion"
+                  />
+                </div>
+                <div class="form-group col-4">
+                  <label for="email">Correo Electronico</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    v-model="formProveedor.email"
                   />
                 </div>
               </div>
@@ -149,7 +140,6 @@ export default {
         nro_documento: 0,
         celular1: "",
         celular2: "",
-        genero: "",
         number: "",
         email: "",
       },
