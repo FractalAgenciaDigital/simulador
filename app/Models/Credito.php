@@ -55,4 +55,8 @@ class Credito extends Model
     {
         return $this->belongsTo(Sede::class, 'sede_id');
     }
+    public function cuotas()
+    {
+        return $this->hasMany(Cuota::class);
+    }
 }

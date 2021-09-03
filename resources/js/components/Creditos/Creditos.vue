@@ -17,7 +17,7 @@
               <th>día limite</th>
               <th>Estado</th>
               <th>Cuotas</th>
-              <th>Ediatr</th>
+              <th>Editar</th>
             </tr>
           </thead>
           <tbody>
@@ -30,9 +30,12 @@
               <td>{{ c.dia_limite }}</td>
               <td>{{ c.estado == 1 ? "Activo" : "Inactivo" }}</td>
               <td>
-                <button class="btn btn-outline-primary">
+                <router-link
+                  :to="{ name: 'cuotas', params: { credito_id: c.id } }"
+                  class="btn btn-outline-primary"
+                >
                   <i class="bi bi-eye"></i>
-                </button>
+                </router-link>
               </td>
               <td>
                 <button class="btn btn-outline-primary">
@@ -60,7 +63,7 @@ export default {
   methods: {
     listarCreditos(page = 1) {
       let me = this;
-      axios.get("api/creditos").then(function (response) {
+      axios.get(`api/creditos?page=${page}`).then(function (response) {
         me.listaCreditos = response.data;
       });
     },

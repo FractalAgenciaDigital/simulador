@@ -20,4 +20,9 @@ class Cuota extends Model
     'valor_pago_interes',
     'valor_pago_capital'
   ];
+
+  public function deudor()
+  {
+    return $this->belongsTo(Credito::class, 'credito_id');
+  }
 }

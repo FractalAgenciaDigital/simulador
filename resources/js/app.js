@@ -35,6 +35,7 @@ const routes = [
     { path: '/clientes', component: require('./components/Clientes/Clientes.vue').default },
     { path: '/usuarios', component: require('./components/Usuarios/Usuarios.vue').default },
     { path: '/creditos', component: require('./components/Creditos/Creditos.vue').default },
+    { path: '/creditos/:credito_id/cuotas', component: require('./components/Creditos/Cuotas.vue').default, props: true, name: 'cuotas' },
 
 
 ]

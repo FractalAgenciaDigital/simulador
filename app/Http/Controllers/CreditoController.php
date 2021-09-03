@@ -16,4 +16,10 @@ class CreditoController extends Controller
     {
         return Credito::paginate(15);
     }
+
+    public function cuotas(Request $request, $id)
+    {
+        $credito = Credito::find($id);
+        return $credito->cuotas()->get();
+    }
 }
