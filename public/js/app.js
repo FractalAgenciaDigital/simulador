@@ -1924,11 +1924,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -1952,10 +1947,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     mostrarDatos: function mostrarDatos(cliente) {
       this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
-    },
-    showAlert: function showAlert() {
-      // Use sweetalert2
-      this.$swal("Hello Vue world!!!");
     },
     CambiarEstado: function CambiarEstado(id) {
       var me = this;
@@ -42545,8 +42536,6 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(c.direccion))]),
                       _vm._v(" "),
-                      _vm._m(2, true),
-                      _vm._v(" "),
                       _c("td", { staticClass: "text-center" }, [
                         _c(
                           "button",
@@ -42678,19 +42667,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Dirección")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Créditos")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Opciones")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("button", { staticClass: "btn btn-outline-primary" }, [
-        _c("i", { staticClass: "bi bi-eye" })
       ])
     ])
   }

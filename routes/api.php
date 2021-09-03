@@ -24,10 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('/clientes',  ClienteController::class);
 Route::post('/clientes/{cliente}/cambiar-estado',  [ClienteController::class, 'cambiarEstado']);
+Route::get('/clientes/{cliente}/creditos', [ClienteController::class, 'creditos']);
+
 
 Route::resource('/usuarios',  UsuarioController::class);
 
 Route::resource('/creditos', CreditoController::class);
 Route::get('/creditos/{credito}/cuotas', [CreditoController::class, 'cuotas']);
-
-

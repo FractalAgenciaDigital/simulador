@@ -22,7 +22,6 @@
               <th>Celular</th>
               <th>Correo Electronico</th>
               <th>Dirección</th>
-              <th>Créditos</th>
               <th>Opciones</th>
             </tr>
           </thead>
@@ -34,11 +33,7 @@
               <td>( {{ c.celular1 }} ) - ( {{ c.celular2 }} )</td>
               <td>{{ c.email }}</td>
               <td>{{ c.direccion }}</td>
-              <td class="text-center">
-                <button class="btn btn-outline-primary">
-                  <i class="bi bi-eye"></i>
-                </button>
-              </td>
+
               <td class="text-center">
                 <button
                   class="btn btn-outline-primary"
@@ -102,10 +97,6 @@ export default {
     },
     mostrarDatos: function (cliente) {
       this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
-    },
-    showAlert() {
-      // Use sweetalert2
-      this.$swal("Hello Vue world!!!");
     },
     CambiarEstado: function (id) {
       let me = this;
