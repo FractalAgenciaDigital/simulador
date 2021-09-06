@@ -2616,7 +2616,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -42999,28 +42998,24 @@ var render = function() {
                 return _c("tr", { key: credito.id }, [
                   _c("td", [_vm._v(_vm._s(credito.id))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(credito.credito))]),
+                  _c("td", [_vm._v(_vm._s(credito.id_cliente))]),
                   _vm._v(" "),
-                  credito.estado_credito == 1
-                    ? _c("td", [_vm._v("Activo")])
-                    : _vm._e(),
+                  _c("td", [_vm._v(_vm._s(credito.id_deudor))]),
                   _vm._v(" "),
-                  credito.estado_credito == 0
+                  _c("td", [_vm._v(_vm._s(credito.id_sede))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(credito.cant_cuotas))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(credito.cant_cuotas_pagadas))]),
+                  _vm._v(" "),
+                  credito.estado == 1 ? _c("td", [_vm._v("Activo")]) : _vm._e(),
+                  _vm._v(" "),
+                  credito.estado == 0
                     ? _c("td", [_vm._v("Inactivo")])
                     : _vm._e(),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(credito.direccion))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(credito.nit))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(credito.correo_contacto))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(credito.representante))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(credito.celular_contacto))]),
-                  _vm._v(" "),
                   _c("td", { staticClass: "text-center" }, [
-                    credito.estado_credito == 1
+                    credito.estado == 1
                       ? _c(
                           "button",
                           {
@@ -43036,7 +43031,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    credito.estado_credito == 1
+                    credito.estado == 1
                       ? _c(
                           "button",
                           {
@@ -43054,7 +43049,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    credito.estado_credito == 0
+                    credito.estado == 0
                       ? _c(
                           "button",
                           {
@@ -43104,17 +43099,17 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("id")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Nombres")]),
+        _c("th", [_vm._v("Cliente")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Documento")]),
+        _c("th", [_vm._v("Deudor")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Celular")]),
+        _c("th", [_vm._v("Sede")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Correo Electronico")]),
+        _c("th", [_vm._v("Cant. Cuotas")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Dirección")]),
+        _c("th", [_vm._v("Cant. Cuotas Pagadas")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Créditos")]),
+        _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", [_vm._v("Opciones")])
       ])

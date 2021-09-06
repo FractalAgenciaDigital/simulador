@@ -264,29 +264,28 @@
           <thead>
             <tr>
               <th>id</th>
-              <th>Nombres</th>
-              <th>Documento</th>
-              <th>Celular</th>
-              <th>Correo Electronico</th>
-              <th>Dirección</th>
-              <th>Créditos</th>
+              <th>Cliente</th>
+              <th>Deudor</th>
+              <th>Sede</th>
+              <th>Cant. Cuotas</th>
+              <th>Cant. Cuotas Pagadas</th>
+              <th>Estado</th>
               <th>Opciones</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="credito in creditos" :key="credito.id">
               <td>{{ credito.id }}</td>
-              <td>{{ credito.credito }}</td>
-              <td v-if="credito.estado_credito == 1">Activo</td>
-              <td v-if="credito.estado_credito == 0">Inactivo</td>
-              <td>{{ credito.direccion }}</td>
-              <td>{{ credito.nit }}</td>
-              <td>{{ credito.correo_contacto }}</td>
-              <td>{{ credito.representante }}</td>
-              <td>{{ credito.celular_contacto }}</td>
+              <td>{{ credito.id_cliente }}</td>
+              <td>{{ credito.id_deudor }}</td>
+              <td>{{ credito.id_sede }}</td>
+              <td>{{ credito.cant_cuotas }}</td>
+              <td>{{ credito.cant_cuotas_pagadas }}</td>
+              <td v-if="credito.estado == 1">Activo</td>
+              <td v-if="credito.estado == 0">Inactivo</td>
               <td class="text-center">
                 <button
-                  v-if="credito.estado_credito == 1"
+                  v-if="credito.estado == 1"
                   class="btn btn-outline-primary"
                   @click="
                     update = true;
@@ -296,7 +295,7 @@
                   <i class="bi bi-pen"></i>
                 </button>
                 <button
-                  v-if="credito.estado_credito == 1"
+                  v-if="credito.estado == 1"
                   onclick="return confirm('¿Desea Desactivar?')"
                   class="btn btn-outline-danger"
                   @click="CambiarEstado(credito.id)"
@@ -304,7 +303,7 @@
                   <i class="bi bi-trash"></i>
                 </button>
                 <button
-                  v-if="credito.estado_credito == 0"
+                  v-if="credito.estado == 0"
                   onclick="return confirm('¿Desea Activar?')"
                   class="btn btn-outline-success"
                   @click="CambiarEstado(credito.id)"
