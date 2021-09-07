@@ -108,7 +108,7 @@ export default {
       this.$refs.CrearEditarProveedor.abirEditarProveedor(proveedor);
     },
     showAlert() {
-      // Use sweetalert2
+
       this.$swal("Hello Vue world!!!");
     },
     CambiarEstado: function (id) {

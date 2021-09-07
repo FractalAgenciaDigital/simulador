@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ProveedorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,5 @@ Route::post('/clientes/{cliente}/cambiar-estado',  [ClienteController::class, 'c
 
 Route::resource('/usuarios',  UsuarioController::class);
 
+Route::resource('/proveedore',  ProveedorController::class);
+Route::post('/proveedores/{proveedor}/cambiar-estado',  [ProveedorController::class, 'cambiarEstado']);

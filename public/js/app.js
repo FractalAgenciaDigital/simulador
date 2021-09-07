@@ -2675,7 +2675,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  // Function crearProveedores
   methods: {
     crearProveedor: function crearProveedor() {
       var me = this;
@@ -2829,7 +2828,6 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.CrearEditarProveedor.abirEditarProveedor(proveedor);
     },
     showAlert: function showAlert() {
-      // Use sweetalert2
       this.$swal("Hello Vue world!!!");
     },
     CambiarEstado: function CambiarEstado(id) {

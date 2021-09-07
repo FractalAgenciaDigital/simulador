@@ -145,7 +145,7 @@ export default {
       },
     };
   },
-  // Function crearProveedores
+
   methods: {
     crearProveedor() {
       let me = this;
