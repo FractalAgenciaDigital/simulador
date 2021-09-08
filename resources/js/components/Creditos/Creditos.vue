@@ -414,7 +414,7 @@ export default {
     },
     closeModal() {
       this.modal = 0;
-      let me = this;
+      // let me = this;
       Object.keys(this.credito).forEach(function (key, index) {
         me.credito[key] = "";
       });

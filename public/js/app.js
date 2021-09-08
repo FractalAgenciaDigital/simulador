@@ -2756,8 +2756,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     closeModal: function closeModal() {
-      this.modal = 0;
-      var me = this;
+      this.modal = 0; // let me = this;
+
       Object.keys(this.credito).forEach(function (key, index) {
         me.credito[key] = "";
       });
@@ -3143,8 +3143,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     closeModal: function closeModal() {
-      this.modal = 0;
-      var me = this;
+      this.modal = 0; // let me = this;
+
       Object.keys(this.sede).forEach(function (key, index) {
         me.sede[key] = "";
       });
@@ -3555,8 +3555,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     closeModal: function closeModal() {
-      this.modal = 0;
-      var me = this;
+      this.modal = 0; // let me = this;
+
       Object.keys(this.usuario).forEach(function (key, index) {
         me.usuario[key] = "";
       });

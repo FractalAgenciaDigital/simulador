@@ -277,7 +277,7 @@ export default {
     },
     closeModal() {
       this.modal = 0;
-      let me = this;
+      // let me = this;
       Object.keys(this.sede).forEach(function (key, index) {
         me.sede[key] = "";
       });

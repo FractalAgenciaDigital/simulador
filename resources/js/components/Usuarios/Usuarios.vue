@@ -305,7 +305,7 @@ export default {
     },
     closeModal() {
       this.modal = 0;
-      let me = this;
+      // let me = this;
       Object.keys(this.usuario).forEach(function (key, index) {
         me.usuario[key] = "";
       });
