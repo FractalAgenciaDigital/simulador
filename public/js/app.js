@@ -2670,7 +2670,6 @@ __webpack_require__.r(__webpack_exports__);
         nro_documento: 0,
         celular1: "",
         celular2: "",
-        number: "",
         email: ""
       }
     };

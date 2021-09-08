@@ -140,7 +140,6 @@ export default {
         nro_documento: 0,
         celular1: "",
         celular2: "",
-        number: "",
         email: "",
       },
     };

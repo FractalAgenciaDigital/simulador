@@ -27,5 +27,5 @@ Route::post('/clientes/{cliente}/cambiar-estado',  [ClienteController::class, 'c
 
 Route::resource('/usuarios',  UsuarioController::class);
 
-Route::resource('/proveedore',  ProveedorController::class);
+Route::resource('/proveedores',  ProveedorController::class);
 Route::post('/proveedores/{proveedor}/cambiar-estado',  [ProveedorController::class, 'cambiarEstado']);
