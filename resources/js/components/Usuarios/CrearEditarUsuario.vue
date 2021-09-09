@@ -47,7 +47,7 @@
                 <div class="form-group col-md-4">
                   <label for="email">Email</label>
                   <input
-                    type="date"
+                    type="text"
                     class="form-control"
                     id="email"
                     v-model="formUsuario.email"
@@ -108,6 +108,15 @@
                     <option value="2">Operario</option>
                   </select>
                 </div>
+                <div class="form-group col-md-4">
+                  <label for="password">Contraseña</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    v-model="formUsuario.password"
+                  />
+                </div>
               </div>
             </form>
           </div>
@@ -150,10 +159,7 @@ export default {
         celular2: "",
         genero: "",
         number: "",
-        estado: "",
         estado_civil: "",
-        id_sede: "",
-        id_rol: "",
         independiente: 0,
         lugar_trabjo: "",
         cargo: "",

@@ -14,9 +14,30 @@ class CreditoController extends Controller
      */
     public function index()
     {
-        // return Credito::paginate(10);
-        return Credito::orderBy('id', 'desc')->get();
+        // $creditos = Credito::where(function ($query) {
+        //     $query->select('*', 'creditos.estado as creditos_estado')
+        //         ->where('deudor', 'like', "$this->textSearch%")
+        //         ->orWhere('id_cliente', 'like', "$this->textSearch%");
+        // })->join('clientes', 'clientes.id', 'id_cliente')
+        //     ->join('sedes', 'sedes.id', 'id_sede');
+
+        // $creditos = $creditos->orderBy('nombre')->paginate(10);
+        return Credito::paginate(10);
+        // ----------
+        // return Credito::orderBy('id', 'desc')->get();
     }
+
+
+    // public searchCliente(Request $request){
+    //     if($request -> $q){
+    //         $credito = Credito::select(*)->where('deudor', $request->q)
+    //         ->get();
+    //         return $cliente;
+    //     }
+    // }
+
+
+
 
     /**
      * Show the form for creating a new resource.

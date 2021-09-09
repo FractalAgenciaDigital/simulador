@@ -3,6 +3,7 @@
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CreditoController;
 use App\Http\Controllers\SedeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,6 +29,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // para trabajar con los recursos de api : edit y create se van, bye
 // Route::apiResource('/usuarios', UsuarioController::class);
 Route::apiResource('/sedes', SedeController::class);
-Route::apiResource('/creditos', CreditoController::class);
+Route::apiResource('/users', UserController::class);
+// Route::apiResource('/creditos', CreditoController::class);
 // Route::resource('/usuarios',  UsuarioController::class);
 // Route::post('/usuarios/{usuario}/camEstado',  [UsuarioController::class, 'camEstado']);
