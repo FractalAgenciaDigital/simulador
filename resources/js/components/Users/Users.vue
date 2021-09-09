@@ -16,6 +16,7 @@
       <br />
       <br />
 
+      <!-- ----START Modal--------- -->
       <div class="modal" :class="{ show: modal }">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">

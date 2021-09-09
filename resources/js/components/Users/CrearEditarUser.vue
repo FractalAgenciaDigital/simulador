@@ -177,7 +177,8 @@ export default {
         const res = await axios.post("/usuarios/", this.usuario);
       }
       this.closeModal();
-      this.list();
+      // this.list();
+      this.getDatos();
     },
     // abrir y cerrar modal
     // Si no se pasa ningun parametro será 0
@@ -204,7 +205,8 @@ export default {
   },
 
   created() {
-    this.list();
+    // this.list();
+    this.getDatos();
   },
 };
 </script>
