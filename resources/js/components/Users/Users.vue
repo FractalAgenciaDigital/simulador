@@ -17,7 +17,7 @@
       <br />
 
       <!-- ----START Modal--------- -->
-      <div class="modal" :class="{ show: modal }">
+      <!-- <div class="modal" :class="{ show: modal }">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
@@ -147,7 +147,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- ------------Modal----------------------- -->
     </div>
     <div class="page-content">
@@ -238,6 +238,7 @@ import CrearEditarUser from "./CrearEditarUser.vue";
 import datables from "datatables";
 
 export default {
+  components: { CrearEditarUser },
   mounted() {
     this.getDatos();
   },
@@ -289,25 +290,21 @@ export default {
 
     //   this.users = res.data;
     // },
-    // Eliminar
-    async eliminar(id) {
-      // axios el poder de JS
-      const res = await axios.delete("/users/" + id);
-      // para que actualicen los arrays o no tener que recargar el navegador
-      // this.list();
-      this.getDatos();
-    },
-    async save() {
-      if (this.update) {
-        const res = await axios.put("/users/" + this.user.id, this.user);
-        //Para guardar nuevo registro
-      } else {
-        const res = await axios.post("/users/", this.user);
-      }
-      this.closeModal();
-      // this.list();
-      this.getDatos();
-    },
+  
+
+    // async save() {
+    //   if (this.update) {
+    //     const res = await axios.put("/users/" + this.user.id, this.user);
+    //     //Para guardar nuevo registro
+    //   } else {
+    //     const res = await axios.post("/users/", this.user);
+    //   }
+    //   this.closeModal();
+    //   // this.list();
+    //   this.getDatos();
+    // },
+
+    
     // abrir y cerrar modal
     // Si no se pasa ningun parametro será 0
     // Ahora no solo tenemos que pasar el id si no todo el array completo
@@ -323,6 +320,13 @@ export default {
         this.titleModal = "Crear Usuario";
       }
     },
+    CambiarEstado: function (id) {
+      let me = this;
+      axios.post("api/users/" + id + "/camEstado").then(function () {
+        // me.list(1);
+        me.getDatos();
+      });
+    },
     closeModal() {
       this.modal = 0;
       // let me = this;
@@ -330,12 +334,12 @@ export default {
         me.user[key] = "";
       });
     },
-    CambiarEstado: function (id) {
-      let me = this;
-      axios.post("api/users/" + id + "/camEstado").then(function () {
-        // me.list(1);
-        me.getDatos();
-      });
+    async eliminar(id) {
+      // axios el poder de JS
+      const res = await axios.delete("/users/" + id);
+      // para que actualicen los arrays o no tener que recargar el navegador
+      // this.list();
+      this.getDatos();
     },
   },
 
