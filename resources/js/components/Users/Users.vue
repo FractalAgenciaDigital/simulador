@@ -152,6 +152,7 @@
     <div class="page-content">
       <section>
         <table
+          id="myTable"
           class="
             table
             table-sm
@@ -233,8 +234,12 @@
 </template>
 <script>
 import CrearEditarUser from "./CrearEditarUser.vue";
+import datables from "datatables";
 
 export default {
+  mounted() {
+    this.getDatos();
+  },
   data() {
     return {
       // Este array lo enlazamos con v-model en los campos del modal
@@ -265,12 +270,24 @@ export default {
     };
   },
   methods: {
-    async list() {
-      // axios el poder de JS
-      const res = await axios.get("users");
-
-      this.users = res.data;
+    getDatos() {
+      var urlDatos = "users";
+      axios.get(urlDatos).then((response) => {
+        this.users = response.data;
+        this.myTable();
+      });
     },
+    myTable() {
+      $(document).ready(function () {
+        $("#myTable").DataTable();
+      });
+    },
+    // async list() {
+    //   // axios el poder de JS
+    //   const res = await axios.get("users");
+
+    //   this.users = res.data;
+    // },
     // Eliminar
     async eliminar(id) {
       // axios el poder de JS
