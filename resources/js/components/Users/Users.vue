@@ -293,7 +293,8 @@ export default {
       // axios el poder de JS
       const res = await axios.delete("/users/" + id);
       // para que actualicen los arrays o no tener que recargar el navegador
-      this.list();
+      // this.list();
+      this.getDatos();
     },
     async save() {
       if (this.update) {
@@ -303,7 +304,8 @@ export default {
         const res = await axios.post("/users/", this.user);
       }
       this.closeModal();
-      this.list();
+      // this.list();
+      this.getDatos();
     },
     // abrir y cerrar modal
     // Si no se pasa ningun parametro será 0
@@ -330,13 +332,15 @@ export default {
     CambiarEstado: function (id) {
       let me = this;
       axios.post("api/users/" + id + "/camEstado").then(function () {
-        me.list(1);
+        // me.list(1);
+        me.getDatos();
       });
     },
   },
 
   created() {
-    this.list();
+    // this.list();
+    this.getDatos();
   },
 };
 </script>

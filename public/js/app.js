@@ -3504,7 +3504,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
 
                 // para que actualicen los arrays o no tener que recargar el navegador
-                _this2.list();
+                // this.list();
+                _this2.getDatos();
 
               case 4:
               case "end":
@@ -3545,9 +3546,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _res = _context2.sent;
 
               case 9:
-                _this3.closeModal();
+                _this3.closeModal(); // this.list();
 
-                _this3.list();
+
+                _this3.getDatos();
 
               case 11:
               case "end":
@@ -3583,12 +3585,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     CambiarEstado: function CambiarEstado(id) {
       var me = this;
       axios.post("api/users/" + id + "/camEstado").then(function () {
-        me.list(1);
+        // me.list(1);
+        me.getDatos();
       });
     }
   },
   created: function created() {
-    this.list();
+    // this.list();
+    this.getDatos();
   }
 });
 
