@@ -25,17 +25,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::resource('/clientes',  ClienteController::class);
-Route::post('/clientes/{cliente}/camEstado',  [ClienteController::class, 'camEstado']);
+Route::post('/clientes/{cliente}/cambiar-estado',  [ClienteController::class, 'cambiarEstado']);
+Route::get('/clientes/{cliente}/creditos', [ClienteController::class, 'creditos']);
 
 Route::resource('/usuarios',  UsuarioController::class);
 Route::post('/usuarios/{usuario}/camEstado',  [UsuarioController::class, 'camEstado']);
 
-Route::resource('/creditos',  CreditoController::class);
-Route::post('/creditos/{credito}/camEstado',  [CreditoController::class, 'camEstado']);
-
 Route::post('/sedes/{sede}/camEstado',  [SedeController::class, 'camEstado']);
 
-// Route::resource('/users',  UserController::class);
+Route::resource('/users',  UserController::class);
 Route::post('/users/{user}/camEstado',  [UserController::class, 'camEstado']);
 
+Route::resource('/creditos', CreditoController::class);
+Route::get('/creditos/{credito}/cuotas', [CreditoController::class, 'cuotas']);
 Route::post('/creditos/{credito}/camEstado',  [CreditoController::class, 'camEstado']);

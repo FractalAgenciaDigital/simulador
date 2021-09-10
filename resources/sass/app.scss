@@ -1,5 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 // Variables
 @import 'variables';
@@ -8,5 +8,4 @@
 @import '~bootstrap/scss/bootstrap';
 @import 'bootstrap-icons.scss';
 
-// Datatables
-@import '~datatables/media/css/jquery.dataTables.min.css';
+@import 'custom'

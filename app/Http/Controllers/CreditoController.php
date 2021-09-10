@@ -14,108 +14,12 @@ class CreditoController extends Controller
      */
     public function index()
     {
-        // $creditos = Credito::where(function ($query) {
-        //     $query->select('*', 'creditos.estado as creditos_estado')
-        //         ->where('deudor', 'like', "$this->textSearch%")
-        //         ->orWhere('id_cliente', 'like', "$this->textSearch%");
-        // })->join('clientes', 'clientes.id', 'id_cliente')
-        //     ->join('sedes', 'sedes.id', 'id_sede');
-
-        // $creditos = $creditos->orderBy('nombre')->paginate(10);
-        return Credito::paginate(10);
-        // ----------
-        // return Credito::orderBy('id', 'desc')->get();
+        return Credito::paginate(15);
     }
 
-
-    // public searchCliente(Request $request){
-    //     if($request -> $q){
-    //         $credito = Credito::select(*)->where('deudor', $request->q)
-    //         ->get();
-    //         return $cliente;
-    //     }
-    // }
-
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create($id)
+    public function cuotas(Request $request, $id)
     {
-        //
-        // $credito = Credito::findOrFail($id);
-        // Credito::destroy($id);
-        // return redirect('credito')->with('mensaje', 'Credito eliminado correctamente');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-        $credito = new Credito;
-        $credito->create($request->all());
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Credito  $credito
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Credito $credito)
-    {
-        return $credito;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Credito  $credito
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Credito $credito)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Credito  $credito
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Credito $credito)
-    {
-        $credito->update($request->all());
-    }
-
-
-    public function camEstado(Credito $credito)
-    {
-        //
-        $cr = Credito::find($credito->id);
-        // $credito->estado = '0';
-        $cr->estado = !$cr->estado;
-        $cr->save();
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Credito  $credito
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Credito $credito)
-    {
-        $credito->delete();
+        $credito = Credito::find($id);
+        return $credito->cuotas()->get();
     }
 }

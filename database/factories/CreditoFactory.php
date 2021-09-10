@@ -22,9 +22,9 @@ class CreditoFactory extends Factory
     public function definition()
     {
         return [
-            'id_cliente' => $this->faker->numberBetween(1, 10),
-            'id_deudor' => $this->faker->numberBetween(1, 10),
-            'id_sede' => $this->faker->numberBetween(1, 3),
+            'cliente_id' => $this->faker->numberBetween(1, 10),
+            'deudor_id' => $this->faker->numberBetween(1, 10),
+            'sede_id' => $this->faker->numberBetween(1, 3),
             'cant_cuotas' => $this->faker->randomNumber(),
             'cant_cuotas_pagadas' => $this->faker->randomNumber(),
             'dia_limite' => $this->faker->randomNumber(),

@@ -12,10 +12,17 @@ class ClienteController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		//
-		return Cliente::paginate(15);
+		$clientes = Cliente::select();
+		if ($request->cliente && ($request->cliente != '')) {
+			$clientes  = 	$clientes->where('nro_documento', 'LIKE', "%$request->cliente%")
+				->orWhere('nombres', 'LIKE', "%$request->cliente%")
+				->orWhere('apellidos', 'LIKE', "%$request->cliente%");
+		}
+		$clientes = $clientes->paginate(20);
+
+		return $clientes;
 	}
 
 	/**
@@ -55,7 +62,7 @@ class ClienteController extends Controller
 		$cliente->lugar_trabajo = $request['lugar_trabajo'];
 		$cliente->cargo = $request['cargo'];
 		$cliente->independiente = $request['independiente'];
-		$cliente->foto = 'undefindef';
+		$cliente->foto = 'undefined';
 		$cliente->save();
 	}
 
@@ -124,8 +131,24 @@ class ClienteController extends Controller
 	 * @param  \App\Models\Cliente  $cliente
 	 * @return \Illuminate\Http\Response
 	 */
+
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function cambiarEstado(Cliente $cliente)
+	{
+		//
+		$c = Cliente::find($cliente->id);
+		// $cliente->activo = '0';
+		$c->activo = !$c->activo;
+		$c->save();
+	}
+
+	public function creditos(Request $request, $id)
+	{
+		$cliente = Cliente::find($id);
+		return $cliente->creditos()->get();
 	}
 }
