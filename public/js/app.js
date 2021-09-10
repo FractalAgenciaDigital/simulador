@@ -1922,8 +1922,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2208,6 +2206,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2236,7 +2235,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.post("api/clientes", this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
-        me.formCliente = {};
+        me.resetData();
         this.$emit("listar-clientes");
       });
     },
@@ -2250,10 +2249,16 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.put("api/clientes/" + this.formCliente.id, this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
-        me.formCliente = {};
+        me.resetData();
       });
       this.$emit("listar-clientes");
       this.editar = false;
+    },
+    resetData: function resetData() {
+      var me = this;
+      Object.keys(this.formCliente).forEach(function (key, index) {
+        me.formCliente[key] = "";
+      });
     }
   }
 });
@@ -42536,6 +42541,35 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(c.direccion))]),
                       _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn",
+                            class:
+                              c.activo == 1
+                                ? "btn-outline-success"
+                                : "btn-outline-danger",
+                            on: {
+                              click: function($event) {
+                                return _vm.CambiarEstado(c.id)
+                              }
+                            }
+                          },
+                          [
+                            c.activo == 1
+                              ? _c("i", {
+                                  staticClass: "bi bi-check-circle-fill"
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            c.activo == 0
+                              ? _c("i", { staticClass: "bi bi-x-circle" })
+                              : _vm._e()
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
                       _c("td", { staticClass: "text-center" }, [
                         _c(
                           "button",
@@ -42548,37 +42582,7 @@ var render = function() {
                             }
                           },
                           [_c("i", { staticClass: "bi bi-pen" })]
-                        ),
-                        _vm._v(" "),
-                        c.activo == 1
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-outline-danger",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.CambiarEstado(c.id)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "bi bi-trash" })]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        c.activo == 0
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-outline-success",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.CambiarEstado(c.id)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "bi bi-check2-circle" })]
-                            )
-                          : _vm._e()
+                        )
                       ])
                     ])
                   }),
@@ -42667,6 +42671,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Dirección")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Estado")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Opciones")])
       ])
     ])
@@ -42730,7 +42736,7 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      _vm.editar = false
+                      ;(_vm.editar = false), _vm.resetData()
                     }
                   }
                 },
@@ -43392,7 +43398,7 @@ var render = function() {
                   attrs: { type: "button", "data-dismiss": "modal" },
                   on: {
                     click: function($event) {
-                      _vm.editar = false
+                      ;(_vm.editar = false), _vm.resetData()
                     }
                   }
                 },

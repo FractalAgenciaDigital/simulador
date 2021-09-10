@@ -22,6 +22,7 @@
               <th>Celular</th>
               <th>Correo Electronico</th>
               <th>Dirección</th>
+              <th>Estado</th>
               <th>Opciones</th>
             </tr>
           </thead>
@@ -33,27 +34,24 @@
               <td>( {{ c.celular1 }} ) - ( {{ c.celular2 }} )</td>
               <td>{{ c.email }}</td>
               <td>{{ c.direccion }}</td>
-
+              <td>
+                <button
+                  class="btn"
+                  :class="
+                    c.activo == 1 ? 'btn-outline-success' : 'btn-outline-danger'
+                  "
+                  @click="CambiarEstado(c.id)"
+                >
+                  <i class="bi bi-check-circle-fill" v-if="c.activo == 1"></i>
+                  <i class="bi bi-x-circle" v-if="c.activo == 0"></i>
+                </button>
+              </td>
               <td class="text-center">
                 <button
                   class="btn btn-outline-primary"
                   @click="mostrarDatos(c)"
                 >
                   <i class="bi bi-pen"></i>
-                </button>
-                <button
-                  v-if="c.activo == 1"
-                  class="btn btn-outline-danger"
-                  @click="CambiarEstado(c.id)"
-                >
-                  <i class="bi bi-trash"></i>
-                </button>
-                <button
-                  v-if="c.activo == 0"
-                  class="btn btn-outline-success"
-                  @click="CambiarEstado(c.id)"
-                >
-                  <i class="bi bi-check2-circle"></i>
                 </button>
               </td>
             </tr>
