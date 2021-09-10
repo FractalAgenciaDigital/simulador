@@ -1922,6 +1922,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -1929,6 +1943,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      buscar_cliente: "",
       listaClientes: {}
     };
   },
@@ -1939,7 +1954,7 @@ __webpack_require__.r(__webpack_exports__);
     listarClientes: function listarClientes() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var me = this;
-      axios.get("api/clientes?page=" + page).then(function (response) {
+      axios.get("api/clientes?page=".concat(page, "&cliente=").concat(this.buscar_cliente)).then(function (response) {
         me.listaClientes = response.data;
       });
     },
@@ -42503,6 +42518,51 @@ var render = function() {
     {},
     [
       _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "page-search d-flex justify-content-between p-4 border my-2"
+        },
+        [
+          _c("div", { staticClass: "form-group col-8 m-auto" }, [
+            _c("label", { attrs: { for: "buscar_cliente" } }, [
+              _vm._v("Buscar...")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.buscar_cliente,
+                  expression: "buscar_cliente"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                id: "buscar_cliente",
+                name: "buscar_cliente",
+                placeholder: "Nombres | Documento"
+              },
+              domProps: { value: _vm.buscar_cliente },
+              on: {
+                keypress: function($event) {
+                  return _vm.listarClientes(1)
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.buscar_cliente = $event.target.value
+                }
+              }
+            })
+          ])
+        ]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "page-content mt-4" }, [
         _c(

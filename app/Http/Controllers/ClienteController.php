@@ -12,10 +12,17 @@ class ClienteController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		//
-		return Cliente::paginate(15);
+		$clientes = Cliente::select();
+		if ($request->cliente && ($request->cliente != '')) {
+			$clientes  = 	$clientes->where('nro_documento', 'LIKE', "%$request->cliente%")
+				->orWhere('nombres', 'LIKE', "%$request->cliente%")
+				->orWhere('apellidos', 'LIKE', "%$request->cliente%");
+		}
+		$clientes = $clientes->paginate(20);
+
+		return $clientes;
 	}
 
 	/**

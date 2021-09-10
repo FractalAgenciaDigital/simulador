@@ -11,6 +11,20 @@
         Crear cliente
       </button>
     </div>
+    <div class="page-search d-flex justify-content-between p-4 border my-2">
+      <div class="form-group col-8 m-auto">
+        <label for="buscar_cliente">Buscar...</label>
+        <input
+          type="text"
+          id="buscar_cliente"
+          name="buscar_cliente"
+          class="form-control"
+          placeholder="Nombres | Documento"
+          @keypress="listarClientes(1)"
+          v-model="buscar_cliente"
+        />
+      </div>
+    </div>
     <div class="page-content mt-4">
       <section class="">
         <table class="table table-sm table-bordered table-responsive">
@@ -80,6 +94,7 @@ export default {
   components: { CrearEditarCliente },
   data() {
     return {
+      buscar_cliente: "",
       listaClientes: {},
     };
   },
@@ -89,9 +104,11 @@ export default {
   methods: {
     listarClientes(page = 1) {
       let me = this;
-      axios.get("api/clientes?page=" + page).then(function (response) {
-        me.listaClientes = response.data;
-      });
+      axios
+        .get(`api/clientes?page=${page}&cliente=${this.buscar_cliente}`)
+        .then(function (response) {
+          me.listaClientes = response.data;
+        });
     },
     mostrarDatos: function (cliente) {
       this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
