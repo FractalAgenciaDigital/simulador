@@ -14,126 +14,11 @@
         Crear Sede
       </button>
       <br />
-      <br />
-
-      <div class="modal" :class="{ show: modal }">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">
-                {{ titleModal }}
-              </h5>
-              <button
-                @click="closeModal()"
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-row">
-                  <div class="form-group col-md-4">
-                    <label for="sede">Sede</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="sede"
-                      v-model="sede.sede"
-                    />
-                  </div>
-
-                  <div class="form-group col-md-4">
-                    <label for="estado_sede">Estado</label>
-                    <select
-                      name="estado_sede"
-                      id="estado_sede"
-                      class="custom-select"
-                      v-model="sede.estado_sede"
-                    >
-                      <option value="" disabled>--Seleccionar--</option>
-                      <option value="1">Activo</option>
-                      <option value="0">Inactivo</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group col-md-4">
-                    <label for="direccion">Dirección</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="direccion"
-                      v-model="sede.direccion"
-                    />
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="nit">NIT</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="nit"
-                      v-model="sede.nit"
-                    />
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="correo_contacto">Correo Contacto</label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="correo_contacto"
-                      v-model="sede.correo_contacto"
-                    />
-                  </div>
-
-                  <div class="form-group col-md-4">
-                    <label for="representante">Representante</label>
-
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="representante"
-                      v-model="sede.representante"
-                    />
-                  </div>
-
-                  <div class="form-group col-md-4">
-                    <label for="celular_contacto">Celular Contacto</label>
-
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="celular_contacto"
-                      v-model="sede.celular_contacto"
-                    />
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button
-                @click="closeModal()"
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                Cerrar
-              </button>
-              <button @click="save()" type="button" class="btn btn-success">
-                Guardar Cambios
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- ------------Modal----------------------- -->
     </div>
     <div class="page-content">
       <section>
         <table
+          id="myTable"
           class="
             table
             table-sm
@@ -160,8 +45,8 @@
             <tr v-for="sede in sedes" :key="sede.id">
               <td>{{ sede.id }}</td>
               <td>{{ sede.sede }}</td>
-              <td v-if="sede.estado_sede == 1">Activo</td>
-              <td v-if="sede.estado_sede == 0">Inactivo</td>
+              <td v-if="sede.estado == 1">Activo</td>
+              <td v-if="sede.estado == 0">Inactivo</td>
               <td>{{ sede.direccion }}</td>
               <td>{{ sede.nit }}</td>
               <td>{{ sede.correo_contacto }}</td>
@@ -169,7 +54,7 @@
               <td>{{ sede.celular_contacto }}</td>
               <td class="text-center">
                 <button
-                  v-if="sede.estado_sede == 1"
+                  v-if="sede.estado == 1"
                   class="btn btn-outline-primary"
                   @click="
                     update = true;
@@ -179,7 +64,7 @@
                   <i class="bi bi-pen"></i>
                 </button>
                 <button
-                  v-if="sede.estado_sede == 1"
+                  v-if="sede.estado == 1"
                   onclick="return confirm('¿Desea Desactivar?')"
                   class="btn btn-outline-danger"
                   @click="CambiarEstado(sede.id)"
@@ -187,7 +72,7 @@
                   <i class="bi bi-trash"></i>
                 </button>
                 <button
-                  v-if="sede.estado_sede == 0"
+                  v-if="sede.estado == 0"
                   onclick="return confirm('¿Desea Activar?')"
                   class="btn btn-outline-success"
                   @click="CambiarEstado(sede.id)"
@@ -195,7 +80,7 @@
                   <i class="bi bi-check2-circle"></i>
                 </button>
                 <!-- <button
-                  v-if="sede.estado_sede == 1"
+                  v-if="sede.estado == 1"
                   onclick="return confirm('¿Desea Eliminar?')"
                   class="btn btn-outline-info"
                   @click="eliminar(sede.id)"
@@ -208,16 +93,24 @@
         </table>
       </section>
     </div>
+    <crear-editar-sede ref="CrearEditarSede" />
   </div>
 </template>
 <script>
+import CrearEditarSede from "./CrearEditarSede.vue";
+import datables from "datatables";
+
 export default {
+  components: { CrearEditarSede },
+  mounted() {
+    this.getDatos();
+  },
   data() {
     return {
       // Este array lo enlazamos con v-model en los campos del modal
       sede: {
         sede: "",
-        estado_sede: "1",
+        estado: "1",
         direccion: "",
         nit: "",
         correo_contacto: "",
@@ -237,29 +130,37 @@ export default {
     };
   },
   methods: {
-    async list() {
-      // axios el poder de JS
-      const res = await axios.get("sedes");
+    getDatos() {
+      var urlDatos = "sedes";
+      axios.get(urlDatos).then((response) => {
+        this.sedes = response.data;
+        this.myTable();
+      });
+    },
+    myTable() {
+      $(document).ready(function () {
+        $("#myTable").DataTable();
+      });
+    },
+    // async list() {
+    //   // axios el poder de JS
+    //   const res = await axios.get("sedes");
 
-      this.sedes = res.data;
-    },
-    // Eliminar
-    async eliminar(id) {
-      // axios el poder de JS
-      const res = await axios.delete("/sedes/" + id);
-      // para que actualicen los arrays o no tener que recargar el navegador
-      this.list();
-    },
-    async save() {
-      if (this.update) {
-        const res = await axios.put("/sedes/" + this.sede.id, this.sede);
-        //Para guardar nuevo registro
-      } else {
-        const res = await axios.post("/sedes/", this.sede);
-      }
-      this.closeModal();
-      this.list();
-    },
+    //   this.sedes = res.data;
+    // },
+
+    // async save() {
+    //   if (this.update) {
+    //     const res = await axios.put("/sedes/" + this.sede.id, this.sede);
+    //     //Para guardar nuevo registro
+    //   } else {
+    //     const res = await axios.post("/sedes/", this.sede);
+    //   }
+    //   this.closeModal();
+    //   // this.list();
+    //   this.getDatos();
+    // },
+
     // abrir y cerrar modal
     // Si no se pasa ningun parametro será 0
     // Ahora no solo tenemos que pasar el id si no todo el array completo
@@ -275,6 +176,13 @@ export default {
         this.titleModal = "Crear Sede";
       }
     },
+    CambiarEstado: function (id) {
+      let me = this;
+      axios.post("api/sedes/" + id + "/camEstado").then(function () {
+        // me.list(1);
+        me.getDatos();
+      });
+    },
     closeModal() {
       this.modal = 0;
       // let me = this;
@@ -282,16 +190,18 @@ export default {
         me.sede[key] = "";
       });
     },
-    CambiarEstado: function (id) {
-      let me = this;
-      axios.post("api/sedes/" + id + "/camEstado").then(function () {
-        me.list(1);
-      });
+    async eliminar(id) {
+      // axios el poder de JS
+      const res = await axios.delete("/sedes/" + id);
+      // para que actualicen los arrays o no tener que recargar el navegador
+      // this.list();
+      this.getDatos();
     },
   },
 
   created() {
-    this.list();
+    // this.list();
+    this.getDatos();
   },
 };
 </script>

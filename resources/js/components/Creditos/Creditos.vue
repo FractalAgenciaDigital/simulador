@@ -11,7 +11,6 @@
         Crear Credito
       </button>
       <br />
-      <input type="text" />
     </div>
     <div class="page-content">
       <section>

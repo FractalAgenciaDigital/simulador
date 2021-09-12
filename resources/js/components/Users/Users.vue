@@ -206,7 +206,7 @@
                   class="btn btn-outline-danger"
                   @click="CambiarEstado(user.id)"
                 >
-                  <i class="bi bi-trash"></i>
+                  <i class="bi bi-x-circle"></i>
                 </button>
                 <button
                   v-if="user.estado == 0"
@@ -216,14 +216,14 @@
                 >
                   <i class="bi bi-check2-circle"></i>
                 </button>
-                <button
+                <!-- <button
                   v-if="user.estado == 1"
                   onclick="return confirm('¿Desea Eliminar?')"
-                  class="btn btn-outline-info"
+                  class="btn btn-outline-danger"
                   @click="eliminar(user.id)"
                 >
                   <i class="bi bi-trash"></i>
-                </button>
+                </button> -->
               </td>
             </tr>
           </tbody>
@@ -290,7 +290,6 @@ export default {
 
     //   this.users = res.data;
     // },
-  
 
     // async save() {
     //   if (this.update) {
@@ -304,7 +303,6 @@ export default {
     //   this.getDatos();
     // },
 
-    
     // abrir y cerrar modal
     // Si no se pasa ningun parametro será 0
     // Ahora no solo tenemos que pasar el id si no todo el array completo

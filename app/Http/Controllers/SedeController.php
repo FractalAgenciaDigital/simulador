@@ -108,8 +108,7 @@ class SedeController extends Controller
     {
         //
         $s = Sede::find($sede->id);
-        // $sede->estado_sede = '0';
-        $s->estado_sede = !$s->estado_sede;
+        $s->estado = !$s->estado;
         $s->save();
     }
     /**
