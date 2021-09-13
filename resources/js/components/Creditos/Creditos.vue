@@ -15,6 +15,7 @@
     <div class="page-content">
       <section>
         <table
+          id="myTable"
           class="
             table
             table-sm
@@ -32,6 +33,7 @@
               <th>Sede</th>
               <th>Cant. Cuotas</th>
               <th>Cant. Cuotas Pagadas</th>
+              <th>Simular</th>
               <th>Estado</th>
               <th>Opciones</th>
             </tr>
@@ -44,13 +46,24 @@
               <td>{{ credito.id_sede }}</td>
               <td>{{ credito.cant_cuotas }}</td>
               <td>{{ credito.cant_cuotas_pagadas }}</td>
+              <td>
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <router-link to="/simulador"> Simular Crédito </router-link>
+                  </li>
+                </ul>
+              </td>
               <td v-if="credito.estado == 1">Activo</td>
               <td v-if="credito.estado == 0">Inactivo</td>
 
               <td class="text-center">
                 <button
+                  v-if="credito.estado == 1"
                   class="btn btn-outline-primary"
-                  @click="mostrarDatos(credito)"
+                  @click="
+                    update = true;
+                    openModal(credito);
+                  "
                 >
                   <i class="bi bi-pen"></i>
                 </button>
@@ -70,6 +83,14 @@
                 >
                   <i class="bi bi-check2-circle"></i>
                 </button>
+                <!-- <button
+                  v-if="credito.estado == 1"
+                  onclick="return confirm('¿Desea Eliminar?')"
+                  class="btn btn-outline-info"
+                  @click="eliminar(credito.id)"
+                >
+                  <i class="bi bi-trash"></i>
+                </button> -->
               </td>
             </tr>
           </tbody>
@@ -82,8 +103,13 @@
 
 <script>
 import CrearEditarCredito from "./CrearEditarCredito.vue";
+import datables from "datatables";
+
 export default {
   components: { CrearEditarCredito },
+  mounted() {
+    this.listarCreditos();
+  },
   data() {
     return {
       listaCreditos: {},
@@ -97,6 +123,11 @@ export default {
       let me = this;
       axios.get("api/creditos?page=" + page).then(function (response) {
         me.listaCreditos = response.data;
+      });
+    },
+    myTable() {
+      $(document).ready(function () {
+        $("#myTable").DataTable();
       });
     },
     mostrarDatos: function (credito) {

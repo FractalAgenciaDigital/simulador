@@ -5,6 +5,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CreditoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SedeController;
+use App\Http\Controllers\SimuladorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,9 +34,11 @@ Route::post('/usuarios/{usuario}/camEstado',  [UsuarioController::class, 'camEst
 Route::resource('/creditos',  CreditoController::class);
 Route::post('/creditos/{credito}/camEstado',  [CreditoController::class, 'camEstado']);
 
+Route::resource('/simulador',  CreditoController::class);
+
 Route::post('/sedes/{sede}/camEstado',  [SedeController::class, 'camEstado']);
 
 // Route::resource('/users',  UserController::class);
 Route::post('/users/{user}/camEstado',  [UserController::class, 'camEstado']);
 
-Route::post('/creditos/{credito}/camEstado',  [CreditoController::class, 'camEstado']);
+// Route::post('/creditos/{credito}/camEstado',  [CreditoController::class, 'camEstado']);

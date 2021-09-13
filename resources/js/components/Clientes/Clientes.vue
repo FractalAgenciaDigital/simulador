@@ -49,7 +49,14 @@
                 </button>
               </td>
               <td class="text-center">
+                <!-- <button
+                  class="btn btn-outline-primary"
+                  @click="mostrarDatos(c)"
+                >
+                  <i class="bi bi-pen"></i>
+                </button> -->
                 <button
+                  v-if="c.estado == 1"
                   class="btn btn-outline-primary"
                   @click="mostrarDatos(c)"
                 >

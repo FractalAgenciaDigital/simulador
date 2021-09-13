@@ -31,6 +31,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::apiResource('/sedes', SedeController::class);
 Route::apiResource('/users', UserController::class);
 Route::apiResource('/sedes', SedeController::class);
+Route::apiResource('/simulador', SimuladorController::class);
 // Route::apiResource('/creditos', CreditoController::class);
 // Route::resource('/usuarios',  UsuarioController::class);
 // Route::post('/usuarios/{usuario}/camEstado',  [UsuarioController::class, 'camEstado']);

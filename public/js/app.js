@@ -1940,6 +1940,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2409,6 +2416,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _CrearEditarCredito_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CrearEditarCredito.vue */ "./resources/js/components/Creditos/CrearEditarCredito.vue");
+/* harmony import */ var datatables__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! datatables */ "./node_modules/datatables/media/js/jquery.dataTables.js");
+/* harmony import */ var datatables__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(datatables__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2492,9 +2522,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     CrearEditarCredito: _CrearEditarCredito_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  mounted: function mounted() {
+    this.listarCreditos();
   },
   data: function data() {
     return {
@@ -2510,6 +2544,11 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.get("api/creditos?page=" + page).then(function (response) {
         me.listaCreditos = response.data;
+      });
+    },
+    myTable: function myTable() {
+      $(document).ready(function () {
+        $("#myTable").DataTable();
       });
     },
     mostrarDatos: function mostrarDatos(credito) {
@@ -3467,6 +3506,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -57730,18 +57770,20 @@ var render = function() {
                     _vm._m(2, true),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-center" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-outline-primary",
-                          on: {
-                            click: function($event) {
-                              return _vm.mostrarDatos(c)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "bi bi-pen" })]
-                      ),
+                      c.estado == 1
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-primary",
+                              on: {
+                                click: function($event) {
+                                  return _vm.mostrarDatos(c)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "bi bi-pen" })]
+                          )
+                        : _vm._e(),
                       _vm._v(" "),
                       c.estado == 1
                         ? _c(
@@ -58764,7 +58806,8 @@ var render = function() {
             "table",
             {
               staticClass:
-                "\n          table\n          table-sm\n          table-bordered\n          table-responsive\n          table-hover\n          table-striped\n        "
+                "\n          table\n          table-sm\n          table-bordered\n          table-responsive\n          table-hover\n          table-striped\n        ",
+              attrs: { id: "myTable" }
             },
             [
               _vm._m(1),
@@ -58785,6 +58828,21 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(credito.cant_cuotas_pagadas))]),
                     _vm._v(" "),
+                    _c("td", [
+                      _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+                        _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c("router-link", { attrs: { to: "/simulador" } }, [
+                              _vm._v(" Simular Crédito ")
+                            ])
+                          ],
+                          1
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
                     credito.estado == 1
                       ? _c("td", [_vm._v("Activo")])
                       : _vm._e(),
@@ -58794,18 +58852,21 @@ var render = function() {
                       : _vm._e(),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-center" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-outline-primary",
-                          on: {
-                            click: function($event) {
-                              return _vm.mostrarDatos(credito)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "bi bi-pen" })]
-                      ),
+                      credito.estado == 1
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-primary",
+                              on: {
+                                click: function($event) {
+                                  _vm.update = true
+                                  _vm.openModal(credito)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "bi bi-pen" })]
+                          )
+                        : _vm._e(),
                       _vm._v(" "),
                       credito.estado == 1
                         ? _c(
@@ -58898,6 +58959,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Cant. Cuotas")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cant. Cuotas Pagadas")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Simular")]),
         _vm._v(" "),
         _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
@@ -59890,19 +59953,21 @@ var render = function() {
                       : _vm._e(),
                     _vm._v(" "),
                     _c("td", { staticClass: "text-center" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-outline-primary",
-                          on: {
-                            click: function($event) {
-                              _vm.update = true
-                              _vm.openModal(user)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "bi bi-pen" })]
-                      ),
+                      user.estado == 1
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-primary",
+                              on: {
+                                click: function($event) {
+                                  _vm.update = true
+                                  _vm.openModal(user)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "bi bi-pen" })]
+                          )
+                        : _vm._e(),
                       _vm._v(" "),
                       user.estado == 1
                         ? _c(
@@ -59918,7 +59983,7 @@ var render = function() {
                                 }
                               }
                             },
-                            [_c("i", { staticClass: "bi bi-x-circle" })]
+                            [_c("i", { staticClass: "bi bi-trash" })]
                           )
                         : _vm._e(),
                       _vm._v(" "),
