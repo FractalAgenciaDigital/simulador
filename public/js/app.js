@@ -2761,7 +2761,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -44271,10 +44270,6 @@ var render = function() {
                               "button",
                               {
                                 staticClass: "btn btn-outline-danger",
-                                attrs: {
-                                  onclick:
-                                    "return confirm('¿Desea Desactivar?')"
-                                },
                                 on: {
                                   click: function($event) {
                                     return _vm.CambiarEstado(u.id)

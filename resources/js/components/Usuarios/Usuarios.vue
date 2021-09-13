@@ -66,7 +66,6 @@
                 </button>
                 <button
                   v-if="u.estado == 1"
-                  onclick="return confirm('¿Desea Desactivar?')"
                   class="btn btn-outline-danger"
                   @click="CambiarEstado(u.id)"
                 >

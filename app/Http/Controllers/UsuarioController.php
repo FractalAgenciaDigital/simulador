@@ -121,7 +121,7 @@ class UsuarioController extends Controller
     {
         //
         $u = Usuario::find($usuario->id);
-        $u->activo = !$u->activo;
+        $u->estado = !$u->estado;
         $u->save();
     }
 }
