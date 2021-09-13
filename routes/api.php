@@ -34,7 +34,7 @@ Route::post('/usuarios/{usuario}/camEstado',  [UsuarioController::class, 'camEst
 Route::resource('/creditos',  CreditoController::class);
 Route::post('/creditos/{credito}/camEstado',  [CreditoController::class, 'camEstado']);
 
-Route::resource('/simulador',  CreditoController::class);
+// Route::resource('/simulador',  CreditoController::class);
 
 Route::post('/sedes/{sede}/camEstado',  [SedeController::class, 'camEstado']);
 
