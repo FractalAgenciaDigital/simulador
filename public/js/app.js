@@ -2592,97 +2592,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       editar: false,
       formUsuario: {
-        nombres: "",
-        apellidos: "",
-        tipo_documento: 0,
-        nro_documento: 0,
-        fecha_nacimiento: "",
+        name: "",
         email: "",
-        celular1: "",
-        celular2: "",
-        genero: "",
-        number: "",
-        estado_civil: "",
-        independiente: 0,
-        lugar_trabjo: "",
-        cargo: ""
+        password: "",
+        nombre: "",
+        celular: "",
+        direccion: "",
+        tipo_documento: 0,
+        documento: 0,
+        foto: "",
+        estado: "1",
+        id_rol: "",
+        id_sede: ""
       }
     };
   },
@@ -2692,22 +2618,30 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.post("api/usuarios", this.formUsuario).then(function () {
         $("#formUsuarioModal").modal("hide");
-        me.formUsuario = {};
+        me.resetData();
+        this.$emit("listar-usuarios");
       });
     },
-    abirEditarUsuario: function abirEditarUsuario(cliente) {
+    abirEditarUsuario: function abirEditarUsuario(usuario) {
       this.editar = true;
       var me = this;
       $("#formUsuarioModal").modal("show");
-      me.formUsuario = cliente;
+      me.formUsuario = usuario;
     },
     editarUsuario: function editarUsuario() {
       var me = this;
       axios.put("api/usuarios/" + this.formUsuario.id, this.formUsuario).then(function () {
         $("#formUsuarioModal").modal("hide");
-        me.formUsuario = {};
+        me.resetData();
       });
+      this.$emit("listar-usuarios");
       this.editar = false;
+    },
+    resetData: function resetData() {
+      var me = this;
+      Object.keys(this.formUsuario).forEach(function (key, index) {
+        me.formUsuario[key] = "";
+      });
     }
   }
 });
@@ -2784,6 +2718,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2791,6 +2769,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      buscar_usuario: "",
       listaUsuarios: {}
     };
   },
@@ -2801,20 +2780,29 @@ __webpack_require__.r(__webpack_exports__);
     listarUsuarios: function listarUsuarios() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var me = this;
-      axios.get("api/usuarios?page=" + page).then(function (response) {
+      axios.get("api/usuarios?page=".concat(page, "&usuario=").concat(this.buscar_usuario)).then(function (response) {
         me.listaUsuarios = response.data;
       });
     },
     mostrarDatos: function mostrarDatos(usuario) {
       this.$refs.CrearEditarUsuario.abirEditarUsuario(usuario);
     },
-    destroy: function destroy(usuario) {
-      this.destroy(usuario);
-    },
-    DesactivarUsuario: function DesactivarUsuario(id) {
+    CambiarEstado: function CambiarEstado(id) {
       var me = this;
-      axios["delete"]("api/clientes/" + id).then(function () {
-        me.listUsuarios(1);
+      Swal.fire({
+        title: "¿Quieres cambiar el estado del usuario?",
+        showDenyButton: true,
+        denyButtonText: "Cancelar",
+        confirmButtonText: "Guardar"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios.post("api/usuarios/" + id + "/cambiar-estado", null, me.$root.config).then(function () {
+            me.listarUsuarios(1);
+          });
+          Swal.fire("Cambios realizados!", "", "success");
+        } else if (result.isDenied) {
+          Swal.fire("Operación no realizada", "", "info");
+        }
       });
     }
   }
@@ -42219,8 +42207,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CrearEditarUsuario_vue_vue_type_template_id_c071920a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CrearEditarUsuario.vue?vue&type=template&id=c071920a& */ "./resources/js/components/Usuarios/CrearEditarUsuario.vue?vue&type=template&id=c071920a&");
 /* harmony import */ var _CrearEditarUsuario_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CrearEditarUsuario.vue?vue&type=script&lang=js& */ "./resources/js/components/Usuarios/CrearEditarUsuario.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-/* harmony import */ var _CrearEditarUsuario_vue_vue_type_custom_index_0_blockType_div_class_modal_footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CrearEditarUsuario.vue?vue&type=custom&index=0&blockType=div&class=modal-footer */ "./resources/js/components/Usuarios/CrearEditarUsuario.vue?vue&type=custom&index=0&blockType=div&class=modal-footer");
-/* harmony import */ var _CrearEditarUsuario_vue_vue_type_custom_index_0_blockType_div_class_modal_footer__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_CrearEditarUsuario_vue_vue_type_custom_index_0_blockType_div_class_modal_footer__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
@@ -42238,10 +42224,6 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
   null
   
 )
-
-/* custom blocks */
-;
-if (typeof (_CrearEditarUsuario_vue_vue_type_custom_index_0_blockType_div_class_modal_footer__WEBPACK_IMPORTED_MODULE_3___default()) === 'function') _CrearEditarUsuario_vue_vue_type_custom_index_0_blockType_div_class_modal_footer__WEBPACK_IMPORTED_MODULE_3___default()(component)
 
 /* hot reload */
 if (false) { var api; }
@@ -42449,16 +42431,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cuotas_vue_vue_type_template_id_7bdcf300___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cuotas_vue_vue_type_template_id_7bdcf300___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Cuotas.vue?vue&type=template&id=7bdcf300& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Cuotas.vue?vue&type=template&id=7bdcf300&");
-
-
-/***/ }),
-
-/***/ "./resources/js/components/Usuarios/CrearEditarUsuario.vue?vue&type=custom&index=0&blockType=div&class=modal-footer":
-/*!**************************************************************************************************************************!*\
-  !*** ./resources/js/components/Usuarios/CrearEditarUsuario.vue?vue&type=custom&index=0&blockType=div&class=modal-footer ***!
-  \**************************************************************************************************************************/
-/***/ (() => {
-
 
 
 /***/ }),
@@ -43788,7 +43760,7 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      _vm.editar = false
+                      ;(_vm.editar = false), _vm.resetData()
                     }
                   }
                 },
@@ -43876,7 +43848,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "date", id: "email" },
+                      attrs: { type: "text", id: "email" },
                       domProps: { value: _vm.formUsuario.email },
                       on: {
                         input: function($event) {
@@ -43908,7 +43880,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "date", id: "celular" },
+                      attrs: { type: "number", id: "celular" },
                       domProps: { value: _vm.formUsuario.celular },
                       on: {
                         input: function($event) {
@@ -44095,9 +44067,9 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-4" }, [
-                    _c("label", { attrs: { for: "id_sede" } }, [
-                      _vm._v("Sede")
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "password" } }, [
+                      _vm._v("Contraseña")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -44105,13 +44077,13 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.formUsuario.id_sede,
-                          expression: "formUsuario.id_sede"
+                          value: _vm.formUsuario.password,
+                          expression: "formUsuario.password"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "id_sede", id: "id_sede" },
-                      domProps: { value: _vm.formUsuario.id_sede },
+                      attrs: { type: "password", id: "password" },
+                      domProps: { value: _vm.formUsuario.password },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
@@ -44119,7 +44091,7 @@ var render = function() {
                           }
                           _vm.$set(
                             _vm.formUsuario,
-                            "id_sede",
+                            "password",
                             $event.target.value
                           )
                         }
@@ -44128,37 +44100,37 @@ var render = function() {
                   ])
                 ])
               ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "modal-footer" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-secondary",
-                attrs: { type: "button", "data-dismiss": "modal" },
-                on: {
-                  click: function($event) {
-                    _vm.editar = false
-                  }
-                }
-              },
-              [_vm._v("\n            Close\n          ")]
-            ),
+            ]),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                attrs: { type: "button" },
-                on: {
-                  click: function($event) {
-                    _vm.editar ? _vm.editarUsuario() : _vm.crearUsuario()
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button", "data-dismiss": "modal" },
+                  on: {
+                    click: function($event) {
+                      ;(_vm.editar = false), _vm.resetData()
+                    }
                   }
-                }
-              },
-              [_vm._v("\n            Guardar\n          ")]
-            )
+                },
+                [_vm._v("\n            Cerrar\n          ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary rounded",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      _vm.editar ? _vm.editarUsuario() : _vm.crearUsuario()
+                    }
+                  }
+                },
+                [_vm._v("\n            Guardar\n          ")]
+              )
+            ])
           ])
         ])
       ]
@@ -44190,50 +44162,180 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    {},
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "page-content" }, [
-        _c("section", [
-          _c(
-            "table",
-            { staticClass: "table table-sm table-bordered table-responsive" },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.listaUsuarios.data, function(c) {
-                  return _c("tr", { key: c.id }, [
-                    _c("td", [_vm._v(_vm._s(c.id))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.nombre))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.email))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.documento))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.sede))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.rol))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(c.estado))]),
-                    _vm._v(" "),
-                    _vm._m(2, true),
-                    _vm._v(" "),
-                    _vm._m(3, true)
-                  ])
-                }),
-                0
-              )
-            ]
-          )
-        ])
+      _c(
+        "div",
+        {
+          staticClass:
+            "page-search d-flex justify-content-between p-4 border my-2"
+        },
+        [
+          _c("div", { staticClass: "form-group col-8 m-auto" }, [
+            _c("label", { attrs: { for: "buscar_usuario" } }, [
+              _vm._v("Buscar...")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.buscar_usuario,
+                  expression: "buscar_usuario"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                id: "buscar_usuario",
+                name: "buscar_usuario",
+                placeholder: "Nombres | Documento"
+              },
+              domProps: { value: _vm.buscar_usuario },
+              on: {
+                keypress: function($event) {
+                  return _vm.listarUsuarios(1)
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.buscar_usuario = $event.target.value
+                }
+              }
+            })
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "page-content mt-4" }, [
+        _c(
+          "section",
+          {},
+          [
+            _c(
+              "table",
+              { staticClass: "table table-sm table-bordered table-responsive" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.listaUsuarios.data, function(u) {
+                    return _c("tr", { key: u.id }, [
+                      _c("td", [_vm._v(_vm._s(u.id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(u.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(u.nombre))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(u.email))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(u.documento))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(u.celular))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(u.id_sede))]),
+                      _vm._v(" "),
+                      u.id_rol == 1
+                        ? _c("td", [_vm._v("Administrador")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      u.id_rol == 2 ? _c("td", [_vm._v("Operario")]) : _vm._e(),
+                      _vm._v(" "),
+                      u.estado == 1 ? _c("td", [_vm._v("Activo")]) : _vm._e(),
+                      _vm._v(" "),
+                      u.estado == 0 ? _c("td", [_vm._v("Inactivo")]) : _vm._e(),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        u.estado == 1
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-outline-primary",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.mostrarDatos(u)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "bi bi-pen" })]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        u.estado == 1
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-outline-danger",
+                                attrs: {
+                                  onclick:
+                                    "return confirm('¿Desea Desactivar?')"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.CambiarEstado(u.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "bi bi-trash" })]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        u.estado == 0
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-outline-success",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.CambiarEstado(u.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "bi bi-check2-circle" })]
+                            )
+                          : _vm._e()
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "pagination",
+              {
+                attrs: { align: "center", data: _vm.listaUsuarios, limit: 8 },
+                on: { "pagination-change-page": _vm.listarUsuarios }
+              },
+              [
+                _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
+                  _vm._v("< Previous")
+                ]),
+                _vm._v(" "),
+                _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
+                  _vm._v("Next >")
+                ])
+              ]
+            )
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
-      _c("crear-editar-usuario", { ref: "CrearEditarUsuario" })
+      _c("crear-editar-usuario", {
+        ref: "CrearEditarUsuario",
+        on: {
+          "listar-usuarios": function($event) {
+            return _vm.listarUsuarios(1)
+          }
+        }
+      })
     ],
     1
   )
@@ -44243,22 +44345,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-header" }, [
-      _c("h3", [_vm._v("Usuarios")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          attrs: {
-            type: "button",
-            "data-toggle": "modal",
-            "data-target": "#formUsuarioModal"
-          }
-        },
-        [_vm._v("\n      Crear Usuario\n    ")]
-      )
-    ])
+    return _c(
+      "div",
+      {
+        staticClass:
+          "page-header d-flex justify-content-between p-4 border my-2"
+      },
+      [
+        _c("h3", [_vm._v("Usuarios")]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            attrs: {
+              type: "button",
+              "data-toggle": "modal",
+              "data-target": "#formUsuarioModal"
+            }
+          },
+          [_vm._v("\n      Crear Usuario\n    ")]
+        )
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -44285,26 +44394,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", [_vm._v("Opciones")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("button", { staticClass: "btn btn-outline-primary" }, [
-        _c("i", { staticClass: "bi bi-eye" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("button", { staticClass: "btn btn-outline-primary" }, [
-        _c("i", { staticClass: "bi bi-pen" })
       ])
     ])
   }
