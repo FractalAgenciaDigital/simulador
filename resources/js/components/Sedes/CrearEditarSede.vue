@@ -130,7 +130,7 @@ export default {
       editar: false,
       formSede: {
         name: "",
-        email: "",
+        correo_contacto: "",
         password: "",
         nombre: "",
         celular: "",

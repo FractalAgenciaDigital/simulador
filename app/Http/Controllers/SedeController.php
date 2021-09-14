@@ -52,7 +52,6 @@ class SedeController extends Controller
         $sede->sede = $request['sede'];
         $sede->estado = $request['estado'];
         $sede->direccion = $request['direccion'];
-        $sede->email = $request['email'];
         $sede->nit = $request['nit'];
         $sede->correo_contacto = $request['correo_contacto'];
         $sede->representante = $request['representante'];
@@ -96,7 +95,6 @@ class SedeController extends Controller
         $sede->sede = $request['sede'];
         $sede->estado = $request['estado'];
         $sede->direccion = $request['direccion'];
-        $sede->email = $request['email'];
         $sede->nit = $request['nit'];
         $sede->correo_contacto = $request['correo_contacto'];
         $sede->representante = $request['representante'];

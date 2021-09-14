@@ -2779,7 +2779,7 @@ __webpack_require__.r(__webpack_exports__);
       editar: false,
       formSede: {
         name: "",
-        email: "",
+        correo_contacto: "",
         password: "",
         nombre: "",
         celular: "",
@@ -43341,7 +43341,7 @@ var render = function() {
                           {
                             staticClass: "btn",
                             class:
-                              c.activo == 1
+                              c.estado == 1
                                 ? "btn-outline-success"
                                 : "btn-outline-danger",
                             on: {
@@ -43351,13 +43351,13 @@ var render = function() {
                             }
                           },
                           [
-                            c.activo == 1
+                            c.estado == 1
                               ? _c("i", {
                                   staticClass: "bi bi-check-circle-fill"
                                 })
                               : _vm._e(),
                             _vm._v(" "),
-                            c.activo == 0
+                            c.estado == 0
                               ? _c("i", { staticClass: "bi bi-x-circle" })
                               : _vm._e()
                           ]
@@ -43516,7 +43516,7 @@ var render = function() {
                   staticClass: "modal-title",
                   attrs: { id: "formClienteModalLabel" }
                 },
-                [_vm._v("Modal title")]
+                [_vm._v("Clientes")]
               ),
               _vm._v(" "),
               _c(
@@ -44264,7 +44264,7 @@ var render = function() {
                   staticClass: "modal-title",
                   attrs: { id: "formCreditoModalLabel" }
                 },
-                [_vm._v("Modal title")]
+                [_vm._v("Creditos")]
               ),
               _vm._v(" "),
               _c(
@@ -45298,7 +45298,7 @@ var render = function() {
                   staticClass: "modal-title",
                   attrs: { id: "formUsuarioModalLabel" }
                 },
-                [_vm._v("Modal title")]
+                [_vm._v("Usuarios")]
               ),
               _vm._v(" "),
               _c(
