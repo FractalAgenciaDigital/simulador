@@ -5,7 +5,8 @@
       id="formUsuarioModal"
       tabindex="-1"
       aria-labelledby="formUsuarioModalLabel"
-      aria-hidden="true">
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -14,10 +15,10 @@
               type="button"
               class="close"
               data-dismiss="modal"
-              @click="editar=false"
+              @click="(editar = false), resetData()"
               aria-label="Close"
             >
-              <span aria-hidden="true" >&times;</span>
+              <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
@@ -44,7 +45,7 @@
                 <div class="form-group col-md-4">
                   <label for="email">Email</label>
                   <input
-                    type="date"
+                    type="text"
                     class="form-control"
                     id="email"
                     v-model="formUsuario.email"
@@ -53,7 +54,7 @@
                 <div class="form-group col-md-4">
                   <label for="celular">Celular</label>
                   <input
-                    type="date"
+                    type="number"
                     class="form-control"
                     id="celular"
                     v-model="formUsuario.celular"
@@ -65,7 +66,8 @@
                     name="tipo_documento"
                     id="tipo_documento"
                     class="custom-select"
-                    v-model="formUsuario.tipo_documento">
+                    v-model="formUsuario.tipo_documento"
+                  >
                     <option value="0" disabled>--Seleccionar--</option>
                     <option value="1">Cédula de ciudadanía</option>
                     <option value="2">Pasaporte</option>
@@ -104,104 +106,30 @@
                     <option value="2">Operario</option>
                   </select>
                 </div>
-                <div class="form-group col-4">
-                  <label for="id_sede">Sede</label>
+                <div class="form-group col-md-4">
+                  <label for="password">Contraseña</label>
                   <input
-                    type="id_sede"
+                    type="password"
                     class="form-control"
-                    id="id_sede"
-                    v-model="formUsuario.id_sede"
+                    id="password"
+                    v-model="formUsuario.password"
                   />
                 </div>
               </div>
             </form>
           </div>
-          </div>
           <div class="modal-footer">
             <button
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
-              @click="editar = false"
+              @click="(editar = false), resetData()"
             >
-              Close
+              Cerrar
             </button>
             <button
               type="button"
-              class="btn btn-primary"
-              @click="editar ? editarUsuario() : crearUsuario()"
-            >
-              Guardar
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      editar : false,
-      formUsuario: {
-        nombres: "",
-        apellidos: "",
-        tipo_documento: 0,
-        nro_documento: 0,
-        fecha_nacimiento: "",
-        email: "",
-        celular1: "",
-        celular2: "",
-        genero: "",
-        number: "",
-        estado_civil: "",
-        independiente: 0,
-        lugar_trabjo: "",
-        cargo: "",
-      },
-    };
-  },
-  // Function crearUsuarios
-  methods: {
-    crearUsuario() {
-      let me = this;
-      axios.post("api/usuarios", this.formUsuario).then(function () {
-        $("#formUsuarioModal").modal("hide");
-        me.formUsuario = {};
-      });
-    },
-    abirEditarUsuario(cliente) {
-      this.editar = true;
-      let me = this;
-      $("#formUsuarioModal").modal("show");
-      me.formUsuario = cliente;
-    },
-    editarUsuario() {
-      let me = this;
-      axios
-        .put("api/usuarios/" + this.formUsuario.id, this.formUsuario)
-        .then(function () {
-          $("#formUsuarioModal").modal("hide");
-          me.formUsuario = {};
-        });
-        this.editar = false;
-    },
-  },
-};
-</script></div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-              @click="editar = false"
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
+              class="btn btn-primary rounded"
               @click="editar ? editarUsuario() : crearUsuario()"
             >
               Guardar
@@ -217,22 +145,20 @@ export default {
 export default {
   data() {
     return {
-      editar : false,
+      editar: false,
       formUsuario: {
-        nombres: "",
-        apellidos: "",
-        tipo_documento: 0,
-        nro_documento: 0,
-        fecha_nacimiento: "",
+        name: "",
         email: "",
-        celular1: "",
-        celular2: "",
-        genero: "",
-        number: "",
-        estado_civil: "",
-        independiente: 0,
-        lugar_trabjo: "",
-        cargo: "",
+        password: "",
+        nombre: "",
+        celular: "",
+        direccion: "",
+        tipo_documento: 0,
+        documento: 0,
+        foto: "",
+        estado: "1",
+        id_rol: "",
+        id_sede: "",
       },
     };
   },
@@ -242,14 +168,15 @@ export default {
       let me = this;
       axios.post("api/usuarios", this.formUsuario).then(function () {
         $("#formUsuarioModal").modal("hide");
-        me.formUsuario = {};
+        me.resetData();
+        this.$emit("listar-usuarios");
       });
     },
-    abirEditarUsuario(cliente) {
+    abirEditarUsuario(usuario) {
       this.editar = true;
       let me = this;
       $("#formUsuarioModal").modal("show");
-      me.formUsuario = cliente;
+      me.formUsuario = usuario;
     },
     editarUsuario() {
       let me = this;
@@ -257,9 +184,17 @@ export default {
         .put("api/usuarios/" + this.formUsuario.id, this.formUsuario)
         .then(function () {
           $("#formUsuarioModal").modal("hide");
-          me.formUsuario = {};
+          me.resetData();
         });
-        this.editar = false;
+      this.$emit("listar-usuarios");
+
+      this.editar = false;
+    },
+    resetData() {
+      let me = this;
+      Object.keys(this.formUsuario).forEach(function (key, index) {
+        me.formUsuario[key] = "";
+      });
     },
   },
 };

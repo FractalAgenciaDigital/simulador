@@ -28,6 +28,8 @@ Route::get('/clientes/{cliente}/creditos', [ClienteController::class, 'creditos'
 
 
 Route::resource('/usuarios',  UsuarioController::class);
+Route::post('/usuarios/{usuario}/cambiar-estado',  [UsuarioController::class, 'cambiarEstado']);
+
 
 Route::resource('/creditos', CreditoController::class);
 Route::get('/creditos/{credito}/cuotas', [CreditoController::class, 'cuotas']);

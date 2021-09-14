@@ -12,9 +12,18 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Usuario::paginate(10);
+        $usuarios = Usuario::select();
+        if ($request->usuario && ($request->usuario != '')) {
+            $usuarios  =     $usuarios->where('documento', 'LIKE', "%$request->usuario%")
+                ->orWhere('name', 'LIKE', "%$request->usuario%")
+                ->orWhere('nombre', 'LIKE', "%$request->usuario%")
+                ->orWhere('email', 'LIKE', "%$request->usuario%");
+        }
+        $usuarios = $usuarios->paginate(20);
+
+        return $usuarios;
     }
 
     /**
@@ -22,9 +31,12 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
+        $usuario = Usuario::findOrFail($id);
+        Usuario::destroy($id);
+        return redirect('usuario')->with('mensaje', 'Usuario eliminado correctamente');
     }
 
     /**
@@ -35,7 +47,7 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
         $usuario = new Usuario();
         $usuario->name = $request['name'];
         $usuario->email = $request['email'];
@@ -99,8 +111,17 @@ class UsuarioController extends Controller
      * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Usuario $usuario)
+
+    public function destroy($id)
     {
         //
+    }
+
+    public function cambiarEstado(Usuario $usuario)
+    {
+        //
+        $u = Usuario::find($usuario->id);
+        $u->estado = !$u->estado;
+        $u->save();
     }
 }
