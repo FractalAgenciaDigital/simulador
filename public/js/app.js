@@ -2280,6 +2280,165 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Creditos.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Creditos.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      listaCreditos: {}
+    };
+  },
+  created: function created() {
+    this.listarCreditos(1);
+  },
+  methods: {
+    listarCreditos: function listarCreditos() {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var me = this;
+      axios.get("api/creditos?page=".concat(page)).then(function (response) {
+        me.listaCreditos = response.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Cuotas.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Cuotas.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["credito_id"],
+  data: function data() {
+    return {
+      listadoCuotas: []
+    };
+  },
+  created: function created() {
+    this.listarCuotasCredito();
+  },
+  methods: {
+    listarCuotasCredito: function listarCuotasCredito() {
+      var me = this;
+      axios.get("api/creditos/".concat(this.credito_id, "/cuotas")).then(function (response) {
+        me.listadoCuotas = response.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sedes/CrearEditarSede.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sedes/CrearEditarSede.vue?vue&type=script&lang=js& ***!
@@ -3048,10 +3207,10 @@ var routes = [{
   component: __webpack_require__(/*! ./components/Usuarios/Usuarios.vue */ "./resources/js/components/Usuarios/Usuarios.vue").default
 }, {
   path: '/creditos',
-  component: Object(function webpackMissingModule() { var e = new Error("Cannot find module './components/Creditos/Creditos.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()).default
+  component: __webpack_require__(/*! ./components/Creditos/Creditos.vue */ "./resources/js/components/Creditos/Creditos.vue").default
 }, {
   path: '/creditos/:credito_id/cuotas',
-  component: Object(function webpackMissingModule() { var e = new Error("Cannot find module './components/Creditos/Cuotas.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()).default,
+  component: __webpack_require__(/*! ./components/Creditos/Cuotas.vue */ "./resources/js/components/Creditos/Cuotas.vue").default,
   props: true,
   name: 'cuotas'
 }, {
@@ -42304,6 +42463,84 @@ component.options.__file = "resources/js/components/Clientes/CrearEditarCliente.
 
 /***/ }),
 
+/***/ "./resources/js/components/Creditos/Creditos.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/Creditos/Creditos.vue ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Creditos_vue_vue_type_template_id_4d292394___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Creditos.vue?vue&type=template&id=4d292394& */ "./resources/js/components/Creditos/Creditos.vue?vue&type=template&id=4d292394&");
+/* harmony import */ var _Creditos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Creditos.vue?vue&type=script&lang=js& */ "./resources/js/components/Creditos/Creditos.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Creditos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Creditos_vue_vue_type_template_id_4d292394___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Creditos_vue_vue_type_template_id_4d292394___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Creditos/Creditos.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Creditos/Cuotas.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/Creditos/Cuotas.vue ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Cuotas_vue_vue_type_template_id_7bdcf300___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Cuotas.vue?vue&type=template&id=7bdcf300& */ "./resources/js/components/Creditos/Cuotas.vue?vue&type=template&id=7bdcf300&");
+/* harmony import */ var _Cuotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Cuotas.vue?vue&type=script&lang=js& */ "./resources/js/components/Creditos/Cuotas.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Cuotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Cuotas_vue_vue_type_template_id_7bdcf300___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Cuotas_vue_vue_type_template_id_7bdcf300___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Creditos/Cuotas.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Sedes/CrearEditarSede.vue":
 /*!***********************************************************!*\
   !*** ./resources/js/components/Sedes/CrearEditarSede.vue ***!
@@ -42492,6 +42729,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Creditos/Creditos.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/Creditos/Creditos.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Creditos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Creditos.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Creditos.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Creditos_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Creditos/Cuotas.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/Creditos/Cuotas.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Cuotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Cuotas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Cuotas.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Cuotas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Sedes/CrearEditarSede.vue?vue&type=script&lang=js&":
 /*!************************************************************************************!*\
   !*** ./resources/js/components/Sedes/CrearEditarSede.vue?vue&type=script&lang=js& ***!
@@ -42586,6 +42855,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CrearEditarCliente_vue_vue_type_template_id_7f851ada___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CrearEditarCliente_vue_vue_type_template_id_7f851ada___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CrearEditarCliente.vue?vue&type=template&id=7f851ada& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Clientes/CrearEditarCliente.vue?vue&type=template&id=7f851ada&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Creditos/Creditos.vue?vue&type=template&id=4d292394&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/Creditos/Creditos.vue?vue&type=template&id=4d292394& ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Creditos_vue_vue_type_template_id_4d292394___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Creditos_vue_vue_type_template_id_4d292394___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Creditos_vue_vue_type_template_id_4d292394___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Creditos.vue?vue&type=template&id=4d292394& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Creditos.vue?vue&type=template&id=4d292394&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Creditos/Cuotas.vue?vue&type=template&id=7bdcf300&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/Creditos/Cuotas.vue?vue&type=template&id=7bdcf300& ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cuotas_vue_vue_type_template_id_7bdcf300___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cuotas_vue_vue_type_template_id_7bdcf300___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cuotas_vue_vue_type_template_id_7bdcf300___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Cuotas.vue?vue&type=template&id=7bdcf300& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Cuotas.vue?vue&type=template&id=7bdcf300&");
 
 
 /***/ }),
@@ -42768,7 +43071,7 @@ var render = function() {
                           {
                             staticClass: "btn",
                             class:
-                              c.activo == 1
+                              c.estado == 1
                                 ? "btn-outline-success"
                                 : "btn-outline-danger",
                             on: {
@@ -42778,13 +43081,13 @@ var render = function() {
                             }
                           },
                           [
-                            c.activo == 1
+                            c.estado == 1
                               ? _c("i", {
                                   staticClass: "bi bi-check-circle-fill"
                                 })
                               : _vm._e(),
                             _vm._v(" "),
-                            c.activo == 0
+                            c.estado == 0
                               ? _c("i", { staticClass: "bi bi-x-circle" })
                               : _vm._e()
                           ]
@@ -42943,7 +43246,7 @@ var render = function() {
                   staticClass: "modal-title",
                   attrs: { id: "formClienteModalLabel" }
                 },
-                [_vm._v("Modal title")]
+                [_vm._v("Clientes")]
               ),
               _vm._v(" "),
               _c(
@@ -43653,6 +43956,244 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Creditos.vue?vue&type=template&id=4d292394&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Creditos.vue?vue&type=template&id=4d292394& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "page-content mt-4" }, [
+      _c("section", [
+        _c(
+          "table",
+          { staticClass: "table table-sm table-responsive-sm table-bordered" },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.listaCreditos.data, function(c) {
+                return _c("tr", { key: c.id }, [
+                  _c("td", [_vm._v(_vm._s(c.id))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(c.id_cliente))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(c.valor_credito))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(c.valor_abonado))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(c.cant_cuotas))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(c.dia_limite))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v(_vm._s(c.estado == 1 ? "Activo" : "Inactivo"))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "td",
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-outline-primary",
+                          attrs: {
+                            to: { name: "cuotas", params: { credito_id: c.id } }
+                          }
+                        },
+                        [_c("i", { staticClass: "bi bi-eye" })]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm._m(2, true)
+                ])
+              }),
+              0
+            )
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "page-header d-flex justify-content-between p-4 border my-2"
+      },
+      [
+        _c("h3", [_vm._v("Creditos")]),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "button" } },
+          [_vm._v("Crear Credito")]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cliente")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Valor crédito")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Valor Abonado")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nro Cuotas")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("día limite")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Cuotas")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Editar")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-outline-primary" }, [
+        _c("i", { staticClass: "bi bi-pen" })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Cuotas.vue?vue&type=template&id=7bdcf300&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Cuotas.vue?vue&type=template&id=7bdcf300& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "page-header" }),
+    _vm._v(" "),
+    _c("div", { staticClass: "page-content" }, [
+      _c("section", [
+        _c("table", { staticClass: "table" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.listadoCuotas, function(c, index) {
+              return _c("tr", { key: c.id }, [
+                _c("th", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(index + 1))
+                ]),
+                _vm._v(" "),
+                _c("th", [_vm._v(_vm._s(c.fecha_pago))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(c.nro_cuota))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(c.valor))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(c.valor_pago_capital))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(c.valor_pago_interes))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(c.valor_interes_mora))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(c.dias_mora))]),
+                _vm._v(" "),
+                _vm._m(1, true)
+              ])
+            }),
+            0
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Fecha de vencimiento")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nro. Cuota")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Valor")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Capital")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Interés")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mora")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Dias de mora")]),
+        _vm._v(" "),
+        _c("th")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Pagar")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sedes/CrearEditarSede.vue?vue&type=template&id=55ea2eea&":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Sedes/CrearEditarSede.vue?vue&type=template&id=55ea2eea& ***!
@@ -44231,7 +44772,7 @@ var render = function() {
                   staticClass: "modal-title",
                   attrs: { id: "formUsuarioModalLabel" }
                 },
-                [_vm._v("Modal title")]
+                [_vm._v("Usuarios")]
               ),
               _vm._v(" "),
               _c(

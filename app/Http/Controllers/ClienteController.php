@@ -18,6 +18,7 @@ class ClienteController extends Controller
 		if ($request->cliente && ($request->cliente != '')) {
 			$clientes  = 	$clientes->where('nro_documento', 'LIKE', "%$request->cliente%")
 				->orWhere('nombres', 'LIKE', "%$request->cliente%")
+				->orWhere('email', 'LIKE', "%$request->cliente%")
 				->orWhere('apellidos', 'LIKE', "%$request->cliente%");
 		}
 		$clientes = $clientes->paginate(20);
@@ -132,8 +133,8 @@ class ClienteController extends Controller
 	{
 		//
 		$c = Cliente::find($cliente->id);
-		// $cliente->activo = '0';
-		$c->activo = !$c->activo;
+		// $cliente->estado = '0';
+		$c->estado = !$c->estado;
 		$c->save();
 	}
 
