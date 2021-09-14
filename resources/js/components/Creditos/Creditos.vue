@@ -23,7 +23,8 @@
           <tbody>
             <tr v-for="c in listaCreditos.data" :key="c.id">
               <td>{{ c.id }}</td>
-              <td>{{ c.cliente.nombres }} {{ c.cliente.apellidos }}</td>
+              <td>{{ c.id_cliente }}</td>
+              <!-- <td>{{ c.cliente.nombres }} {{ c.cliente.apellidos }}</td> -->
               <td>{{ c.valor_credito }}</td>
               <td>{{ c.valor_abonado }}</td>
               <td>{{ c.cant_cuotas }}</td>
