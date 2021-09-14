@@ -21,7 +21,7 @@ class UsuarioController extends Controller
                 ->orWhere('nombre', 'LIKE', "%$request->usuario%")
                 ->orWhere('email', 'LIKE', "%$request->usuario%");
         }
-        $usuarios = $usuarios->paginate(20);
+        $usuarios = $usuarios->paginate(5);
 
         return $usuarios;
     }
