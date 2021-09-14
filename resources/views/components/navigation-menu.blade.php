@@ -20,6 +20,9 @@
                 <li class="nav-item">
                     <router-link class="nav-link" to="/creditos"> Creditos </router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/sedes"> Sedes </router-link>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

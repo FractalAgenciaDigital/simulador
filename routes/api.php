@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CreditoController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\SedeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,10 @@ Route::get('/clientes/{cliente}/creditos', [ClienteController::class, 'creditos'
 
 Route::resource('/usuarios',  UsuarioController::class);
 Route::post('/usuarios/{usuario}/cambiar-estado',  [UsuarioController::class, 'cambiarEstado']);
+
+
+Route::resource('/sedes',  SedeController::class);
+Route::post('/sedes/{sede}/cambiar-estado',  [SedeController::class, 'cambiarEstado']);
 
 
 Route::resource('/creditos', CreditoController::class);
