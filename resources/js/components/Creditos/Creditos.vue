@@ -147,6 +147,20 @@ export default {
         }
       });
     },
+    mostrarDatos: function (credito) {
+      this.$refs.CrearEditarCredito.abirEditarCredito(credito);
+    },
+    search() {
+      axios.post("api/creditos/buscar?q=");
+    },
+    CambiarEstado: function (id) {
+      let me = this;
+      axios
+        .post("api/creditos/" + id + "/cambiar-estado", null, me.$root.config)
+        .then(function () {
+          me.listarCreditos(1);
+        });
+    },
   },
 };
 </script>

@@ -23,12 +23,11 @@ class SedeFactory extends Factory
     {
         return [
             'sede' => $this->faker->name(),
-            'estado' => $this->faker->boolean(),
             'direccion' => $this->faker->address(),
             'nit' => $this->faker->ean13(),
             'correo_contacto' => $this->faker->email(),
             'representante' => $this->faker->lastName(),
-            'telefono_contacto' => $this->faker->phoneNumber()
+            'celular_contacto' => $this->faker->phoneNumber()
         ];
     }
 }

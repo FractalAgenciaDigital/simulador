@@ -1,0 +1,118 @@
+<body>
+    <h2>Calculadora de tabla de amortización</h2>
+    <form name="datos" method="post" action="prestamo.php" onsubmit="return ValidaDatos()"><br>Sistema de
+        amortización:<select name="sistema" size="1" id="sistema">
+            <option value="1">Sistema francés: Cuota fija, amortización creciente, interés decreciente</option>
+            <option value="5">Sistema alemán: Cuota decreciente, Amortización fija, interés sobre saldo</option>
+            <option value="3">Sistema americano: Pago periódico y devolución de capital al final</option>
+            <option value="2">Sistema simple: Cuota, amortización e interés fijo</option>
+            <option value="4">Sistema compuesto: Interés sobre interés</option>
+        </select><br><br>Fecha del desembolso (d/m/a): <select name="dia" id="dia">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+        </select><select name="mes" id="mes">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select><select name="anio" id="anio">
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021" selected="">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+        </select><br><br>Importe del préstamo: <input type="text" name="monto" value="0" maxlength="8"><br><br>Periodo:
+        <select name="periodo" id="periodo" onchange="CambiaRotulos()">
+            <option value="diario">diario</option>
+            <option value="semanal">semanal</option>
+            <option value="quincenal">quincenal</option>
+            <option value="mensual">mensual</option>
+            <option value="anual">anual</option>
+        </select><br><br>Interés <label id="lblPeriodo">diario</label>: <input type="text" name="interes" value="0"
+            maxlength="6"><br><br>Plazo: <input type="text" name="plazo" value="0" maxlength="4"> <label
+            id="lblPlazo">días</label><br><br><input type="submit" name="calcular" value="Calcular">
+    </form>
+    <script>
+        function ValidaDatos() {
+            //valida fecha
+            mes = document.getElementById("mes").value;
+            dia = document.getElementById("dia").value;
+            if ((dia > 28 && mes == 2) || (dia > 30 && (mes == 4 || mes == 6 || mes == 9 || mes == 11))) {
+                alert("La fecha es incorrecta.");
+                document.getElementById("dia").focus();
+                return false;
+            }
+            valor = document.getElementById("monto").value;
+            if (valor == null || valor.length == 0 || valor <= 0 || isNaN(valor)) {
+                alert("Registre un monto mayor a 0 para el importe del prestamo.");
+                document.getElementById("monto").focus();
+                return false;
+            }
+            valor = document.getElementById("plazo").value;
+            if (valor == null || valor.length == 0 || valor <= 0 || isNaN(valor)) {
+                alert("Registre un monto mayor a 0 para el plazo.");
+                document.getElementById("plazo").focus();
+                return false;
+            }
+        }
+
+        function CambiaRotulos() {
+            var x = document.getElementById("periodo").value;
+            document.getElementById("lblPeriodo").innerHTML = x;
+
+            if (x == 'diario')
+                document.getElementById("lblPlazo").innerHTML = 'd&iacute;as';
+            else if (x == 'semanal')
+                document.getElementById("lblPlazo").innerHTML = 'semanas';
+            else if (x == 'quincenal')
+                document.getElementById("lblPlazo").innerHTML = 'quincenas';
+            else if (x == 'mensual')
+                document.getElementById("lblPlazo").innerHTML = 'meses';
+            else
+                document.getElementById("lblPlazo").innerHTML = 'a&ntilde;os';
+        }
+    </script>
+</body>
