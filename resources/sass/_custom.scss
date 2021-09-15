@@ -1,0 +1,15 @@
+html {
+    font-size: $font-size-base;
+}
+
+body {
+    font-family: $font-family-sans-serif;
+}
+
+@media (min-width:1024px) {
+
+    .container {
+        max-width: 95%;
+    }
+
+}
