@@ -101,6 +101,7 @@ export default {
   components: { CrearEditarUsuario },
   data() {
     return {
+      buscar_usuario: "",
       listaUsuarios: {},
     };
   },
@@ -110,9 +111,11 @@ export default {
   methods: {
     listarUsuarios(page = 1) {
       let me = this;
-      axios.get("api/usuarios?page=" + page).then(function (response) {
-        me.listaUsuarios = response.data;
-      });
+      axios
+        .get(`api/usuarios?page=${page}&usuario=${this.buscar_usuario}`)
+        .then(function (response) {
+          me.listaUsuarios = response.data;
+        });
     },
     mostrarDatos: function (ususario) {
       this.$refs.CrearEditarUsuario.abirEditarUsuario(ususario);

@@ -127,11 +127,11 @@
               data-dismiss="modal"
               @click="(editar = false), resetData()"
             >
-              Close
+              Cerrar
             </button>
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-primary rounded"
               @click="editar ? editarUsuario() : crearUsuario()"
             >
               Guardar
@@ -149,20 +149,18 @@ export default {
     return {
       editar: false,
       formUsuario: {
-        nombres: "",
-        apellidos: "",
-        tipo_documento: 0,
-        nro_documento: 0,
-        fecha_nacimiento: "",
+        name: "",
         email: "",
-        celular1: "",
-        celular2: "",
-        genero: "",
-        number: "",
-        estado_civil: "",
-        independiente: 0,
-        lugar_trabjo: "",
-        cargo: "",
+        password: "",
+        nombre: "",
+        celular: "",
+        direccion: "",
+        tipo_documento: 0,
+        documento: 0,
+        foto: "",
+        estado: "1",
+        id_rol: "",
+        id_sede: "",
       },
     };
   },

@@ -18,6 +18,7 @@ class ClienteController extends Controller
 		if ($request->cliente && ($request->cliente != '')) {
 			$clientes  = 	$clientes->where('nro_documento', 'LIKE', "%$request->cliente%")
 				->orWhere('nombres', 'LIKE', "%$request->cliente%")
+				->orWhere('email', 'LIKE', "%$request->cliente%")
 				->orWhere('apellidos', 'LIKE', "%$request->cliente%");
 		}
 		$clientes = $clientes->paginate(20);

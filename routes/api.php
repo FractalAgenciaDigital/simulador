@@ -31,6 +31,7 @@ Route::get('/clientes/{cliente}/creditos', [ClienteController::class, 'creditos'
 Route::resource('/usuarios',  UserController::class);
 Route::post('/usuarios/{usuario}/cambiar-estado',  [UserController::class, 'cambiarEstado']);
 
+Route::resource('/sedes',  SedeController::class);
 Route::post('/sedes/{sede}/cambiar-estado',  [SedeController::class, 'cambiarEstado']);
 
 Route::resource('/creditos', CreditoController::class);

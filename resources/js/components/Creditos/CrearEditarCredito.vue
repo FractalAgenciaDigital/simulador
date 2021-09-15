@@ -10,14 +10,12 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="formCreditoModalLabel">
-              Gestionar Credito
-            </h5>
+            <h5 class="modal-title" id="formCreditoModalLabel">Creditos</h5>
             <button
               type="button"
               class="close"
               data-dismiss="modal"
-              @click="editar = false"
+              @click="(editar = false), resetData()"
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
@@ -26,28 +24,15 @@
           <div class="modal-body">
             <form>
               <div class="form-row">
-                <div class="search-box">
-                  <label for="id_cliente">Cliente:</label>
+                <div class="form-group col-md-4">
+                  <label for="name">Credito</label>
                   <input
                     type="text"
                     class="form-control"
-                    name=""
-                    id=""
-                    placeholder="Buscar Cliente"
+                    id="name"
+                    v-model="formCredito.name"
                   />
                 </div>
-
-                <!-- <div class="form-group col-md-4">
-                    <label for="id_cliente">Cliente</label>
-                    <select v-model="credito.nombres">
-                      <option
-                        v-for="cliente in clientes.data"
-                        :key="cliente.id"
-                      >
-                        {{ cliente.nombres }} {{ cliente.apellidos }}
-                      </option>
-                    </select>
-                  </div> -->
               </div>
             </form>
           </div>
@@ -56,13 +41,13 @@
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
-              @click="editar = false"
+              @click="(editar = false), resetData()"
             >
-              Close
+              Cerrar
             </button>
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-primary rounded"
               @click="editar ? editarCredito() : crearCredito()"
             >
               Guardar
@@ -108,7 +93,8 @@ export default {
       let me = this;
       axios.post("api/creditos", this.formCredito).then(function () {
         $("#formCreditoModal").modal("hide");
-        me.formCredito = {};
+        me.resetData();
+        this.$emit("listar-creditos");
       });
     },
     abirEditarCredito(credito) {
@@ -123,9 +109,17 @@ export default {
         .put("api/creditos/" + this.formCredito.id, this.formCredito)
         .then(function () {
           $("#formCreditoModal").modal("hide");
-          me.formCredito = {};
+          me.resetData();
         });
+      this.$emit("listar-creditos");
+
       this.editar = false;
+    },
+    resetData() {
+      let me = this;
+      Object.keys(this.formCredito).forEach(function (key, index) {
+        me.formCredito[key] = "";
+      });
     },
   },
 };
