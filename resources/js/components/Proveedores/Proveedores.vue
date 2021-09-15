@@ -41,30 +41,11 @@
               <td>{{ p.email }}</td>
               <td>{{ p.direccion }}</td>
               <td class="text-center">
-                <button class="btn btn-outline-primary">
-                  <i class="bi bi-eye"></i>
-                </button>
-              </td>
-              <td class="text-center">
-                <button
-                  class="btn btn-outline-primary"
-                  @click="mostrarDatos(p)"
-                >
+                <button class="btn btn-outline-primary" @click="mostrarDatos(p)">
                   <i class="bi bi-pen"></i>
                 </button>
-                <button
-                  v-if="p.activo == 1"
-                  class="btn btn-outline-danger"
-                  @click="CambiarEstado(p.id)"
-                >
+                <button class="btn btn-outline-danger">
                   <i class="bi bi-trash"></i>
-                </button>
-                <button
-                  v-if="p.activo == 0"
-                  class="btn btn-outline-success"
-                  @click="CambiarEstado(p.id)"
-                >
-                  <i class="bi bi-check2-circle"></i>
                 </button>
               </td>
             </tr>
@@ -111,33 +92,9 @@ export default {
     },
     showAlert() {
 
-      this.$swal("Hello Vue world!!!");
+      this.$swal("Proveedores");
     },
-    CambiarEstado: function (id) {
-      let me = this;
 
-      Swal.fire({
-        title: "¿Quieres cambiar el estado del proveedor?",
-        showDenyButton: true,
-        denyButtonText: `Cancelar`,
-        confirmButtonText: `Guardar`,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .post(
-              "api/proveedores/" + id + "/cambiar-estado",
-              null,
-              me.$root.config
-            )
-            .then(function () {
-              me.listarProveedores(1);
-            });
-          Swal.fire("Cambios realizados!", "", "success");
-        } else if (result.isDenied) {
-          Swal.fire("Operación no realizada", "", "info");
-        }
-      });
-    },
   },
 };
 </script>

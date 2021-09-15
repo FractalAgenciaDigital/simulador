@@ -2785,25 +2785,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2829,25 +2810,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.CrearEditarProveedor.abirEditarProveedor(proveedor);
     },
     showAlert: function showAlert() {
-      this.$swal("Hello Vue world!!!");
-    },
-    CambiarEstado: function CambiarEstado(id) {
-      var me = this;
-      Swal.fire({
-        title: "¿Quieres cambiar el estado del proveedor?",
-        showDenyButton: true,
-        denyButtonText: "Cancelar",
-        confirmButtonText: "Guardar"
-      }).then(function (result) {
-        if (result.isConfirmed) {
-          axios.post("api/proveedores/" + id + "/cambiar-estado", null, me.$root.config).then(function () {
-            me.listarProveedores(1);
-          });
-          Swal.fire("Cambios realizados!", "", "success");
-        } else if (result.isDenied) {
-          Swal.fire("Operación no realizada", "", "info");
-        }
-      });
+      this.$swal("Proveedores");
     }
   }
 });
@@ -44792,8 +44755,6 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(p.direccion))]),
                       _vm._v(" "),
-                      _vm._m(2, true),
-                      _vm._v(" "),
                       _c("td", { staticClass: "text-center" }, [
                         _c(
                           "button",
@@ -44808,35 +44769,7 @@ var render = function() {
                           [_c("i", { staticClass: "bi bi-pen" })]
                         ),
                         _vm._v(" "),
-                        p.activo == 1
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-outline-danger",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.CambiarEstado(p.id)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "bi bi-trash" })]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        p.activo == 0
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-outline-success",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.CambiarEstado(p.id)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "bi bi-check2-circle" })]
-                            )
-                          : _vm._e()
+                        _vm._m(2, true)
                       ])
                     ])
                   }),
@@ -44936,10 +44869,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-center" }, [
-      _c("button", { staticClass: "btn btn-outline-primary" }, [
-        _c("i", { staticClass: "bi bi-eye" })
-      ])
+    return _c("button", { staticClass: "btn btn-outline-danger" }, [
+      _c("i", { staticClass: "bi bi-trash" })
     ])
   }
 ]
