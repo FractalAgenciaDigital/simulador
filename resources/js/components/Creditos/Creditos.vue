@@ -79,7 +79,7 @@ export default {
     CambiarEstado: function (id) {
       let me = this;
       axios
-        .post("api/creditos/" + id + "/camEstado", null, me.$root.config)
+        .post("api/creditos/" + id + "/cambiar-estado", null, me.$root.config)
         .then(function () {
           me.listarCreditos(1);
         });

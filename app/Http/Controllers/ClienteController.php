@@ -95,9 +95,9 @@ class ClienteController extends Controller
 	 * @param  \App\Models\Cliente  $cliente
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, Cliente $cliente)
+	public function update(Request $request, $id)
 	{
-		$cliente = Cliente::find($request->id);
+		$cliente = Cliente::find($id);
 		$cliente->nombres = $request['nombres'];
 		$cliente->apellidos = $request['apellidos'];
 		$cliente->tipo_documento = $request['tipo_documento'];
@@ -112,12 +112,12 @@ class ClienteController extends Controller
 		$cliente->lugar_trabajo = $request['lugar_trabajo'];
 		$cliente->cargo = $request['cargo'];
 		$cliente->independiente = $request['independiente'];
-		$cliente->foto = 'undefindef';
+		$cliente->foto = 'undefined';
 		$cliente->save();
 	}
 
 
-	public function camEstado(Cliente $cliente)
+	public function cambiarEstado(Cliente $cliente)
 	{
 		//
 		$client = Cliente::find($cliente->id);
@@ -135,15 +135,6 @@ class ClienteController extends Controller
 	public function destroy($id)
 	{
 		//
-	}
-
-	public function cambiarEstado(Cliente $cliente)
-	{
-		//
-		$c = Cliente::find($cliente->id);
-		// $cliente->activo = '0';
-		$c->activo = !$c->activo;
-		$c->save();
 	}
 
 	public function creditos(Request $request, $id)

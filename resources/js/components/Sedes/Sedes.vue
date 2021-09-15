@@ -284,7 +284,7 @@ export default {
     },
     CambiarEstado: function (id) {
       let me = this;
-      axios.post("api/sedes/" + id + "/camEstado").then(function () {
+      axios.post("api/sedes/" + id + "/cambiar-estado").then(function () {
         me.list(1);
       });
     },

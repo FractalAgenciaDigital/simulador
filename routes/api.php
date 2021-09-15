@@ -28,14 +28,11 @@ Route::resource('/clientes',  ClienteController::class);
 Route::post('/clientes/{cliente}/cambiar-estado',  [ClienteController::class, 'cambiarEstado']);
 Route::get('/clientes/{cliente}/creditos', [ClienteController::class, 'creditos']);
 
-Route::resource('/usuarios',  UsuarioController::class);
-Route::post('/usuarios/{usuario}/camEstado',  [UsuarioController::class, 'camEstado']);
+Route::resource('/usuarios',  UserController::class);
+Route::post('/usuarios/{usuario}/cambiar-estado',  [UserController::class, 'cambiarEstado']);
 
-Route::post('/sedes/{sede}/camEstado',  [SedeController::class, 'camEstado']);
-
-Route::resource('/users',  UserController::class);
-Route::post('/users/{user}/camEstado',  [UserController::class, 'camEstado']);
+Route::post('/sedes/{sede}/cambiar-estado',  [SedeController::class, 'cambiarEstado']);
 
 Route::resource('/creditos', CreditoController::class);
 Route::get('/creditos/{credito}/cuotas', [CreditoController::class, 'cuotas']);
-Route::post('/creditos/{credito}/camEstado',  [CreditoController::class, 'camEstado']);
+Route::post('/creditos/{credito}/cambiar-estado',  [CreditoController::class, 'cambiarEstado']);
