@@ -17,7 +17,7 @@
               type="button"
               class="close"
               data-dismiss="modal"
-              @click="editar = false"
+              @click="(editar = false), resetData()"
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
@@ -125,7 +125,7 @@
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
-              @click="editar = false"
+              @click="(editar = false), resetData()"
             >
               Close
             </button>
@@ -172,7 +172,7 @@ export default {
       let me = this;
       axios.post("api/usuarios", this.formUsuario).then(function () {
         $("#formUsuarioModal").modal("hide");
-        me.formUsuario = {};
+        me.$emit("listar-usuarios");
       });
     },
     abirEditarUsuario(usuario) {
@@ -187,9 +187,15 @@ export default {
         .put("api/usuarios/" + this.formUsuario.id, this.formUsuario)
         .then(function () {
           $("#formUsuarioModal").modal("hide");
-          me.formUsuario = {};
+          me.$emit("listar-usuarios");
         });
       this.editar = false;
+    },
+    resetData() {
+      let me = this;
+      Object.keys(this.formUsuario).forEach(function (key, index) {
+        me.formUsuario[key] = "";
+      });
     },
   },
 };

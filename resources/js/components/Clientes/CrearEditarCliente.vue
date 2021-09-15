@@ -256,7 +256,6 @@ export default {
       let me = this;
       axios.post("api/clientes", this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
-        me.resetData();
         this.$emit("listar-clientes");
       });
     },
@@ -272,10 +271,8 @@ export default {
         .put("api/clientes/" + this.formCliente.id, this.formCliente)
         .then(function () {
           $("#formClienteModal").modal("hide");
-          me.resetData();
         });
       this.$emit("listar-clientes");
-
       this.editar = false;
     },
     resetData() {
