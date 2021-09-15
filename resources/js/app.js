@@ -9,6 +9,7 @@ require('./bootstrap');
 // window.Vue = require('vue').default;
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Swal from 'sweetalert2'
 
 /**
  * The following block of code may be used to automatically register your
@@ -29,6 +30,9 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 
 
 Vue.use(VueRouter)
+// Vue.use(Swal);
+window.Swal = Swal
+
 
 const routes = [
     // { path: '', component: require('./components/Clientes/Clientes.vue').default },
@@ -36,8 +40,7 @@ const routes = [
     { path: '/usuarios', component: require('./components/Usuarios/Usuarios.vue').default },
     { path: '/creditos', component: require('./components/Creditos/Creditos.vue').default },
     { path: '/sedes', component: require('./components/Sedes/Sedes.vue').default },
-    { path: '/users', component: require('./components/Users/Users.vue').default },
-    
+    { path: '/creditos/:credito_id/cuotas', component: require('./components/Creditos/Cuotas.vue').default, props: true, name: 'cuotas' },
 ]
 
 const router = new VueRouter({

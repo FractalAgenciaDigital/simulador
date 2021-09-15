@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="page-header">
+    <div class="page-header d-flex justify-content-between p-4 border my-2">
       <h3>Usuarios</h3>
       <button
         type="button"
@@ -26,8 +26,8 @@
           <thead>
             <tr>
               <th>id</th>
-              <th>Usuario</th>
               <th>Nombre</th>
+              <th>Apellidos</th>
               <th>Correo</th>
               <th>Documento</th>
               <th>Celular</th>
@@ -40,14 +40,14 @@
           <tbody>
             <tr v-for="usuario in listaUsuarios.data" :key="usuario.id">
               <td>{{ usuario.id }}</td>
-              <td>{{ usuario.name }}</td>
-              <td>{{ usuario.nombre }}</td>
+              <td>{{ usuario.nombres }}</td>
+              <td>{{ usuario.apellidos }}</td>
               <td>{{ usuario.email }}</td>
               <td>{{ usuario.documento }}</td>
               <td>{{ usuario.celular }}</td>
               <td>{{ usuario.id_sede }}</td>
-              <td v-if="usuario.id_rol == 1">Administrador</td>
-              <td v-if="usuario.id_rol == 2">Operario</td>
+              <td v-if="usuario.rol_id == 1">Administrador</td>
+              <td v-if="usuario.rol_id == 2">Operario</td>
               <td v-if="usuario.estado == 1">Activo</td>
               <td v-if="usuario.estado == 0">Inactivo</td>
 
@@ -78,6 +78,15 @@
             </tr>
           </tbody>
         </table>
+        <pagination
+          :align="'center'"
+          :data="listaUsuarios"
+          :limit="8"
+          @pagination-change-page="listarUsuarios"
+        >
+          <span slot="prev-nav">&lt; Previous</span>
+          <span slot="next-nav">Next &gt;</span>
+        </pagination>
       </section>
     </div>
     <crear-editar-usuario ref="CrearEditarUsuario" />
@@ -109,7 +118,7 @@ export default {
     CambiarEstado: function (id) {
       let me = this;
       axios
-        .post("api/usuarios/" + id + "/camEstado", null, me.$root.config)
+        .post("api/usuarios/" + id + "/cambiar-estado", null, me.$root.config)
         .then(function () {
           me.listarUsuarios(1);
         });

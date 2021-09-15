@@ -27,21 +27,21 @@
             <form>
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  <label for="name">Usuario</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    v-model="formUsuario.name"
-                  />
-                </div>
-                <div class="form-group col-md-4">
                   <label for="nombre">Nombre</label>
                   <input
                     type="text"
                     class="form-control"
                     id="nombre"
-                    v-model="formUsuario.nombre"
+                    v-model="formUsuario.nombres"
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="name">Apellidos</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    v-model="formUsuario.apellidos"
                   />
                 </div>
                 <div class="form-group col-md-4">
@@ -86,22 +86,22 @@
                   />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="id_sede">Sede</label>
+                  <label for="sede_id">Sede</label>
 
                   <input
                     type="number"
                     class="form-control"
-                    id="id_sede"
-                    v-model="formUsuario.id_sede"
+                    id="sede_id"
+                    v-model="formUsuario.sede_id"
                   />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="id_rol">Rol</label>
+                  <label for="rol_id">Rol</label>
                   <select
-                    name="id_rol"
-                    id="id_rol"
+                    name="rol_id"
+                    id="rol_id"
                     class="custom-select"
-                    v-model="formUsuario.id_rol"
+                    v-model="formUsuario.rol_id"
                   >
                     <option value="0" disabled>--Seleccionar--</option>
                     <option value="1">Administrador</option>

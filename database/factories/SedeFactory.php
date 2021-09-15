@@ -23,7 +23,6 @@ class SedeFactory extends Factory
     {
         return [
             'sede' => $this->faker->name(),
-            'estado' => $this->faker->boolean(),
             'direccion' => $this->faker->address(),
             'nit' => $this->faker->ean13(),
             'correo_contacto' => $this->faker->email(),

@@ -25,11 +25,4 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// para trabajar con los recursos de api : edit y create se van, bye
-// Route::apiResource('/usuarios', UsuarioController::class);
 Route::apiResource('/sedes', SedeController::class);
-Route::apiResource('/users', UserController::class);
-// Route::apiResource('/creditos', CreditoController::class);
-// Route::resource('/usuarios',  UsuarioController::class);
-// Route::post('/usuarios/{usuario}/camEstado',  [UsuarioController::class, 'camEstado']);

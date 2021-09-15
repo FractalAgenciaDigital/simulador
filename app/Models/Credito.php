@@ -7,55 +7,56 @@ use Illuminate\Database\Eloquent\Model;
 
 class Credito extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  protected $fillable = [
-    'id_cliente',
-    'id_deudor',
-    'cant_cuotas',
-    'cant_cuotas_pagadas',
-    'dia_limite',
-    'deudor',
-    'estado',
-    'fecha_inicio',
-    'id_sede',
-    'interes_mensual',
-    'porcent_interes_anual',
-    'porcent_interes_mensual',
-    'tasa_interes',
-    'usu_crea',
-    'valor_abonado',
-    'valor_capital',
-    'valor_credito',
-    'valor_cuota',
-    'valor_interes'
-  ];
+    protected $table = 'creditos';
 
+    protected $fillable = [
+        'cliente_id',
+        'deudor_id',
+        'sede_id',
+        'cant_cuotas',
+        'cant_cuotas_pagadas',
+        'dia_limite',
+        'deudor',
+        'estado',
+        'fecha_inicio',
+        'interes_mensual',
+        'porcentaje_interes_anual',
+        'porcentaje_interes_mensual',
+        'usu_crea',
+        'valor_cuota',
+        'valor_credito',
+        'valor_abonado',
+        'valor_capital',
+        'valor_interes',
+    ];
+ 
+    protected $with = [
+        'cliente'
+    ];
 
-  protected $attributes = [
-    'cant_cuotas_pagadas' => 0,
-    'interes_mensual' => 0,
-    'estado' => 0,
-  ];
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class, 'cliente_id');
+    }
 
-  protected $with = [
-    'cliente',
-    'deudor',
-    'sede'
-  ];
+    public function deudor()
+    {
+        return $this->belongsTo(Cliente::class, 'deudor_id');
+    }
 
-  public function cliente()
-  {
-    return $this->belongsTo(Cliente::class, 'id_cliente');
-  }
+    public function asesor()
+    {
+        return $this->belongsTo(User::class, 'usu_crea');
+    }
 
-  public function deudor()
-  {
-    return $this->belongsTo(Cliente::class, 'id_deudor');
-  }
-
-  public function sede()
-  {
-    return $this->belongsTo(Sede::class, 'id_sede');
-  }
+    public function sede()
+    {
+        return $this->belongsTo(Sede::class, 'sede_id');
+    }
+    public function cuotas()
+    {
+        return $this->hasMany(Cuota::class);
+    }
 }

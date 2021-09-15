@@ -1,75 +1,45 @@
 <template>
   <div>
-    <div class="page-header">
+    <div class="page-header d-flex justify-content-between p-4 border my-2">
       <h3>Creditos</h3>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#formCreditoModal"
-      >
-        Crear Credito
-      </button>
-      <br />
-      <input type="text" />
+      <button class="btn btn-primary" type="button">Crear Credito</button>
     </div>
-    <div class="page-content">
+    <div class="page-content mt-4">
       <section>
-        <table
-          class="
-            table
-            table-sm
-            table-bordered
-            table-responsive
-            table-hover
-            table-striped
-          "
-        >
+        <table class="table table-sm table-responsive-sm table-bordered">
           <thead>
             <tr>
-              <th>id</th>
+              <th>ID</th>
               <th>Cliente</th>
-              <th>Deudor</th>
-              <th>Sede</th>
-              <th>Cant. Cuotas</th>
-              <th>Cant. Cuotas Pagadas</th>
+              <th>Valor crédito</th>
+              <th>Valor Abonado</th>
+              <th>Nro Cuotas</th>
+              <th>día limite</th>
               <th>Estado</th>
-              <th>Opciones</th>
+              <th>Cuotas</th>
+              <th>Editar</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="credito in listaCreditos.data" :key="credito.id">
-              <td>{{ credito.id }}</td>
-              <td>{{ credito.id_cliente }}</td>
-              <td>{{ credito.id_deudor }}</td>
-              <td>{{ credito.id_sede }}</td>
-              <td>{{ credito.cant_cuotas }}</td>
-              <td>{{ credito.cant_cuotas_pagadas }}</td>
-              <td v-if="credito.estado == 1">Activo</td>
-              <td v-if="credito.estado == 0">Inactivo</td>
-
-              <td class="text-center">
-                <button
+            <tr v-for="c in listaCreditos.data" :key="c.id">
+              <td>{{ c.id }}</td>
+              <td>{{ c.cliente.nombres }} {{ c.cliente.apellidos }}</td>
+              <td>{{ c.valor_credito }}</td>
+              <td>{{ c.valor_abonado }}</td>
+              <td>{{ c.cant_cuotas }}</td>
+              <td>{{ c.dia_limite }}</td>
+              <td>{{ c.estado == 1 ? "Activo" : "Inactivo" }}</td>
+              <td>
+                <router-link
+                  :to="{ name: 'cuotas', params: { credito_id: c.id } }"
                   class="btn btn-outline-primary"
-                  @click="mostrarDatos(credito)"
                 >
+                  <i class="bi bi-eye"></i>
+                </router-link>
+              </td>
+              <td>
+                <button class="btn btn-outline-primary">
                   <i class="bi bi-pen"></i>
-                </button>
-                <button
-                  v-if="credito.estado == 1"
-                  onclick="return confirm('¿Desea Desactivar?')"
-                  class="btn btn-outline-danger"
-                  @click="CambiarEstado(credito.id)"
-                >
-                  <i class="bi bi-trash"></i>
-                </button>
-                <button
-                  v-if="credito.estado == 0"
-                  onclick="return confirm('¿Desea Activar?')"
-                  class="btn btn-outline-success"
-                  @click="CambiarEstado(credito.id)"
-                >
-                  <i class="bi bi-check2-circle"></i>
                 </button>
               </td>
             </tr>
@@ -96,7 +66,7 @@ export default {
   methods: {
     listarCreditos(page = 1) {
       let me = this;
-      axios.get("api/creditos?page=" + page).then(function (response) {
+       axios.get(`api/creditos?page=${page}`).then(function (response) {
         me.listaCreditos = response.data;
       });
     },
@@ -109,7 +79,7 @@ export default {
     CambiarEstado: function (id) {
       let me = this;
       axios
-        .post("api/creditos/" + id + "/camEstado", null, me.$root.config)
+        .post("api/creditos/" + id + "/cambiar-estado", null, me.$root.config)
         .then(function () {
           me.listarCreditos(1);
         });

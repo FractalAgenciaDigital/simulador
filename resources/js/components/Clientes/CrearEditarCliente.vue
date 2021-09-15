@@ -17,7 +17,7 @@
               type="button"
               class="close"
               data-dismiss="modal"
-              @click="editar = false"
+              @click="(editar = false), resetData()"
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
@@ -209,13 +209,13 @@
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
-              @click="editar = false"
+              @click="(editar = false), resetData()"
             >
-              Close
+              Cerrar
             </button>
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-primary rounded"
               @click="editar ? editarCliente() : crearCliente()"
             >
               Guardar
@@ -256,7 +256,8 @@ export default {
       let me = this;
       axios.post("api/clientes", this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
-        me.formCliente = {};
+        me.resetData();
+        this.$emit("listar-clientes");
       });
     },
     abirEditarCliente(cliente) {
@@ -271,9 +272,17 @@ export default {
         .put("api/clientes/" + this.formCliente.id, this.formCliente)
         .then(function () {
           $("#formClienteModal").modal("hide");
-          me.formCliente = {};
+          me.resetData();
         });
+      this.$emit("listar-clientes");
+
       this.editar = false;
+    },
+    resetData() {
+      let me = this;
+      Object.keys(this.formCliente).forEach(function (key, index) {
+        me.formCliente[key] = "";
+      });
     },
   },
 };

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -15,8 +16,7 @@ class UserController extends Controller
     public function index()
     {
 
-        // return User::paginate(10);
-        return User::orderBy('id', 'desc')->get();
+        return User::paginate(10);
     }
 
     /**
@@ -26,10 +26,6 @@ class UserController extends Controller
      */
     public function create($id)
     {
-        //
-        // $user = User::findOrFail($id);
-        // User::destroy($id);
-        // return redirect('user')->with('mensaje', 'User eliminado correctamente');
     }
 
     /**
@@ -40,22 +36,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $user = new User;
-        $user->create($request->all());
-
-        // $user->name = $request['name'];
-        // $user->email = $request['email'];
-        // $user->password = $request['password'];
-        // $user->nombre = $request['nombre'];
-        // $user->celular = $request['celular'];
-        // $user->direccion = $request['direccion'];
-        // $user->tipo_documento = $request['tipo_documento'];
-        // $user->documento = $request['documento'];
-        // $user->foto = 'undefindef';
-        // $user->id_rol = $request['id_rol'];
-        // $user->id_user = $request['id_user'];
-        // $user->save();
+        $usuario = new User();
+        $usuario->nombres = $request->nombres;
+        $usuario->apellidos = $request->apellidos;
+        $usuario->email = $request->email;
+        $usuario->password = Hash::make($request->password);
+        $usuario->tipo_documento = $request->nombres;
+        $usuario->documento = $request->documento;
+        $usuario->foto = $request->foto;
+        if ($request->estado) {
+            $usuario->estado = $request->estado;
+        }
+        $usuario->direccion = $request->direccion;
+        $usuario->celular = $request->celular;
+        $usuario->rol_id = $request->rol_id;
+        $usuario->sede_id = $request->sede_id;
+        $usuario->save();
     }
 
     /**
@@ -87,25 +83,30 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        $user->update($request->all());
-
-        // $user = User::find($request->id);
-        // $user->name = $request['name'];
-        // $user->email = $request['email'];
-        // $user->password = $request['password'];
-        // $user->nombre = $request['nombre'];
-        // $user->celular = $request['celular'];
-        // $user->direccion = $request['direccion'];
-        // $user->tipo_documento = $request['tipo_documento'];
-        // $user->documento = $request['documento'];
-        // $user->foto = 'undefindef';
-        // $user->save();
+        $usuario = User::find($id);
+        $usuario->nombres = $request->nombres;
+        $usuario->apellidos = $request->apellidos;
+        $usuario->email = $request->email;
+        if ($request->password != '') {
+            $usuario->password = Hash::make($request->password);
+        }
+        $usuario->tipo_documento = $request->nombres;
+        $usuario->documento = $request->documento;
+        $usuario->foto = $request->foto;
+        if ($request->estado) {
+            $usuario->estado = $request->estado;
+        }
+        $usuario->direccion = $request->direccion;
+        $usuario->celular = $request->celular;
+        $usuario->rol_id = $request->rol_id;
+        $usuario->sede_id = $request->sede_id;
+        $usuario->save();
     }
 
 
-    public function camEstado(User $user)
+    public function cambiarEstado(User $user)
     {
         //
         $u = User::find($user->id);

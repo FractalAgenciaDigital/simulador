@@ -104,7 +104,7 @@ class SedeController extends Controller
     }
 
 
-    public function camEstado(Sede $sede)
+    public function cambiarEstado(Sede $sede)
     {
         //
         $s = Sede::find($sede->id);

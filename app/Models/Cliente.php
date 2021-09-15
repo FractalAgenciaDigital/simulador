@@ -26,4 +26,9 @@ class Cliente extends Model
     'independiente',
     'foto'
   ];
+
+  public function creditos()
+  {
+    return $this->hasMany(Credito::class);
+  }
 }
