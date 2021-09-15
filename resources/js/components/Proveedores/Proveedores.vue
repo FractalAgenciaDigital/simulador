@@ -33,6 +33,8 @@
               <td>{{ p.id }}</td>
               <td>{{ p.nombres }}</td>
               <td>{{ p.apellidos }}</td>
+              <td v-if="p.tipo_documento == '1' ">Cèdula de ciudadania</td>
+              <td v-if="p.tipo_documento == '2' ">Passaporte</td>
               <td>{{ p.nro_documento }}</td>
               <td>{{ p.celular1 }}</td>
               <td>{{ p.celular2 }} </td>

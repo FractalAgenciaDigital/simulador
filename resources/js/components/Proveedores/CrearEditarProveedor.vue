@@ -64,7 +64,7 @@
                     v-model="formProveedor.nro_documento"
                   />
                 </div>
-                
+
                 <div class="form-group col-4">
                   <label for="celular1">Celular 1</label>
                   <input

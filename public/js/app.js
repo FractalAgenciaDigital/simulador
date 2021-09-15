@@ -2802,6 +2802,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -44771,6 +44773,14 @@ var render = function() {
                       _c("td", [_vm._v(_vm._s(p.nombres))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(p.apellidos))]),
+                      _vm._v(" "),
+                      p.tipo_documento == "1"
+                        ? _c("td", [_vm._v("Cèdula de ciudadania")])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      p.tipo_documento == "2"
+                        ? _c("td", [_vm._v("Passaporte")])
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(p.nro_documento))]),
                       _vm._v(" "),
