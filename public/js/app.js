@@ -2264,7 +2264,6 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.post("api/clientes", this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
-        me.resetData();
         this.$emit("listar-clientes");
       });
     },
@@ -2278,7 +2277,6 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.put("api/clientes/" + this.formCliente.id, this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
-        me.resetData();
       });
       this.$emit("listar-clientes");
       this.editar = false;
@@ -3173,7 +3171,7 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.post("api/usuarios", this.formUsuario).then(function () {
         $("#formUsuarioModal").modal("hide");
-        me.formUsuario = {};
+        me.$emit("listar-usuarios");
       });
     },
     abirEditarUsuario: function abirEditarUsuario(usuario) {
@@ -3186,9 +3184,15 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.put("api/usuarios/" + this.formUsuario.id, this.formUsuario).then(function () {
         $("#formUsuarioModal").modal("hide");
-        me.formUsuario = {};
+        me.$emit("listar-usuarios");
       });
       this.editar = false;
+    },
+    resetData: function resetData() {
+      var me = this;
+      Object.keys(this.formUsuario).forEach(function (key, index) {
+        me.formUsuario[key] = "";
+      });
     }
   }
 });
@@ -3207,6 +3211,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _CrearEditarUsuario_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CrearEditarUsuario.vue */ "./resources/js/components/Usuarios/CrearEditarUsuario.vue");
+//
+//
 //
 //
 //
@@ -46248,7 +46254,7 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      _vm.editar = false
+                      ;(_vm.editar = false), _vm.resetData()
                     }
                   }
                 },
@@ -46602,7 +46608,7 @@ var render = function() {
                   attrs: { type: "button", "data-dismiss": "modal" },
                   on: {
                     click: function($event) {
-                      _vm.editar = false
+                      ;(_vm.editar = false), _vm.resetData()
                     }
                   }
                 },
@@ -46686,15 +46692,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(usuario.celular))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(usuario.id_sede))]),
+                      _c("td", [_vm._v(_vm._s(usuario.sede_id))]),
                       _vm._v(" "),
-                      usuario.rol_id == 1
-                        ? _c("td", [_vm._v("Administrador")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      usuario.rol_id == 2
-                        ? _c("td", [_vm._v("Operario")])
-                        : _vm._e(),
+                      _c("td", [_vm._v("Administrador")]),
                       _vm._v(" "),
                       usuario.estado == 1
                         ? _c("td", [_vm._v("Activo")])
@@ -46783,7 +46783,14 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("crear-editar-usuario", { ref: "CrearEditarUsuario" })
+      _c("crear-editar-usuario", {
+        ref: "CrearEditarUsuario",
+        on: {
+          "listar-usuarios": function($event) {
+            return _vm.listarUsuarios(1)
+          }
+        }
+      })
     ],
     1
   )

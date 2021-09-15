@@ -45,9 +45,8 @@
               <td>{{ usuario.email }}</td>
               <td>{{ usuario.documento }}</td>
               <td>{{ usuario.celular }}</td>
-              <td>{{ usuario.id_sede }}</td>
-              <td v-if="usuario.rol_id == 1">Administrador</td>
-              <td v-if="usuario.rol_id == 2">Operario</td>
+              <td>{{ usuario.sede_id }}</td>
+              <td>Administrador</td>
               <td v-if="usuario.estado == 1">Activo</td>
               <td v-if="usuario.estado == 0">Inactivo</td>
 
@@ -89,7 +88,10 @@
         </pagination>
       </section>
     </div>
-    <crear-editar-usuario ref="CrearEditarUsuario" />
+    <crear-editar-usuario
+      ref="CrearEditarUsuario"
+      @listar-usuarios="listarUsuarios(1)"
+    />
   </div>
 </template>
 
