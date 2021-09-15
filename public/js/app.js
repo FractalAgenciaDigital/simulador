@@ -2251,7 +2251,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("api/clientes", this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
         me.resetData();
-        this.$emit("listar-clientes");
+        me.$emit("listar-clientes");
       });
     },
     abirEditarCliente: function abirEditarCliente(cliente) {
@@ -2266,8 +2266,8 @@ __webpack_require__.r(__webpack_exports__);
         $("#formClienteModal").modal("hide");
         me.resetData();
       });
-      this.$emit("listar-clientes");
-      this.editar = false;
+      me.$emit("listar-clientes");
+      me.editar = false;
     },
     resetData: function resetData() {
       var me = this;
@@ -2293,6 +2293,158 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2417,6 +2569,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _CrearEditarCredito_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CrearEditarCredito.vue */ "./resources/js/components/Creditos/CrearEditarCredito.vue");
+/* harmony import */ var _Clientes_CrearEditarCliente_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../Clientes/CrearEditarCliente.vue */ "./resources/js/components/Clientes/CrearEditarCliente.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2517,9 +2693,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    CrearEditarCredito: _CrearEditarCredito_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    CrearEditarCredito: _CrearEditarCredito_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    CrearEditarCliente: _Clientes_CrearEditarCliente_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
   data: function data() {
     return {
@@ -2540,6 +2718,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     mostrarDatos: function mostrarDatos(credito) {
       this.$refs.CrearEditarCredito.abirEditarCredito(credito);
+    },
+    mostrarDatosCliente: function mostrarDatosCliente(cliente) {
+      this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
     },
     CambiarEstado: function CambiarEstado(id) {
       var me = this;
@@ -44206,7 +44387,9 @@ var render = function() {
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      _vm.editar ? _vm.editarCliente() : _vm.crearCliente()
+                      _vm.formCliente.id
+                        ? _vm.editarCliente()
+                        : _vm.crearCliente()
                     }
                   }
                 },
@@ -44294,8 +44477,8 @@ var render = function() {
               _c("form", [
                 _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "name" } }, [
-                      _vm._v("Credito")
+                    _c("label", { attrs: { for: "cant_cuotas" } }, [
+                      _vm._v("Cantidad Cuotas")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -44303,19 +44486,411 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.formCredito.name,
-                          expression: "formCredito.name"
+                          value: _vm.formCredito.cant_cuotas,
+                          expression: "formCredito.cant_cuotas"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text", id: "name" },
-                      domProps: { value: _vm.formCredito.name },
+                      attrs: { type: "text", id: "cant_cuotas" },
+                      domProps: { value: _vm.formCredito.cant_cuotas },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.formCredito, "name", $event.target.value)
+                          _vm.$set(
+                            _vm.formCredito,
+                            "cant_cuotas",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "cant_cuotas_pagadas" } }, [
+                      _vm._v("Cantidad Cuotas Pagadas")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.cant_cuotas_pagadas,
+                          expression: "formCredito.cant_cuotas_pagadas"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "cant_cuotas_pagadas" },
+                      domProps: { value: _vm.formCredito.cant_cuotas_pagadas },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "cant_cuotas_pagadas",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "dia_limite" } }, [
+                      _vm._v("Dia Limite")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.dia_limite,
+                          expression: "formCredito.dia_limite"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "dia_limite" },
+                      domProps: { value: _vm.formCredito.dia_limite },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "dia_limite",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "deudor" } }, [
+                      _vm._v("Deudor")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.deudor,
+                          expression: "formCredito.deudor"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "deudor" },
+                      domProps: { value: _vm.formCredito.deudor },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "deudor",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "fecha_inicio" } }, [
+                      _vm._v("Fecha Inicial")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.fecha_inicio,
+                          expression: "formCredito.fecha_inicio"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "date", id: "fecha_inicio" },
+                      domProps: { value: _vm.formCredito.fecha_inicio },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "fecha_inicio",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "interes_mensual" } }, [
+                      _vm._v("Interes Mensual")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.interes_mensual,
+                          expression: "formCredito.interes_mensual"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "interes_mensual" },
+                      domProps: { value: _vm.formCredito.interes_mensual },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "interes_mensual",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "porcent_interes_anual" } }, [
+                      _vm._v("Porcentaje Interes Anual")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.porcent_interes_anual,
+                          expression: "formCredito.porcent_interes_anual"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "porcent_interes_anual" },
+                      domProps: {
+                        value: _vm.formCredito.porcent_interes_anual
+                      },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "porcent_interes_anual",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "porcent_interes_mensual" } }, [
+                      _vm._v("Porcentaje Interes Mensual")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.porcent_interes_mensual,
+                          expression: "formCredito.porcent_interes_mensual"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "porcent_interes_mensual" },
+                      domProps: {
+                        value: _vm.formCredito.porcent_interes_mensual
+                      },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "porcent_interes_mensual",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "valor_cuota" } }, [
+                      _vm._v("Valor Cuota")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.valor_cuota,
+                          expression: "formCredito.valor_cuota"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "valor_cuota" },
+                      domProps: { value: _vm.formCredito.valor_cuota },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "valor_cuota",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "valor_credito" } }, [
+                      _vm._v("Valor Credito")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.valor_credito,
+                          expression: "formCredito.valor_credito"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "valor_credito" },
+                      domProps: { value: _vm.formCredito.valor_credito },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "valor_credito",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "valor_abonado" } }, [
+                      _vm._v("Valor Abonado")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.valor_abonado,
+                          expression: "formCredito.valor_abonado"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "valor_abonado" },
+                      domProps: { value: _vm.formCredito.valor_abonado },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "valor_abonado",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "valor_capital" } }, [
+                      _vm._v("Valor Capital")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.valor_capital,
+                          expression: "formCredito.valor_capital"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "valor_capital" },
+                      domProps: { value: _vm.formCredito.valor_capital },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "valor_capital",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "valor_interes" } }, [
+                      _vm._v("Valor Interes")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.valor_interes,
+                          expression: "formCredito.valor_interes"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "valor_interes" },
+                      domProps: { value: _vm.formCredito.valor_interes },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "valor_interes",
+                            $event.target.value
+                          )
                         }
                       }
                     })
@@ -44419,7 +44994,7 @@ var render = function() {
               domProps: { value: _vm.buscar_credito },
               on: {
                 keypress: function($event) {
-                  return _vm.listarCreditos(1)
+                  return _vm.listarCreditos()
                 },
                 input: function($event) {
                   if ($event.target.composing) {
@@ -44433,122 +45008,156 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "page-content mt-4" }, [
-        _c(
-          "section",
-          {},
-          [
+      _vm.buscar_credito.length > 0
+        ? _c("div", { staticClass: "page-content mt-4" }, [
             _c(
-              "table",
-              { staticClass: "table table-sm table-bordered table-responsive" },
+              "section",
+              {},
               [
-                _vm._m(1),
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table table-sm table-bordered table-responsive"
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.listaCreditos.data, function(credito) {
+                        return _c("tr", { key: credito.id }, [
+                          _c("td", [_vm._v(_vm._s(credito.id))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(credito.id_cliente))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(credito.id_deudor))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(credito.id_sede))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(credito.cant_cuotas))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(credito.cant_cuotas_pagadas))
+                          ]),
+                          _vm._v(" "),
+                          credito.id_rol == 1
+                            ? _c("td", [_vm._v("Administrador")])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          credito.id_rol == 2
+                            ? _c("td", [_vm._v("Operario")])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          credito.estado == 1
+                            ? _c("td", [_vm._v("Activo")])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          credito.estado == 0
+                            ? _c("td", [_vm._v("Inactivo")])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            credito.estado == 1
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-outline-primary",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.mostrarDatos(credito)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "bi bi-pen" })]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            credito.estado == 1
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-outline-danger",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.CambiarEstado(credito.id)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "bi bi-trash" })]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            credito.estado == 0
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-outline-success",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.CambiarEstado(credito.id)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "bi bi-check2-circle"
+                                    })
+                                  ]
+                                )
+                              : _vm._e()
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
-                  "tbody",
-                  _vm._l(_vm.listaCreditos.data, function(credito) {
-                    return _c("tr", { key: credito.id }, [
-                      _c("td", [_vm._v(_vm._s(credito.id))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(credito.id_cliente))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(credito.id_deudor))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(credito.id_sede))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(credito.cant_cuotas))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(credito.cant_cuotas_pagadas))]),
-                      _vm._v(" "),
-                      credito.id_rol == 1
-                        ? _c("td", [_vm._v("Administrador")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      credito.id_rol == 2
-                        ? _c("td", [_vm._v("Operario")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      credito.estado == 1
-                        ? _c("td", [_vm._v("Activo")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      credito.estado == 0
-                        ? _c("td", [_vm._v("Inactivo")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        credito.estado == 1
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-outline-primary",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.mostrarDatos(credito)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "bi bi-pen" })]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        credito.estado == 1
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-outline-danger",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.CambiarEstado(credito.id)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "bi bi-trash" })]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        credito.estado == 0
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-outline-success",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.CambiarEstado(credito.id)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "bi bi-check2-circle" })]
-                            )
-                          : _vm._e()
-                      ])
-                    ])
-                  }),
-                  0
+                  "pagination",
+                  {
+                    attrs: {
+                      align: "center",
+                      data: _vm.listaCreditos,
+                      limit: 8
+                    },
+                    on: { "pagination-change-page": _vm.listarCreditos }
+                  },
+                  [
+                    _c(
+                      "span",
+                      { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                      [_vm._v("< Previous")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                      [_vm._v("Next >")]
+                    )
+                  ]
                 )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "pagination",
-              {
-                attrs: { align: "center", data: _vm.listaCreditos, limit: 8 },
-                on: { "pagination-change-page": _vm.listarCreditos }
-              },
-              [
-                _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
-                  _vm._v("< Previous")
-                ]),
-                _vm._v(" "),
-                _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
-                  _vm._v("Next >")
-                ])
-              ]
+              ],
+              1
             )
-          ],
-          1
-        )
-      ]),
+          ])
+        : _c("div", [
+            _c("div", { staticClass: "alert alert-danger" }, [
+              _vm._v("\n      No hay coincidencias para esta busqueda.\n    ")
+            ]),
+            _vm._v(" "),
+            _vm._m(2)
+          ]),
+      _vm._v(" "),
+      _c("crear-editar-cliente", {
+        ref: "CrearEditarCliente",
+        on: {
+          "listar-clientes": function($event) {
+            return _vm.listarCreditos(1)
+          }
+        }
+      }),
       _vm._v(" "),
       _c("crear-editar-credito", {
         ref: "CrearEditarCredito",
@@ -44613,6 +45222,26 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Opciones")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alert alert-info" }, [
+      _vm._v("\n      Crear un nuevo Cliente\n      "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: {
+            type: "button",
+            "data-toggle": "modal",
+            "data-target": "#formClienteModal"
+          }
+        },
+        [_vm._v("\n        Crear cliente\n      ")]
+      )
     ])
   }
 ]

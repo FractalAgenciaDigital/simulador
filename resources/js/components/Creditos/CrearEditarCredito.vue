@@ -24,13 +24,165 @@
           <div class="modal-body">
             <form>
               <div class="form-row">
+                <!-- <div class="form-group col-md-4">
+                  <label for="buscar_cliente">Buscar Cliente</label>
+                  <input
+                    type="text"
+                    id="buscar_cliente"
+                    name="buscar_cliente"
+                    class="form-control"
+                    placeholder="Nombre | Apellido | Documento"
+                    @keypress="listarCreditos(1)"
+                    v-model="buscar_cliente"
+                  />
+                </div>
+
                 <div class="form-group col-md-4">
-                  <label for="name">Credito</label>
+                  <label for="buscar_sede">Buscar Sede</label>
+                  <input
+                    type="text"
+                    id="buscar_sede"
+                    name="buscar_sede"
+                    class="form-control"
+                    placeholder="Sede"
+                    @keypress="listarCreditos(1)"
+                    v-model="buscar_sede"
+                  />
+                </div> -->
+
+                <div class="form-group col-md-4">
+                  <label for="cant_cuotas">Cantidad Cuotas</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="name"
-                    v-model="formCredito.name"
+                    id="cant_cuotas"
+                    v-model="formCredito.cant_cuotas"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="cant_cuotas_pagadas"
+                    >Cantidad Cuotas Pagadas</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cant_cuotas_pagadas"
+                    v-model="formCredito.cant_cuotas_pagadas"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="dia_limite">Dia Limite</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="dia_limite"
+                    v-model="formCredito.dia_limite"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="deudor">Deudor</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="deudor"
+                    v-model="formCredito.deudor"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="fecha_inicio">Fecha Inicial</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="fecha_inicio"
+                    v-model="formCredito.fecha_inicio"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="interes_mensual">Interes Mensual</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="interes_mensual"
+                    v-model="formCredito.interes_mensual"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="porcent_interes_anual"
+                    >Porcentaje Interes Anual</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="porcent_interes_anual"
+                    v-model="formCredito.porcent_interes_anual"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="porcent_interes_mensual"
+                    >Porcentaje Interes Mensual</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="porcent_interes_mensual"
+                    v-model="formCredito.porcent_interes_mensual"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="valor_cuota">Valor Cuota</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="valor_cuota"
+                    v-model="formCredito.valor_cuota"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="valor_credito">Valor Credito</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="valor_credito"
+                    v-model="formCredito.valor_credito"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="valor_abonado">Valor Abonado</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="valor_abonado"
+                    v-model="formCredito.valor_abonado"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="valor_capital">Valor Capital</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="valor_capital"
+                    v-model="formCredito.valor_capital"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="valor_interes">Valor Interes</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="valor_interes"
+                    v-model="formCredito.valor_interes"
                   />
                 </div>
               </div>

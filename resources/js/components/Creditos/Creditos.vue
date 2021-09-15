@@ -20,12 +20,13 @@
           name="buscar_credito"
           class="form-control"
           placeholder="Nombres | Documento"
-          @keypress="listarCreditos(1)"
+          @keypress="listarCreditos()"
           v-model="buscar_credito"
         />
       </div>
     </div>
-    <div class="page-content mt-4">
+
+    <div v-if="buscar_credito.length > 0" class="page-content mt-4">
       <section class="">
         <table class="table table-sm table-bordered table-responsive">
           <thead>
@@ -91,6 +92,28 @@
         </pagination>
       </section>
     </div>
+
+    <div v-else>
+      <div class="alert alert-danger">
+        No hay coincidencias para esta busqueda.
+      </div>
+      <div class="alert alert-info">
+        Crear un nuevo Cliente
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#formClienteModal"
+        >
+          Crear cliente
+        </button>
+      </div>
+    </div>
+
+    <crear-editar-cliente
+      ref="CrearEditarCliente"
+      @listar-clientes="listarCreditos(1)"
+    />
     <crear-editar-credito
       ref="CrearEditarCredito"
       @listar-creditos="listarCreditos(1)"
@@ -99,8 +122,10 @@
 </template>
 <script>
 import CrearEditarCredito from "./CrearEditarCredito.vue";
+import CrearEditarCliente from "./../Clientes/CrearEditarCliente.vue";
+
 export default {
-  components: { CrearEditarCredito },
+  components: { CrearEditarCredito, CrearEditarCliente },
   data() {
     return {
       buscar_credito: "",
@@ -121,6 +146,9 @@ export default {
     },
     mostrarDatos: function (credito) {
       this.$refs.CrearEditarCredito.abirEditarCredito(credito);
+    },
+    mostrarDatosCliente: function (cliente) {
+      this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
     },
     CambiarEstado: function (id) {
       let me = this;

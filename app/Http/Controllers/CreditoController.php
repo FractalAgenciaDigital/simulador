@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
+use App\Models\Sede;
 use App\Models\Credito;
 use Illuminate\Http\Request;
 
@@ -15,13 +17,27 @@ class CreditoController extends Controller
     public function index(Request $request)
     {
         $creditos = Credito::select();
+        $clientes = Cliente::select();
+        $sedes = Sede::select();
+
+
+
         if ($request->credito && ($request->credito != '')) {
-            $creditos  =     $creditos->where('id:_cliente', 'LIKE', "%$request->credito%")
-                ->orWhere('name', 'LIKE', "%$request->credito%")
-                ->orWhere('nombre', 'LIKE', "%$request->credito%")
-                ->orWhere('email', 'LIKE', "%$request->credito%");
+            $creditos  =     $creditos->where('id_cliente', 'LIKE', "%$request->credito%")
+                ->orWhere('id_deudor', 'LIKE', "%$request->credito%")
+                ->orWhere('id_sede', 'LIKE', "%$request->credito%");
         }
+
+        // if ($request->cliente && ($request->cliente != '')) {
+        //     $clientes = $clientes->leftjoin('clientes as c', 'c.id', 'creditos.id_cliente')
+        //         ->select('creditos.*', 'c.nombres as cliente');
+
+        //     $clientes  = $clientes->where('id_cliente', 'LIKE', "%$request->credito%")
+        //         ->orWhere('id_deudor', 'LIKE', "%$request->credito%")
+        //         ->orWhere('id_sede', 'LIKE', "%$request->credito%");
+        // }
         $creditos = $creditos->paginate(20);
+        // $clientes = $clientes->paginate(20);
 
         return $creditos;
     }

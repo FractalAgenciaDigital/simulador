@@ -214,7 +214,7 @@
             <button
               type="button"
               class="btn btn-primary rounded"
-              @click="editar ? editarCliente() : crearCliente()"
+              @click="formCliente.id ? editarCliente() : crearCliente()"
             >
               Guardar
             </button>
@@ -255,7 +255,7 @@ export default {
       axios.post("api/clientes", this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
         me.resetData();
-        this.$emit("listar-clientes");
+        me.$emit("listar-clientes");
       });
     },
     abirEditarCliente(cliente) {
@@ -272,9 +272,9 @@ export default {
           $("#formClienteModal").modal("hide");
           me.resetData();
         });
-      this.$emit("listar-clientes");
+      me.$emit("listar-clientes");
 
-      this.editar = false;
+      me.editar = false;
     },
     resetData() {
       let me = this;
