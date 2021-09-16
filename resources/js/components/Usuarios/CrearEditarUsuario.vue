@@ -87,13 +87,15 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="sede_id">Sede</label>
+                  <v-select :options="listaSedes.data" label="sede" value="id">
+                  </v-select>
 
-                  <input
+                  <!-- <input
                     type="number"
                     class="form-control"
                     id="sede_id"
                     v-model="formUsuario.sede_id"
-                  />
+                  /> -->
                 </div>
                 <div class="form-group col-md-4">
                   <label for="rol_id">Rol</label>
@@ -148,6 +150,7 @@ export default {
   data() {
     return {
       editar: false,
+      listaSedes : [],
       formUsuario: {
         name: "",
         email: "",
@@ -165,6 +168,9 @@ export default {
     };
   },
   // Function crearUsuarios
+  created() {
+    this.listarSedes(1);
+  },
   methods: {
     crearUsuario() {
       let me = this;
@@ -194,6 +200,15 @@ export default {
       Object.keys(this.formUsuario).forEach(function (key, index) {
         me.formUsuario[key] = "";
       });
+    },
+
+    listarSedes(page = 1) {
+      let me = this;
+      axios
+        .get(`api/sedes?page=${page}`)
+        .then(function (response) {
+          me.listaSedes = response.data;
+        });
     },
   },
 };

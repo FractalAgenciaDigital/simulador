@@ -27,8 +27,8 @@ class User extends Authenticatable
     'tipo_documento',
     'documento',
     'foto',
-    'id_sede',
-    'id_rol',
+    'sede_id',
+    'rol_id',
     'estado'
   ];
 

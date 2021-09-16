@@ -11,6 +11,20 @@
         Crear Usuario
       </button>
     </div>
+    <div class="page-search d-flex justify-content-between p-4 border my-2">
+      <div class="form-group col-8 m-auto">
+        <label for="buscar_usuario">Buscar...</label>
+        <input
+          type="text"
+          id="buscar_usuario"
+          name="buscar_usuario"
+          class="form-control"
+          placeholder="Nombres | Documento"
+          @keypress="listarUsuarios(1)"
+          v-model="buscar_usuario"
+        />
+      </div>
+    </div>
     <div class="page-content">
       <section>
         <table

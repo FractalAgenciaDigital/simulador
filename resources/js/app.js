@@ -10,7 +10,9 @@ require('./bootstrap');
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Swal from 'sweetalert2'
+import vSelect from 'vue-select'
 
+import 'vue-select/dist/vue-select.css';
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -23,8 +25,8 @@ import Swal from 'sweetalert2'
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-// Vue.component('usuarios', require('./components/Usuarios/Usuarios.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
+Vue.component('v-select', vSelect)
 
 // Optimizar el Usuariocontroller en el component de Vue
 
@@ -34,8 +36,9 @@ Vue.use(VueRouter)
 window.Swal = Swal
 
 
+
 const routes = [
-    // { path: '', component: require('./components/Clientes/Clientes.vue').default },
+    { path: '', component: require('./components/Clientes/Clientes.vue').default },
     { path: '/clientes', component: require('./components/Clientes/Clientes.vue').default },
     { path: '/usuarios', component: require('./components/Usuarios/Usuarios.vue').default },
     { path: '/creditos', component: require('./components/Creditos/Creditos.vue').default },
