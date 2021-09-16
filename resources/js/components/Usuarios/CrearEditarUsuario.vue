@@ -87,7 +87,7 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="sede_id">Sede</label>
-                  <v-select :options="listaSedes.data" label="sede" value="id">
+                  <v-select :options="listaSedes.data" label="sede" :reduce="sede => sede.id" v-model="formUsuario.sede_id">
                   </v-select>
 
                   <!-- <input
@@ -162,8 +162,8 @@ export default {
         documento: 0,
         foto: "",
         estado: "1",
-        id_rol: "",
-        id_sede: "",
+        rol_id: "",
+        sede_id: "",
       },
     };
   },

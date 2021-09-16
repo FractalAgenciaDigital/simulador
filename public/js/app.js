@@ -3170,8 +3170,8 @@ __webpack_require__.r(__webpack_exports__);
         documento: 0,
         foto: "",
         estado: "1",
-        id_rol: "",
-        id_sede: ""
+        rol_id: "",
+        sede_id: ""
       }
     };
   },
@@ -45992,7 +45992,16 @@ var render = function() {
                         attrs: {
                           options: _vm.listaSedes.data,
                           label: "sede",
-                          value: "id"
+                          reduce: function(sede) {
+                            return sede.id
+                          }
+                        },
+                        model: {
+                          value: _vm.formUsuario.sede_id,
+                          callback: function($$v) {
+                            _vm.$set(_vm.formUsuario, "sede_id", $$v)
+                          },
+                          expression: "formUsuario.sede_id"
                         }
                       })
                     ],
