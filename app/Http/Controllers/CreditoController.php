@@ -23,18 +23,18 @@ class CreditoController extends Controller
 
 
         if ($request->credito && ($request->credito != '')) {
-            $creditos  =     $creditos->where('id_cliente', 'LIKE', "%$request->credito%")
+            $creditos  =     $creditos->where('cliente_id', 'LIKE', "%$request->credito%")
                 ->orWhere('id_deudor', 'LIKE', "%$request->credito%")
-                ->orWhere('id_sede', 'LIKE', "%$request->credito%");
+                ->orWhere('sede_id', 'LIKE', "%$request->credito%");
         }
 
         // if ($request->cliente && ($request->cliente != '')) {
         //     $clientes = $clientes->leftjoin('clientes as c', 'c.id', 'creditos.id_cliente')
         //         ->select('creditos.*', 'c.nombres as cliente');
 
-        //     $clientes  = $clientes->where('id_cliente', 'LIKE', "%$request->credito%")
+        //     $clientes  = $clientes->where('cliente_id', 'LIKE', "%$request->credito%")
         //         ->orWhere('id_deudor', 'LIKE', "%$request->credito%")
-        //         ->orWhere('id_sede', 'LIKE', "%$request->credito%");
+        //         ->orWhere('sede_id', 'LIKE', "%$request->credito%");
         // }
         $creditos = $creditos->paginate(20);
         // $clientes = $clientes->paginate(20);
@@ -65,9 +65,9 @@ class CreditoController extends Controller
     {
 
         $credito = new Credito();
-        $credito->id_cliente = $request['id_cliente'];
+        $credito->cliente_id = $request['cliente_id'];
         $credito->id_deudor = $request['id_deudor'];
-        $credito->id_sede = $request['id_sede'];
+        $credito->sede_id = $request['sede_id'];
         $credito->cant_cuotas = $request['cant_cuotas'];
         $credito->cant_cuotas_pagadas = $request['cant_cuotas_pagadas'];
         $credito->dia_limite = $request['dia_limite'];
@@ -117,9 +117,9 @@ class CreditoController extends Controller
     public function update(Request $request, Credito $credito)
     {
         $credito = Credito::find($request->id);
-        $credito->id_cliente = $request['id_cliente'];
+        $credito->cliente_id = $request['cliente_id'];
         $credito->id_deudor = $request['id_deudor'];
-        $credito->id_sede = $request['id_sede'];
+        $credito->sede_id = $request['sede_id'];
         $credito->cant_cuotas = $request['cant_cuotas'];
         $credito->cant_cuotas_pagadas = $request['cant_cuotas_pagadas'];
         $credito->dia_limite = $request['dia_limite'];

@@ -24,31 +24,17 @@
           <div class="modal-body">
             <form>
               <div class="form-row">
-                <!-- <div class="form-group col-md-4">
-                  <label for="buscar_cliente">Buscar Cliente</label>
-                  <input
-                    type="text"
-                    id="buscar_cliente"
-                    name="buscar_cliente"
-                    class="form-control"
-                    placeholder="Nombre | Apellido | Documento"
-                    @keypress="listarCreditos(1)"
-                    v-model="buscar_cliente"
-                  />
-                </div>
-
                 <div class="form-group col-md-4">
-                  <label for="buscar_sede">Buscar Sede</label>
-                  <input
-                    type="text"
-                    id="buscar_sede"
-                    name="buscar_sede"
-                    class="form-control"
-                    placeholder="Sede"
-                    @keypress="listarCreditos(1)"
-                    v-model="buscar_sede"
-                  />
-                </div> -->
+                  <label for="sede_id">Sede</label>
+                  <v-select
+                    :options="listaSedes.data"
+                    label="sede"
+                    aria-logname="{}"
+                    :reduce="(sede) => sede.id"
+                    v-model="formCredito.sede_id"
+                  >
+                  </v-select>
+                </div>
 
                 <div class="form-group col-md-4">
                   <label for="cant_cuotas">Cantidad Cuotas</label>
@@ -216,10 +202,11 @@ export default {
   data() {
     return {
       editar: false,
+      listaSedes: [],
       formCredito: {
-        id_cliente: "",
+        cliente_id: "",
         id_deudor: "",
-        id_sede: "",
+        sede_id: "",
         cant_cuotas: "",
         cant_cuotas_pagadas: "",
         cant_cuotas_pagadas: "",
@@ -239,8 +226,17 @@ export default {
       },
     };
   },
+  created() {
+    this.listarSedes(1);
+  },
   // Function crearCreditos
   methods: {
+    listarSedes(page = 1) {
+      let me = this;
+      axios.get(`api/sedes?page=${page}`).then(function (response) {
+        me.listaSedes = response.data;
+      });
+    },
     crearCredito() {
       let me = this;
       axios.post("api/creditos", this.formCredito).then(function () {

@@ -10,6 +10,10 @@ require('./bootstrap');
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Swal from 'sweetalert2'
+import vSelect from 'vue-select'
+
+import 'vue-select/dist/vue-select.css';
+Vue.component('v-select', vSelect)
 
 /**
  * The following block of code may be used to automatically register your
