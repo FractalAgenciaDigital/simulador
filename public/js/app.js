@@ -2467,6 +2467,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -44256,6 +44262,12 @@ var staticRenderFns = [
           }
         },
         [_vm._v("\n      Crear pago\n    ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("\n      filtar\n    ")]
       )
     ])
   },

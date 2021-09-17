@@ -10,6 +10,12 @@
       >
         Crear pago
       </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+      >
+        filtar
+      </button>
     </div>
     <div class="page-content mt-4">
       <section class="">
