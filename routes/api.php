@@ -29,3 +29,6 @@ Route::resource('/usuarios',  UsuarioController::class);
 
 Route::resource('/proveedores',  ProveedorController::class);
 Route::post('/proveedores/{proveedor}/cambiar-estado',  [ProveedorController::class, 'cambiarEstado']);
+
+Route::resource('/pagos',  PagoController::class);
+Route::post('/pagos/{pago}/cambiar-estado',  [PagoController::class, 'cambiarEstado']);

@@ -6,7 +6,7 @@
         type="button"
         class="btn btn-primary"
         data-toggle="modal"
-        data-target="#formPagosModal"
+        data-target="#formPagoModal"
       >
         Crear pago
       </button>
@@ -35,15 +35,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="c in listaPagos.data" :key="c.id">
-              <td>{{}}</td>
-              <td>{{}}</td>
-              <td>{{}}</td>
-              <td>{{}}</td>
-              <td>{{}}</td>
-              <td>{{}}</td>
-              <td>{{}}</td>
-              <td>{{}}</td>
+            <tr v-for="o in listaPagos.data" :key="o.id">
+              <td>{{ o.id }}</td>
+              <td>{{ o.tipo_deuda }}</td>
+              <td>{{ o.id_deuda }}</td>
+              <td>{{ o.valor_pago }}</td>
+              <td>{{ o.nro_cuota }}</td>
+              <td>{{ o.valor_interes }}</td>
+              <td>{{ o.valor_capital }}</td>
+              <td>{{ o.id_tercero }}</td>
+              <td>{{ o.fecha_pago }}</td>
               <td class="text-center">
                 <button class="btn btn-outline-primary">
                   <i class="bi bi-eye"></i>
@@ -52,21 +53,21 @@
               <td class="text-center">
                 <button
                   class="btn btn-outline-primary"
-                  @click="mostrarDatos(c)"
+                  @click="mostrarDatos(o)"
                 >
                   <i class="bi bi-pen"></i>
                 </button>
                 <button
-                  v-if="c.activo == 1"
+                  v-if="o.activo == 1"
                   class="btn btn-outline-danger"
-                  @click="CambiarEstado(c.id)"
+                  @click="CambiarEstado(o.id)"
                 >
                   <i class="bi bi-trash"></i>
                 </button>
                 <button
-                  v-if="c.activo == 0"
+                  v-if="o.activo == 0"
                   class="btn btn-outline-success"
-                  @click="CambiarEstado(c.id)"
+                  @click="CambiarEstado(o.id)"
                 >
                   <i class="bi bi-check2-circle"></i>
                 </button>
