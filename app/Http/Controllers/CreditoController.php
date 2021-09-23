@@ -24,7 +24,7 @@ class CreditoController extends Controller
 
         if ($request->credito && ($request->credito != '')) {
             $creditos  =     $creditos->where('cliente_id', 'LIKE', "%$request->credito%")
-                ->orWhere('id_deudor', 'LIKE', "%$request->credito%")
+                ->orWhere('deudor_id', 'LIKE', "%$request->credito%")
                 ->orWhere('sede_id', 'LIKE', "%$request->credito%");
         }
 
@@ -66,7 +66,7 @@ class CreditoController extends Controller
 
         $credito = new Credito();
         $credito->cliente_id = $request['cliente_id'];
-        $credito->id_deudor = $request['id_deudor'];
+        $credito->deudor_id = $request['id_deudor'];
         $credito->sede_id = $request['sede_id'];
         $credito->cant_cuotas = $request['cant_cuotas'];
         $credito->cant_cuotas_pagadas = $request['cant_cuotas_pagadas'];
@@ -118,7 +118,7 @@ class CreditoController extends Controller
     {
         $credito = Credito::find($request->id);
         $credito->cliente_id = $request['cliente_id'];
-        $credito->id_deudor = $request['id_deudor'];
+        $credito->deudor_id = $request['id_deudor'];
         $credito->sede_id = $request['sede_id'];
         $credito->cant_cuotas = $request['cant_cuotas'];
         $credito->cant_cuotas_pagadas = $request['cant_cuotas_pagadas'];

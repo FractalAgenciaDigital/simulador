@@ -25,6 +25,18 @@
             <form>
               <div class="form-row">
                 <div class="form-group col-md-4">
+                  <label for="cliente_id">Cliente</label>
+                  <v-select
+                    :options="listaClientes.data"
+                    label="nombres"
+                    aria-logname="{}"
+                    :reduce="(nombres) => nombres.id"
+                    v-model="formCredito.cliente_id"
+                  >
+                  </v-select>
+                </div>
+
+                <div class="form-group col-md-4">
                   <label for="sede_id">Sede</label>
                   <v-select
                     :options="listaSedes.data"
@@ -203,9 +215,10 @@ export default {
     return {
       editar: false,
       listaSedes: [],
+      listaClientes: [],
       formCredito: {
         cliente_id: "",
-        id_deudor: "",
+        deudor_id: "",
         sede_id: "",
         cant_cuotas: "",
         cant_cuotas_pagadas: "",
@@ -228,6 +241,7 @@ export default {
   },
   created() {
     this.listarSedes(1);
+    this.listarClientes(1);
   },
   // Function crearCreditos
   methods: {
@@ -235,6 +249,13 @@ export default {
       let me = this;
       axios.get(`api/sedes?page=${page}`).then(function (response) {
         me.listaSedes = response.data;
+      });
+    },
+
+    listarClientes(page = 1) {
+      let me = this;
+      axios.get(`api/clientes?page=${page}`).then(function (response) {
+        me.listaClientes = response.data;
       });
     },
     crearCredito() {
