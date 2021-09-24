@@ -21,7 +21,7 @@ class ClienteController extends Controller
 				->orWhere('email', 'LIKE', "%$request->cliente%")
 				->orWhere('apellidos', 'LIKE', "%$request->cliente%");
 		}
-		$clientes = $clientes->paginate(20);
+		$clientes = $clientes->paginate(5);
 
 		return $clientes;
 	}

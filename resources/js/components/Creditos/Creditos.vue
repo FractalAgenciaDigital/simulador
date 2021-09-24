@@ -13,22 +13,22 @@
     </div>
     <div class="page-search d-flex justify-content-between p-4 border my-2">
       <div class="form-group col-8 m-auto">
-        <label for="buscar_credito">Buscar...</label>
+        <label for="buscar_cliente">Buscar...</label>
         <input
           type="text"
-          id="buscar_credito"
-          name="buscar_credito"
+          id="buscar_cliente"
+          name="buscar_cliente"
           class="form-control"
           placeholder="Nombres | Documento"
-          @keypress="listarCreditos()"
-          v-model="buscar_credito"
+          @keypress="listarClientes()"
+          v-model="buscar_cliente"
         />
       </div>
     </div>
 
-    <div v-if="buscar_credito.length > 0" class="page-content mt-4">
+    <div class="page-content mt-4" style="width: 100%">
       <section class="">
-        <table class="table table-sm table-bordered table-responsive">
+        <table class="table table-md table-bordered table-responsive">
           <thead>
             <tr>
               <th>ID</th>
@@ -42,10 +42,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="credito in listaCreditos.data" :key="credito.id">
+            <!-- <tbody v-if="buscar_cliente.length > 0"> -->
+            <tr v-for="credito in listaClientes.data" :key="credito.id">
               <td>{{ credito.id }}</td>
-              <td>{{ credito.id_cliente }}</td>
-              <td>{{ credito.id_deudor }}</td>
+              <td>{{ credito.nombres }} {{ credito.apellidos }}</td>
+              <td>{{ credito.valor_credito }}</td>
               <td>{{ credito.id_sede }}</td>
               <td>{{ credito.cant_cuotas }}</td>
               <td>{{ credito.cant_cuotas_pagadas }}</td>
@@ -80,34 +81,36 @@
               </td>
             </tr>
           </tbody>
+          <!-- <div v-else>
+            <div
+              class="alert alert-danger"
+              style="margin: 2px auto; width: 30%"
+            >
+              No hay coincidencias para esta busqueda.
+            </div>
+            <div class="alert alert-info" style="margin: 2px auto; width: 30%">
+              Crear un nuevo Cliente
+              <button
+                type="button"
+                class="btn btn-success"
+                data-toggle="modal"
+                data-target="#formClienteModal"
+              >
+                Crear Cliente
+              </button>
+            </div>
+          </div> -->
         </table>
         <pagination
           :align="'center'"
-          :data="listaCreditos"
+          :data="listaClientes"
           :limit="8"
-          @pagination-change-page="listarCreditos"
+          @pagination-change-page="listaClientes"
         >
           <span slot="prev-nav">&lt; Previous</span>
           <span slot="next-nav">Next &gt;</span>
         </pagination>
       </section>
-    </div>
-
-    <div v-else>
-      <div class="alert alert-danger">
-        No hay coincidencias para esta busqueda.
-      </div>
-      <div class="alert alert-info">
-        Crear un nuevo Cliente
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target="#formClienteModal"
-        >
-          Crear cliente
-        </button>
-      </div>
     </div>
 
     <crear-editar-cliente
@@ -128,20 +131,30 @@ export default {
   components: { CrearEditarCredito, CrearEditarCliente },
   data() {
     return {
-      buscar_credito: "",
+      buscar_cliente: "",
       listaCreditos: {},
+      listaClientes: {},
     };
   },
   created() {
     this.listarCreditos(1);
+    // this.listarClientes(1);
   },
   methods: {
     listarCreditos(page = 1) {
       let me = this;
       axios
-        .get(`api/creditos?page=${page}&credito=${this.buscar_credito}`)
+        .get(`api/creditos?page=${page}&credito=${this.buscar_cliente}`)
         .then(function (response) {
           me.listaCreditos = response.data;
+        });
+    },
+    listarClientes(page = 1) {
+      let me = this;
+      axios
+        .get(`api/clientes?page=${page}&cliente=${this.buscar_cliente}`)
+        .then(function (response) {
+          me.listaClientes = response.data;
         });
     },
     mostrarDatos: function (credito) {
