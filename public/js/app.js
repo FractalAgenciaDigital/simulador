@@ -2713,6 +2713,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2747,6 +2758,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     mostrarDatos: function mostrarDatos(credito) {
       this.$refs.CrearEditarCredito.abirEditarCredito(credito);
+    },
+    mostrarCuotas: function mostrarCuotas(credito) {
+      this.$refs.Cuotas.abrirCuotas(credito);
     },
     mostrarDatosCliente: function mostrarDatosCliente(cliente) {
       this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
@@ -2841,6 +2855,12 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("api/creditos/".concat(this.credito_id, "/cuotas")).then(function (response) {
         me.listadoCuotas = response.data;
       });
+    },
+    abrirCuotas: function abrirCuotas(credito) {
+      this.editar = true;
+      var me = this;
+      $("#formCuotasModal").modal("show");
+      me.formCuotas = credito;
     }
   }
 });
@@ -45526,98 +45546,134 @@ var render = function() {
                 [
                   _vm._m(1),
                   _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.listaClientes.data, function(credito) {
-                      return _c("tr", { key: credito.id }, [
-                        _c("td", [_vm._v(_vm._s(credito.id))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(credito.nombres) +
-                              " " +
-                              _vm._s(credito.apellidos)
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(credito.valor_credito))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(credito.id_sede))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(credito.cant_cuotas))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(credito.cant_cuotas_pagadas))]),
-                        _vm._v(" "),
-                        credito.id_rol == 1
-                          ? _c("td", [_vm._v("Administrador")])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        credito.id_rol == 2
-                          ? _c("td", [_vm._v("Operario")])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        credito.estado == 1
-                          ? _c("td", [_vm._v("Activo")])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        credito.estado == 0
-                          ? _c("td", [_vm._v("Inactivo")])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-center" }, [
-                          credito.estado == 1
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-outline-primary",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.mostrarDatos(credito)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "bi bi-pen" })]
+                  _vm.buscar_cliente.length > 0
+                    ? _c(
+                        "tbody",
+                        _vm._l(_vm.listaClientes.data, function(credito) {
+                          return _c("tr", { key: credito.id }, [
+                            _c("td", [_vm._v(_vm._s(credito.id))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(credito.nombres) +
+                                  " " +
+                                  _vm._s(credito.apellidos)
                               )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          credito.estado == 1
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-outline-danger",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.CambiarEstado(credito.id)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "bi bi-trash" })]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          credito.estado == 0
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-outline-success",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.CambiarEstado(credito.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "bi bi-check2-circle"
-                                  })
-                                ]
-                              )
-                            : _vm._e()
-                        ])
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(credito.valor_credito))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(credito.id_sede))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(credito.cant_cuotas))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(credito.cant_cuotas_pagadas))
+                            ]),
+                            _vm._v(" "),
+                            credito.id_rol == 1
+                              ? _c("td", [_vm._v("Administrador")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            credito.id_rol == 2
+                              ? _c("td", [_vm._v("Operario")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            credito.estado == 1
+                              ? _c("td", [_vm._v("Activo")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            credito.estado == 0
+                              ? _c("td", [_vm._v("Inactivo")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-center" }, [
+                              credito.estado == 1
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-outline-primary",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.mostrarCuotas(credito)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "bi bi-eye" })]
+                                  )
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-center" }, [
+                              credito.estado == 1
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-outline-primary",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.mostrarDatos(credito)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "bi bi-pen" })]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              credito.estado == 1
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-outline-danger",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.CambiarEstado(credito.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "bi bi-trash" })]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              credito.estado == 0
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-outline-success",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.CambiarEstado(credito.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "bi bi-check2-circle"
+                                      })
+                                    ]
+                                  )
+                                : _vm._e()
+                            ])
+                          ])
+                        }),
+                        0
+                      )
+                    : _c("div", [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "alert alert-danger",
+                            staticStyle: { margin: "2px auto", width: "30%" }
+                          },
+                          [
+                            _vm._v(
+                              "\n            No hay coincidencias para esta busqueda.\n          "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm._m(2)
                       ])
-                    }),
-                    0
-                  )
                 ]
               ),
               _vm._v(" "),
@@ -45661,6 +45717,15 @@ var render = function() {
         on: {
           "listar-creditos": function($event) {
             return _vm.listarCreditos(1)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("cuotas", {
+        ref: "Cuotas",
+        on: {
+          "mostrar-cuotas": function($event) {
+            return _vm.mostrarCuotas(1)
           }
         }
       })
@@ -45717,9 +45782,38 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Cuotas")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Opciones")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "alert alert-info",
+        staticStyle: { margin: "2px auto", width: "30%" }
+      },
+      [
+        _vm._v("\n            Crear un nuevo Cliente\n            "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success",
+            attrs: {
+              type: "button",
+              "data-toggle": "modal",
+              "data-target": "#formClienteModal"
+            }
+          },
+          [_vm._v("\n              Crear Cliente\n            ")]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true

@@ -38,11 +38,12 @@
               <th>Nro Cuotas</th>
               <th>Cuotas</th>
               <th>Estado</th>
+              <th>Cuotas</th>
               <th>Opciones</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- <tbody v-if="buscar_cliente.length > 0"> -->
+          <!-- <tbody> -->
+          <tbody v-if="buscar_cliente.length > 0">
             <tr v-for="credito in listaClientes.data" :key="credito.id">
               <td>{{ credito.id }}</td>
               <td>{{ credito.nombres }} {{ credito.apellidos }}</td>
@@ -56,6 +57,15 @@
               <td v-if="credito.estado == 1">Activo</td>
               <td v-if="credito.estado == 0">Inactivo</td>
 
+              <td class="text-center">
+                <button
+                  v-if="credito.estado == 1"
+                  class="btn btn-outline-primary"
+                  @click="mostrarCuotas(credito)"
+                >
+                  <i class="bi bi-eye"></i>
+                </button>
+              </td>
               <td class="text-center">
                 <button
                   v-if="credito.estado == 1"
@@ -81,7 +91,7 @@
               </td>
             </tr>
           </tbody>
-          <!-- <div v-else>
+          <div v-else>
             <div
               class="alert alert-danger"
               style="margin: 2px auto; width: 30%"
@@ -99,7 +109,7 @@
                 Crear Cliente
               </button>
             </div>
-          </div> -->
+          </div>
         </table>
         <pagination
           :align="'center'"
@@ -121,6 +131,7 @@
       ref="CrearEditarCredito"
       @listar-creditos="listarCreditos(1)"
     />
+    <cuotas ref="Cuotas" @mostrar-cuotas="mostrarCuotas(1)" />
   </div>
 </template>
 <script>
@@ -159,6 +170,9 @@ export default {
     },
     mostrarDatos: function (credito) {
       this.$refs.CrearEditarCredito.abirEditarCredito(credito);
+    },
+    mostrarCuotas: function (credito) {
+      this.$refs.Cuotas.abrirCuotas(credito);
     },
     mostrarDatosCliente: function (cliente) {
       this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
