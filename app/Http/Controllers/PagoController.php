@@ -9,7 +9,6 @@ class PagoController extends Controller
 {
 	public function index()
 	{
-		//
 		return Pago::paginate(15);
 	}
 
@@ -25,14 +24,14 @@ class PagoController extends Controller
 	{
 
 		$pago = new Pago();
-		$pago->nombres = $request['nombres'];
-		$pago->apellidos = $request['apellidos'];
-		$pago->tipo_documento = $request['tipo_documento'];
-		$pago->nro_documento = $request['nro_documento'];
-		$pago->celular1 = $request['celular1'];
-		$pago->celular2 = $request['celular2'];
-		$pago->direccion = $request['direccion'];
-    $pago->email = $request['email'];
+		$pago->tipo_deuda = $request['tipo_deuda'];
+		$pago->id_deuda = $request['id_deuda'];
+		$pago->valor_pago = $request['valor_pago'];
+		$pago->nro_cuota = $request['nro_cuota'];
+		$pago->valor_interes = $request['valor_interes'];
+		$pago->valor_capital = $request['valor_capital'];
+		$pago->id_tercero = $request['id_tercero'];
+    $pago->fecha_pago = $request['fecha_pago'];
 		$pago->save();
 	}
 
@@ -49,14 +48,14 @@ class PagoController extends Controller
 	public function update(Request $request, Pago $pago)
 	{
 		$pago = Pago::find($request->id);
-		$pago->nombres = $request['nombres'];
-		$pago->apellidos = $request['apellidos'];
-		$pago->tipo_documento = $request['tipo_documento'];
-		$pago->nro_documento = $request['nro_documento'];
-		$pago->celular1 = $request['celular1'];
-		$pago->celular2 = $request['celular2'];
-		$pago->direccion = $request['direccion'];
-    $pago->email = $request['email'];
+		$pago->tipo_deuda = $request['tipo_deuda'];
+		$pago->id_deuda = $request['id_deuda'];
+		$pago->valor_pago = $request['valor_pago'];
+		$pago->nro_cuota = $request['nro_cuota'];
+		$pago->valor_interes = $request['valor_interes'];
+		$pago->valor_capital = $request['valor_capital'];
+		$pago->id_tercero = $request['id_tercero'];
+    $pago->fecha_pago  = $request['fecha_pago '];
 		$pago->save();
 	}
 

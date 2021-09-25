@@ -2403,13 +2403,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -44137,7 +44130,7 @@ var render = function() {
                 _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "form-group col-md-4" }, [
                     _c("label", { attrs: { for: "tipo_deuda" } }, [
-                      _vm._v("TipoDeuda")
+                      _vm._v("Tipo Deuda")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -44150,7 +44143,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text", id: "tipo_deuda" },
+                      attrs: { type: "number", id: "tipo_deuda" },
                       domProps: { value: _vm.formPago.tipo_deuda },
                       on: {
                         input: function($event) {
@@ -44168,8 +44161,8 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "Apellidos" } }, [
-                      _vm._v("Apellidos")
+                    _c("label", { attrs: { for: "id_deuda" } }, [
+                      _vm._v("Id deuda")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -44177,21 +44170,21 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.formProveedor.apellidos,
-                          expression: "formProveedor.apellidos"
+                          value: _vm.formPago.id_deuda,
+                          expression: "formPago.id_deuda"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text", id: "Apellidos" },
-                      domProps: { value: _vm.formProveedor.apellidos },
+                      attrs: { type: "number", id: "id_deuda" },
+                      domProps: { value: _vm.formPago.id_deuda },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
                           _vm.$set(
-                            _vm.formProveedor,
-                            "apellidos",
+                            _vm.formPago,
+                            "id_deuda",
                             $event.target.value
                           )
                         }
@@ -44200,62 +44193,40 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "tipo_documento" } }, [
-                      _vm._v("Tipo Documento")
+                    _c("label", { attrs: { for: "valor_pago" } }, [
+                      _vm._v("Valor pago")
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formProveedor.tipo_documento,
-                            expression: "formProveedor.tipo_documento"
-                          }
-                        ],
-                        staticClass: "custom-select",
-                        attrs: { name: "tipo_documento", id: "tipo_documento" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.formProveedor,
-                              "tipo_documento",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formPago.valor_pago,
+                          expression: "formPago.valor_pago"
                         }
-                      },
-                      [
-                        _c("option", { attrs: { value: "0", disabled: "" } }, [
-                          _vm._v("--Seleccionar--")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("Cédula de ciudadanía")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "2" } }, [
-                          _vm._v("Passaporte")
-                        ])
-                      ]
-                    )
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", id: "valor_pago" },
+                      domProps: { value: _vm.formPago.valor_pago },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formPago,
+                            "valor_pago",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "Apellidos" } }, [
-                      _vm._v("Nro. Documento")
+                    _c("label", { attrs: { for: "nro_cuota" } }, [
+                      _vm._v("Nro cuota")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -44263,21 +44234,21 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.formProveedor.nro_documento,
-                          expression: "formProveedor.nro_documento"
+                          value: _vm.formPago.nro_cuota,
+                          expression: "formPago.nro_cuota"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "number", id: "Documento" },
-                      domProps: { value: _vm.formProveedor.nro_documento },
+                      attrs: { type: "number", id: "nro_cuota" },
+                      domProps: { value: _vm.formPago.nro_cuota },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
                           _vm.$set(
-                            _vm.formProveedor,
-                            "nro_documento",
+                            _vm.formPago,
+                            "nro_cuota",
                             $event.target.value
                           )
                         }
@@ -44285,9 +44256,9 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-4" }, [
-                    _c("label", { attrs: { for: "celular1" } }, [
-                      _vm._v("Celular 1")
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "valor_interes" } }, [
+                      _vm._v("Valor interes")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -44295,21 +44266,21 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.formProveedor.celular1,
-                          expression: "formProveedor.celular1"
+                          value: _vm.formPago.valor_interes,
+                          expression: "formPago.valor_interes"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "tel", id: "celular1" },
-                      domProps: { value: _vm.formProveedor.celular1 },
+                      attrs: { type: "number", id: "valor_interes" },
+                      domProps: { value: _vm.formPago.valor_interes },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
                           _vm.$set(
-                            _vm.formProveedor,
-                            "celular1",
+                            _vm.formPago,
+                            "valor_interes",
                             $event.target.value
                           )
                         }
@@ -44317,9 +44288,9 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-4" }, [
-                    _c("label", { attrs: { for: "celular2" } }, [
-                      _vm._v("Celular 2")
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "valor_capital" } }, [
+                      _vm._v("Valor capital")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -44327,21 +44298,21 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.formProveedor.celular2,
-                          expression: "formProveedor.celular2"
+                          value: _vm.formPago.valor_capital,
+                          expression: "formPago.valor_capital"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "tel", id: "celular2" },
-                      domProps: { value: _vm.formProveedor.celular2 },
+                      attrs: { type: "number", id: "valor_capital" },
+                      domProps: { value: _vm.formPago.valor_capital },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
                           _vm.$set(
-                            _vm.formProveedor,
-                            "celular2",
+                            _vm.formPago,
+                            "valor_capital",
                             $event.target.value
                           )
                         }
@@ -44349,9 +44320,9 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-4" }, [
-                    _c("label", { attrs: { for: "email" } }, [
-                      _vm._v("Correo Electronico")
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "id_tercero" } }, [
+                      _vm._v("Id tercero")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -44359,21 +44330,21 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.formProveedor.email,
-                          expression: "formProveedor.email"
+                          value: _vm.formPago.id_tercero,
+                          expression: "formPago.id_tercero"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "email", id: "email" },
-                      domProps: { value: _vm.formProveedor.email },
+                      attrs: { type: "number", id: "id_tercero" },
+                      domProps: { value: _vm.formPago.id_tercero },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
                           _vm.$set(
-                            _vm.formProveedor,
-                            "email",
+                            _vm.formPago,
+                            "id_tercero",
                             $event.target.value
                           )
                         }
@@ -44381,9 +44352,9 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-4" }, [
-                    _c("label", { attrs: { for: "direccion" } }, [
-                      _vm._v("Dirección")
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "fecha_pago" } }, [
+                      _vm._v("Fecha pago")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -44391,21 +44362,21 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.formProveedor.direccion,
-                          expression: "formProveedor.direccion"
+                          value: _vm.formPago.fecha_pago,
+                          expression: "formPago.fecha_pago"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text", id: "direccion" },
-                      domProps: { value: _vm.formProveedor.direccion },
+                      attrs: { type: "number", id: "fecha_pago" },
+                      domProps: { value: _vm.formPago.fecha_pago },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
                           _vm.$set(
-                            _vm.formProveedor,
-                            "direccion",
+                            _vm.formPago,
+                            "fecha_pago",
                             $event.target.value
                           )
                         }

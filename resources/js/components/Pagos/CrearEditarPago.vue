@@ -24,82 +24,75 @@
             <form>
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  <label for="tipo_deuda">TipoDeuda</label>
+                  <label for="tipo_deuda">Tipo Deuda</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="tipo_deuda"
                     v-model="formPago.tipo_deuda"
                   />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="Apellidos">Apellidos</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="Apellidos"
-                    v-model="formProveedor.apellidos"
-                  />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="tipo_documento">Tipo Documento</label>
-                  <select
-                    name="tipo_documento"
-                    id="tipo_documento"
-                    class="custom-select"
-                    v-model="formProveedor.tipo_documento"
-                  >
-                    <option value="0" disabled>--Seleccionar--</option>
-                    <option value="1">Cédula de ciudadanía</option>
-                    <option value="2">Passaporte</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="Apellidos">Nro. Documento</label>
-
+                  <label for="id_deuda">Id deuda</label>
                   <input
                     type="number"
                     class="form-control"
-                    id="Documento"
-                    v-model="formProveedor.nro_documento"
+                    id="id_deuda"
+                    v-model="formPago.id_deuda"
                   />
                 </div>
-
-                <div class="form-group col-4">
-                  <label for="celular1">Celular 1</label>
+                <div class="form-group col-md-4">
+                  <label for="valor_pago">Valor pago</label>
                   <input
-                    type="tel"
+                    type="number"
                     class="form-control"
-                    id="celular1"
-                    v-model="formProveedor.celular1"
+                    id="valor_pago"
+                    v-model="formPago.valor_pago"
                   />
                 </div>
-                <div class="form-group col-4">
-                  <label for="celular2">Celular 2</label>
+                <div class="form-group col-md-4">
+                  <label for="nro_cuota">Nro cuota</label>
                   <input
-                    type="tel"
+                    type="number"
                     class="form-control"
-                    id="celular2"
-                    v-model="formProveedor.celular2"
+                    id="nro_cuota"
+                    v-model="formPago.nro_cuota"
                   />
                 </div>
-
-                <div class="form-group col-4">
-                  <label for="email">Correo Electronico</label>
+                <div class="form-group col-md-4">
+                  <label for="valor_interes">Valor interes</label>
                   <input
-                    type="email"
+                    type="number"
                     class="form-control"
-                    id="email"
-                    v-model="formProveedor.email"
+                    id="valor_interes"
+                    v-model="formPago.valor_interes"
                   />
                 </div>
-                <div class="form-group col-4">
-                  <label for="direccion">Dirección</label>
+                <div class="form-group col-md-4">
+                  <label for="valor_capital">Valor capital</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
-                    id="direccion"
-                    v-model="formProveedor.direccion"
+                    id="valor_capital"
+                    v-model="formPago.valor_capital"
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="id_tercero">Id tercero</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="id_tercero"
+                    v-model="formPago.id_tercero"
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="fecha_pago">Fecha pago</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="fecha_pago"
+                    v-model="formPago.fecha_pago"
                   />
                 </div>
               </div>
