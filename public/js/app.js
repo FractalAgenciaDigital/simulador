@@ -2588,6 +2588,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CrearEditarCredito_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CrearEditarCredito.vue */ "./resources/js/components/Creditos/CrearEditarCredito.vue");
 /* harmony import */ var _Clientes_CrearEditarCliente_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../Clientes/CrearEditarCliente.vue */ "./resources/js/components/Clientes/CrearEditarCliente.vue");
+/* harmony import */ var _Cuotas_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Cuotas.vue */ "./resources/js/components/Creditos/Cuotas.vue");
 //
 //
 //
@@ -2724,12 +2725,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     CrearEditarCredito: _CrearEditarCredito_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    CrearEditarCliente: _Clientes_CrearEditarCliente_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    CrearEditarCliente: _Clientes_CrearEditarCliente_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    Cuotas: _Cuotas_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   data: function data() {
     return {
@@ -45561,6 +45576,8 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(credito.nro_documento))]),
+                            _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(credito.valor_credito))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(credito.id_sede))]),
@@ -45586,6 +45603,27 @@ var render = function() {
                             credito.estado == 0
                               ? _c("td", [_vm._v("Inactivo")])
                               : _vm._e(),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-center" }, [
+                              credito.estado == 1
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-outline-primary",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.simularCredito(credito)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "bi bi-credit-card-2-back"
+                                      })
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-center" }, [
                               credito.estado == 1
@@ -45772,6 +45810,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Cliente")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Nro. Documento")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Valor crédito")]),
         _vm._v(" "),
         _c("th", [_vm._v("Valor Abonado")]),
@@ -45781,6 +45821,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Cuotas")]),
         _vm._v(" "),
         _c("th", [_vm._v("Estado")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Simular Crédito")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cuotas")]),
         _vm._v(" "),

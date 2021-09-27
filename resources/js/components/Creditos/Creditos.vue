@@ -33,11 +33,13 @@
             <tr>
               <th>ID</th>
               <th>Cliente</th>
+              <th>Nro. Documento</th>
               <th>Valor crédito</th>
               <th>Valor Abonado</th>
               <th>Nro Cuotas</th>
               <th>Cuotas</th>
               <th>Estado</th>
+              <th>Simular Crédito</th>
               <th>Cuotas</th>
               <th>Opciones</th>
             </tr>
@@ -47,6 +49,7 @@
             <tr v-for="credito in listaClientes.data" :key="credito.id">
               <td>{{ credito.id }}</td>
               <td>{{ credito.nombres }} {{ credito.apellidos }}</td>
+              <td>{{ credito.nro_documento }}</td>
               <td>{{ credito.valor_credito }}</td>
               <td>{{ credito.id_sede }}</td>
               <td>{{ credito.cant_cuotas }}</td>
@@ -57,6 +60,15 @@
               <td v-if="credito.estado == 1">Activo</td>
               <td v-if="credito.estado == 0">Inactivo</td>
 
+              <td class="text-center">
+                <button
+                  v-if="credito.estado == 1"
+                  class="btn btn-outline-primary"
+                  @click="simularCredito(credito)"
+                >
+                  <i class="bi bi-credit-card-2-back"></i>
+                </button>
+              </td>
               <td class="text-center">
                 <button
                   v-if="credito.estado == 1"
@@ -137,9 +149,10 @@
 <script>
 import CrearEditarCredito from "./CrearEditarCredito.vue";
 import CrearEditarCliente from "./../Clientes/CrearEditarCliente.vue";
+import Cuotas from "./Cuotas.vue";
 
 export default {
-  components: { CrearEditarCredito, CrearEditarCliente },
+  components: { CrearEditarCredito, CrearEditarCliente, Cuotas },
   data() {
     return {
       buscar_cliente: "",
