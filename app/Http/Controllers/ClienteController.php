@@ -21,7 +21,7 @@ class ClienteController extends Controller
 				->orWhere('email', 'LIKE', "%$request->cliente%")
 				->orWhere('apellidos', 'LIKE', "%$request->cliente%");
 		}
-		$clientes = $clientes->paginate(20);
+		$clientes = $clientes->paginate(5);
 
 		return $clientes;
 	}
@@ -96,9 +96,9 @@ class ClienteController extends Controller
 	 * @param  \App\Models\Cliente  $cliente
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $id)
+	public function update(Request $request, Cliente $cliente)
 	{
-		$cliente = Cliente::find($id);
+		$cliente = Cliente::find($request->id);
 		$cliente->nombres = $request['nombres'];
 		$cliente->apellidos = $request['apellidos'];
 		$cliente->tipo_documento = $request['tipo_documento'];
@@ -113,19 +113,10 @@ class ClienteController extends Controller
 		$cliente->lugar_trabajo = $request['lugar_trabajo'];
 		$cliente->cargo = $request['cargo'];
 		$cliente->independiente = $request['independiente'];
-		$cliente->foto = 'undefined';
+		$cliente->foto = 'undefindef';
 		$cliente->save();
 	}
 
-
-	public function cambiarEstado(Cliente $cliente)
-	{
-		//
-		$client = Cliente::find($cliente->id);
-		// $cliente->estado = '0';
-		$client->estado = !$client->estado;
-		$client->save();
-	}
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -136,6 +127,15 @@ class ClienteController extends Controller
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function cambiarEstado(Cliente $cliente)
+	{
+		//
+		$c = Cliente::find($cliente->id);
+		// $cliente->estado = '0';
+		$c->estado = !$c->estado;
+		$c->save();
 	}
 
 	public function creditos(Request $request, $id)

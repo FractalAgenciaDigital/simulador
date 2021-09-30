@@ -5,14 +5,11 @@
       id="formUsuarioModal"
       tabindex="-1"
       aria-labelledby="formUsuarioModalLabel"
-      aria-hidden="true"
-    >
+      aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="formUsuarioModalLabel">
-              Gestionar Usuario
-            </h5>
+            <h5 class="modal-title" id="formUsuarioModalLabel">Usuarios</h5>
             <button
               type="button"
               class="close"
@@ -20,28 +17,28 @@
               @click="(editar = false), resetData()"
               aria-label="Close"
             >
-              <span aria-hidden="true">&times;</span>
+              <span aria-hidden="true" >&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <form>
               <div class="form-row">
                 <div class="form-group col-md-4">
+                  <label for="name">Usuario</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    v-model="formUsuario.name"
+                  />
+                </div>
+                <div class="form-group col-md-4">
                   <label for="nombre">Nombre</label>
                   <input
                     type="text"
                     class="form-control"
                     id="nombre"
-                    v-model="formUsuario.nombres"
-                  />
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="name">Apellidos</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    v-model="formUsuario.apellidos"
+                    v-model="formUsuario.nombre"
                   />
                 </div>
                 <div class="form-group col-md-4">
@@ -56,7 +53,7 @@
                 <div class="form-group col-md-4">
                   <label for="celular">Celular</label>
                   <input
-                    type="number"
+                    type="date"
                     class="form-control"
                     id="celular"
                     v-model="formUsuario.celular"
@@ -68,8 +65,7 @@
                     name="tipo_documento"
                     id="tipo_documento"
                     class="custom-select"
-                    v-model="formUsuario.tipo_documento"
-                  >
+                    v-model="formUsuario.tipo_documento">
                     <option value="0" disabled>--Seleccionar--</option>
                     <option value="1">Cédula de ciudadanía</option>
                     <option value="2">Pasaporte</option>
@@ -86,22 +82,22 @@
                   />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="sede_id">Sede</label>
+                  <label for="id_sede">Sede</label>
 
                   <input
                     type="number"
                     class="form-control"
-                    id="sede_id"
-                    v-model="formUsuario.sede_id"
+                    id="id_sede"
+                    v-model="formUsuario.id_sede"
                   />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="rol_id">Rol</label>
+                  <label for="id_rol">Rol</label>
                   <select
-                    name="rol_id"
-                    id="rol_id"
+                    name="id_rol"
+                    id="id_rol"
                     class="custom-select"
-                    v-model="formUsuario.rol_id"
+                    v-model="formUsuario.id_rol"
                   >
                     <option value="0" disabled>--Seleccionar--</option>
                     <option value="1">Administrador</option>
@@ -147,7 +143,7 @@
 export default {
   data() {
     return {
-      editar: false,
+      editar : false,
       formUsuario: {
         name: "",
         email: "",
@@ -170,14 +166,15 @@ export default {
       let me = this;
       axios.post("api/usuarios", this.formUsuario).then(function () {
         $("#formUsuarioModal").modal("hide");
-        me.$emit("listar-usuarios");
+        me.resetData();
+        this.$emit("listar-usuarios");
       });
     },
-    abirEditarUsuario(usuario) {
+    abirEditarUsuario(cliente) {
       this.editar = true;
       let me = this;
       $("#formUsuarioModal").modal("show");
-      me.formUsuario = usuario;
+      me.formUsuario = cliente;
     },
     editarUsuario() {
       let me = this;
@@ -185,8 +182,10 @@ export default {
         .put("api/usuarios/" + this.formUsuario.id, this.formUsuario)
         .then(function () {
           $("#formUsuarioModal").modal("hide");
-          me.$emit("listar-usuarios");
+          me.resetData();
         });
+      this.$emit("listar-usuarios");
+
       this.editar = false;
     },
     resetData() {
