@@ -11,6 +11,20 @@
         Crear cliente
       </button>
     </div>
+    <div class="page-search d-flex justify-content-between p-4 border my-2">
+      <div class="form-group col-8 m-auto">
+        <label for="buscar_cliente">Buscar...</label>
+        <input
+          type="text"
+          id="buscar_cliente"
+          name="buscar_cliente"
+          class="form-control"
+          placeholder="Nombres | Documento"
+          @keypress="listarClientes(1)"
+          v-model="buscar_cliente"
+        />
+      </div>
+    </div>
     <div class="page-content mt-4">
       <section class="">
         <table class="table table-sm table-bordered table-responsive">
@@ -22,7 +36,7 @@
               <th>Celular</th>
               <th>Correo Electronico</th>
               <th>Dirección</th>
-              <th>Créditos</th>
+              <th>Estado</th>
               <th>Opciones</th>
             </tr>
           </thead>
@@ -34,9 +48,16 @@
               <td>( {{ c.celular1 }} ) - ( {{ c.celular2 }} )</td>
               <td>{{ c.email }}</td>
               <td>{{ c.direccion }}</td>
-              <td class="text-center">
-                <button class="btn btn-outline-primary">
-                  <i class="bi bi-eye"></i>
+              <td>
+                <button
+                  class="btn"
+                  :class="
+                    c.estado == 1 ? 'btn-outline-success' : 'btn-outline-danger'
+                  "
+                  @click="CambiarEstado(c.id)"
+                >
+                  <i class="bi bi-check-circle-fill" v-if="c.estado == 1"></i>
+                  <i class="bi bi-x-circle" v-if="c.estado == 0"></i>
                 </button>
               </td>
               <td class="text-center">
@@ -45,20 +66,6 @@
                   @click="mostrarDatos(c)"
                 >
                   <i class="bi bi-pen"></i>
-                </button>
-                <button
-                  v-if="c.activo == 1"
-                  class="btn btn-outline-danger"
-                  @click="CambiarEstado(c.id)"
-                >
-                  <i class="bi bi-trash"></i>
-                </button>
-                <button
-                  v-if="c.activo == 0"
-                  class="btn btn-outline-success"
-                  @click="CambiarEstado(c.id)"
-                >
-                  <i class="bi bi-check2-circle"></i>
                 </button>
               </td>
             </tr>
@@ -87,6 +94,7 @@ export default {
   components: { CrearEditarCliente },
   data() {
     return {
+      buscar_cliente: "",
       listaClientes: {},
     };
   },
@@ -96,16 +104,14 @@ export default {
   methods: {
     listarClientes(page = 1) {
       let me = this;
-      axios.get("api/clientes?page=" + page).then(function (response) {
-        me.listaClientes = response.data;
-      });
+      axios
+        .get(`api/clientes?page=${page}&cliente=${this.buscar_cliente}`)
+        .then(function (response) {
+          me.listaClientes = response.data;
+        });
     },
     mostrarDatos: function (cliente) {
       this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
-    },
-    showAlert() {
-      // Use sweetalert2
-      this.$swal("Hello Vue world!!!");
     },
     CambiarEstado: function (id) {
       let me = this;

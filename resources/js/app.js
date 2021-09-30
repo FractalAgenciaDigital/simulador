@@ -10,6 +10,10 @@ require('./bootstrap');
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Swal from 'sweetalert2'
+import vSelect from 'vue-select'
+
+import 'vue-select/dist/vue-select.css';
+Vue.component('v-select', vSelect)
 
 /**
  * The following block of code may be used to automatically register your
@@ -36,6 +40,10 @@ const routes = [
     { path: '/usuarios', component: require('./components/Usuarios/Usuarios.vue').default },
     { path: '/proveedores', component: require('./components/Proveedores/Proveedores.vue').default },
     { path: '/pagos', component: require('./components/Pagos/Pagos.vue').default },
+    { path: '/creditos', component: require('./components/Creditos/Creditos.vue').default },
+    { path: '/creditos/:credito_id/cuotas', component: require('./components/Creditos/Cuotas.vue').default, props: true, name: 'cuotas' },
+    { path: '/sedes', component: require('./components/Sedes/Sedes.vue').default },
+
 
 ]
 

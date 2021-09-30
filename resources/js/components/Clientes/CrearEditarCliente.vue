@@ -9,12 +9,12 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="formClienteModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="formClienteModalLabel">Clientes</h5>
             <button
               type="button"
               class="close"
               data-dismiss="modal"
-              @click="editar = false"
+              @click="(editar = false), resetData()"
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
@@ -206,14 +206,14 @@
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
-              @click="editar = false"
+              @click="(editar = false), resetData()"
             >
               Cerrar
             </button>
             <button
               type="button"
               class="btn btn-primary rounded"
-              @click="editar ? editarCliente() : crearCliente()"
+              @click="formCliente.id ? editarCliente() : crearCliente()"
             >
               Guardar
             </button>
@@ -253,8 +253,8 @@ export default {
       let me = this;
       axios.post("api/clientes", this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
-        me.formCliente = {};
-        this.$emit("listar-clientes");
+        me.resetData();
+        me.$emit("listar-clientes");
       });
     },
     abirEditarCliente(cliente) {
@@ -269,11 +269,17 @@ export default {
         .put("api/clientes/" + this.formCliente.id, this.formCliente)
         .then(function () {
           $("#formClienteModal").modal("hide");
-          me.formCliente = {};
+          me.resetData();
         });
-      this.$emit("listar-clientes");
+      me.$emit("listar-clientes");
 
-      this.editar = false;
+      me.editar = false;
+    },
+    resetData() {
+      let me = this;
+      Object.keys(this.formCliente).forEach(function (key, index) {
+        me.formCliente[key] = "";
+      });
     },
   },
 };
