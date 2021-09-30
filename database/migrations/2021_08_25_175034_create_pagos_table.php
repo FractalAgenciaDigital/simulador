@@ -37,3 +37,4 @@ class CreatePagosTable extends Migration
         Schema::dropIfExists('pagos');
     }
 }
+

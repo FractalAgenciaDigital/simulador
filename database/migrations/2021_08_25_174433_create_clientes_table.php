@@ -25,7 +25,7 @@ class CreateClientesTable extends Migration
       $table->string('email')->default(null)->nullable();
       $table->date('fecha_nacimiento')->default(null)->nullable();
       $table->tinyText('genero')->default(null)->nullable();
-      $table->tinyInteger('estado')->default(1);
+      $table->tinyInteger('activo')->default(1);
       $table->string('estado_civil')->default(null)->nullable();
       $table->string('lugar_trabajo')->default(null)->nullable();
       $table->string('cargo')->default(null)->nullable();

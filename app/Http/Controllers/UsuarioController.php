@@ -31,7 +31,7 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
         //
         $usuario = Usuario::findOrFail($id);
@@ -47,7 +47,6 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-
         $usuario = new Usuario();
         $usuario->name = $request['name'];
         $usuario->email = $request['email'];

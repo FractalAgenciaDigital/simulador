@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\CreditoController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\SedeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,12 +28,18 @@ Route::resource('/clientes',  ClienteController::class);
 Route::post('/clientes/{cliente}/cambiar-estado',  [ClienteController::class, 'cambiarEstado']);
 Route::get('/clientes/{cliente}/creditos', [ClienteController::class, 'creditos']);
 
-Route::resource('/usuarios',  UserController::class);
-Route::post('/usuarios/{usuario}/cambiar-estado',  [UserController::class, 'cambiarEstado']);
+
+Route::resource('/proveedores',  ProveedorController::class);
+Route::post('/proveedores/{proveedor}/cambiar-estado',  [ProveedorController::class, 'cambiarEstado']);
+
+Route::resource('/pagos',  PagoController::class);
+Route::post('/pagos/{pago}/cambiar-estado',  [PagoController::class, 'cambiarEstado']);
+Route::resource('/usuarios',  UsuarioController::class);
+Route::post('/usuarios/{usuario}/cambiar-estado',  [UsuarioController::class, 'cambiarEstado']);
 
 Route::resource('/sedes',  SedeController::class);
 Route::post('/sedes/{sede}/cambiar-estado',  [SedeController::class, 'cambiarEstado']);
 
+
 Route::resource('/creditos', CreditoController::class);
 Route::get('/creditos/{credito}/cuotas', [CreditoController::class, 'cuotas']);
-Route::post('/creditos/{credito}/cambiar-estado',  [CreditoController::class, 'cambiarEstado']);
