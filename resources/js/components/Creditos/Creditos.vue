@@ -20,7 +20,7 @@
           name="buscar_cliente"
           class="form-control"
           placeholder="Nombres | Documento"
-          @keypress="listarClientes()"
+          @keypress="listarCreditos()"
           v-model="buscar_cliente"
         />
       </div>
@@ -46,12 +46,12 @@
           </thead>
           <!-- <tbody> -->
           <tbody v-if="buscar_cliente.length > 0">
-            <tr v-for="credito in listaClientes.data" :key="credito.id">
-              <td>{{ credito.id }}</td>
+            <tr v-for="credito in listaCreditos.data" :key="credito.cliente_id">
+              <td>{{ credito.cliente_id }}</td>
               <td>{{ credito.nombres }} {{ credito.apellidos }}</td>
               <td>{{ credito.nro_documento }}</td>
               <td>{{ credito.valor_credito }}</td>
-              <td>{{ credito.id_sede }}</td>
+              <td>{{ credito.valor_abonado }}</td>
               <td>{{ credito.cant_cuotas }}</td>
               <td>{{ credito.cant_cuotas_pagadas }}</td>
 
@@ -125,9 +125,9 @@
         </table>
         <pagination
           :align="'center'"
-          :data="listaClientes"
+          :data="listaCreditos"
           :limit="8"
-          @pagination-change-page="listaClientes"
+          @pagination-change-page="listarCreditos"
         >
           <span slot="prev-nav">&lt; Previous</span>
           <span slot="next-nav">Next &gt;</span>
@@ -148,6 +148,7 @@
 </template>
 <script>
 import CrearEditarCredito from "./CrearEditarCredito.vue";
+import Simulador from "./Simulador.vue";
 import CrearEditarCliente from "./../Clientes/CrearEditarCliente.vue";
 import Cuotas from "./Cuotas.vue";
 
@@ -215,6 +216,6 @@ export default {
         }
       });
     },
-  },
+  }, //End of methods
 };
 </script>

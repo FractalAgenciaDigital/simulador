@@ -2587,8 +2587,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _CrearEditarCredito_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CrearEditarCredito.vue */ "./resources/js/components/Creditos/CrearEditarCredito.vue");
-/* harmony import */ var _Clientes_CrearEditarCliente_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../Clientes/CrearEditarCliente.vue */ "./resources/js/components/Clientes/CrearEditarCliente.vue");
-/* harmony import */ var _Cuotas_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Cuotas.vue */ "./resources/js/components/Creditos/Cuotas.vue");
+/* harmony import */ var _Simulador_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Simulador.vue */ "./resources/js/components/Creditos/Simulador.vue");
+/* harmony import */ var _Clientes_CrearEditarCliente_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../Clientes/CrearEditarCliente.vue */ "./resources/js/components/Clientes/CrearEditarCliente.vue");
+/* harmony import */ var _Cuotas_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Cuotas.vue */ "./resources/js/components/Creditos/Cuotas.vue");
 //
 //
 //
@@ -2737,14 +2738,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     CrearEditarCredito: _CrearEditarCredito_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    CrearEditarCliente: _Clientes_CrearEditarCliente_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    Cuotas: _Cuotas_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    CrearEditarCliente: _Clientes_CrearEditarCliente_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    Cuotas: _Cuotas_vue__WEBPACK_IMPORTED_MODULE_3__.default
   },
   data: function data() {
     return {
@@ -2798,7 +2800,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
-  }
+  } //End of methods
+
 });
 
 /***/ }),
@@ -2879,6 +2882,238 @@ __webpack_require__.r(__webpack_exports__);
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Simulador.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Simulador.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// Vue.component("vue-simuladoro", {
+//   // capital monto total del prestamo
+//   // tasa valor de tasa de interes que se compraria
+//   // plazos numero de pagos
+//   props: ["capital", "plazos", "tasa"],
+//   data: function () {
+//     return {
+//       item: {
+//         capital: "",
+//         plazos: "",
+//         tasa: "",
+//       },
+//       lista: [],
+//     };
+//   },
+//   template: `
+//             <div>
+//                 <input v-model="capital" type="text">
+//                 <table border="1" class="table table-striped- table-bordered table-hover table-checkable text-center" id="kt_table_2">
+//                     <caption  style="text-align:center">Tabla de amortizaciónes</caption>
+//                     <thead>
+//                     <tr >
+//                         <th class=""># Quincena</th>
+//                         <th class="">Saldo de Deuda</th>
+//                         <th class="">Amortización</th>
+//                         <th class="">Interés</th>
+//                         <th class="">Descuento</th>
+//                         <th class="">Iva</th>
+//                         <th class="">Descuento Total</th>
+//                     </tr>
+//                 </thead>
+//                 <tbody>
+//                     <tr v-for="item in lista"> <!-- Recorremos nuestro array -->
+//                         <td class="quincena"> {{ item.quincena}}</td>
+//                         <td class="pagado"> {{ item.pagado }}</td>
+//                         <td class="capital"> {{ item.amortizacion }}</td>
+//                         <td class="interes"> {{ item.interes }}</td>
+//                         <td class="descuento"> {{ item.descuento }}</td>
+//                         <td class="iva"> {{ item.iva }}</td>
+//                         <td class="iva"> {{ item.cuotaTotal }}</td>
+//                     </tr>
+//                 </tbody>
+//                 <tfoot>
+//                     <tr>
+//                         <td colspan="2">Totales</td>
+//                         <td>{{ totalamortizacion }}</td>
+//                         <td>{{ totalinteres }}</td>
+//                         <td>{{ totaldescuento }}</td>
+//                         <td>{{ totalIva }}</td>
+//                         <td>{{ totalImporte }}</td>
+//                     </tr>
+//                 </tfoot>
+//             </table>
+//         </div>
+//                   `,
+//   methods: {
+//     Initialize: function () {
+//       this.Calcular();
+//     },
+//     // addItem: function () {
+//     //     if (this.newItem){
+//     //         this.item.push({
+//     //             capital: 2,
+//     //             plazos: 20,
+//     //             tasa: 2.0,
+//     //         });
+//     //     }
+//     //     this.lista = "";
+//     // },
+//     Calcular: function () {
+//       function humanizeNumber(n) {
+//         n = n.toString();
+//         while (true) {
+//           var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, "$1,$2$3");
+//           if (n == n2) break;
+//           n = n2;
+//         }
+//         return n;
+//       }
+//       const formatter = new Intl.NumberFormat("es-MX", {
+//         style: "currency",
+//         currency: "MXN",
+//         minimumFractionDigits: 2,
+//       });
+//       var montoPrestamo = parseFloat(this.capital);
+//       var numPagos = parseInt(this.plazos);
+//       var tasaAnual = parseFloat(this.tasa);
+//       var iva = 0.16;
+//       tasaAnual = tasaAnual / 100;
+//       var tasaDiaria = (tasaAnual * (1 + iva)) / 360;
+//       var quincena = tasaDiaria * 15;
+//       var _descuento =
+//         (montoPrestamo * quincena) / (1 - Math.pow(1 + quincena, -numPagos));
+//       var nuevoMontoPrestado = montoPrestamo;
+//       //TOTALES
+//       this.totaldescuento = 0;
+//       this.totalinteres = 0;
+//       this.totalamortizacion = 0;
+//       this.totalIva = 0;
+//       this.totalImporte = 0;
+//       ///Primera iteración
+//       var itemFirts = {
+//         quincena: 0,
+//         pagado: humanizeNumber(formatter.format(montoPrestamo.toFixed(2))),
+//       };
+//       this.lista.push(itemFirts); //añadimos el la variable item al array
+//       ///Calculos
+//       var i = 1;
+//       while (i <= numPagos) {
+//         var nuevoInteres = (quincena * nuevoMontoPrestado) / (1 + iva);
+//         var ivaDesglose = nuevoInteres * iva;
+//         var amortizacion = _descuento - (nuevoInteres + ivaDesglose);
+//         var cuotaTOTAL = amortizacion + nuevoInteres + ivaDesglose;
+//         nuevoMontoPrestado = nuevoMontoPrestado - amortizacion;
+//         var item = {
+//           quincena: i,
+//           descuento: humanizeNumber(formatter.format(_descuento.toFixed(4))),
+//           iva: humanizeNumber(formatter.format(ivaDesglose.toFixed(4))),
+//           interes: humanizeNumber(formatter.format(nuevoInteres.toFixed(4))),
+//           amortizacion: humanizeNumber(
+//             formatter.format(amortizacion.toFixed(4))
+//           ),
+//           pagado: humanizeNumber(
+//             formatter.format(nuevoMontoPrestado.toFixed(4))
+//           ),
+//           cuotaTotal: humanizeNumber(formatter.format(cuotaTOTAL.toFixed(4))),
+//         };
+//         this.lista.push(item); //añadimos el la variable item al array
+//         i++;
+//         //SUMA TOTALES
+//         this.totaldescuento =
+//           parseFloat(this.totaldescuento) + parseFloat(_descuento);
+//         this.totalinteres =
+//           parseFloat(this.totalinteres) + parseFloat(nuevoInteres);
+//         this.totalamortizacion =
+//           parseFloat(this.totalamortizacion) + parseFloat(amortizacion);
+//         this.totalIva = parseFloat(this.totalIva) + parseFloat(ivaDesglose);
+//         this.totalImporte =
+//           parseFloat(this.totalImporte) + parseFloat(cuotaTOTAL);
+//       }
+//       //FORMATO MONEDA TOTALES
+//       this.totaldescuento = humanizeNumber(
+//         formatter.format(this.totaldescuento.toFixed(2))
+//       );
+//       this.totalinteres = humanizeNumber(
+//         formatter.format(this.totalinteres.toFixed(2))
+//       );
+//       this.totalamortizacion = humanizeNumber(
+//         formatter.format(this.totalamortizacion.toFixed(2))
+//       );
+//       this.totalIva = humanizeNumber(
+//         formatter.format(this.totalIva.toFixed(2))
+//       );
+//       this.totalImporte = humanizeNumber(
+//         formatter.format(this.totalImporte.toFixed(2))
+//       );
+//     },
+//   },
+//   computed: {},
+//   created() {
+//     this.Initialize();
+//   },
+// });
+// var app = new Vue({
+//   el: "#vue-simuladoro",
+// });
+//
 
 /***/ }),
 
@@ -43438,6 +43673,48 @@ component.options.__file = "resources/js/components/Creditos/Cuotas.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Creditos/Simulador.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/Creditos/Simulador.vue ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Simulador_vue_vue_type_template_id_ce20d8e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Simulador.vue?vue&type=template&id=ce20d8e6& */ "./resources/js/components/Creditos/Simulador.vue?vue&type=template&id=ce20d8e6&");
+/* harmony import */ var _Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Simulador.vue?vue&type=script&lang=js& */ "./resources/js/components/Creditos/Simulador.vue?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Simulador_vue_vue_type_template_id_ce20d8e6___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Simulador_vue_vue_type_template_id_ce20d8e6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Creditos/Simulador.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/Sedes/CrearEditarSede.vue":
 /*!***********************************************************!*\
   !*** ./resources/js/components/Sedes/CrearEditarSede.vue ***!
@@ -43674,6 +43951,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Creditos/Simulador.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/Creditos/Simulador.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Simulador.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Simulador.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+
+/***/ }),
+
 /***/ "./resources/js/components/Sedes/CrearEditarSede.vue?vue&type=script&lang=js&":
 /*!************************************************************************************!*\
   !*** ./resources/js/components/Sedes/CrearEditarSede.vue?vue&type=script&lang=js& ***!
@@ -43819,6 +44116,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cuotas_vue_vue_type_template_id_7bdcf300___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cuotas_vue_vue_type_template_id_7bdcf300___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Cuotas.vue?vue&type=template&id=7bdcf300& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Cuotas.vue?vue&type=template&id=7bdcf300&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Creditos/Simulador.vue?vue&type=template&id=ce20d8e6&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/Creditos/Simulador.vue?vue&type=template&id=ce20d8e6& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_template_id_ce20d8e6___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_template_id_ce20d8e6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_template_id_ce20d8e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Simulador.vue?vue&type=template&id=ce20d8e6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Simulador.vue?vue&type=template&id=ce20d8e6&");
 
 
 /***/ }),
@@ -45531,7 +45845,7 @@ var render = function() {
               domProps: { value: _vm.buscar_cliente },
               on: {
                 keypress: function($event) {
-                  return _vm.listarClientes()
+                  return _vm.listarCreditos()
                 },
                 input: function($event) {
                   if ($event.target.composing) {
@@ -45564,9 +45878,9 @@ var render = function() {
                   _vm.buscar_cliente.length > 0
                     ? _c(
                         "tbody",
-                        _vm._l(_vm.listaClientes.data, function(credito) {
-                          return _c("tr", { key: credito.id }, [
-                            _c("td", [_vm._v(_vm._s(credito.id))]),
+                        _vm._l(_vm.listaCreditos.data, function(credito) {
+                          return _c("tr", { key: credito.cliente_id }, [
+                            _c("td", [_vm._v(_vm._s(credito.cliente_id))]),
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(
@@ -45580,7 +45894,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(credito.valor_credito))]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(credito.id_sede))]),
+                            _c("td", [_vm._v(_vm._s(credito.valor_abonado))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(credito.cant_cuotas))]),
                             _vm._v(" "),
@@ -45718,8 +46032,8 @@ var render = function() {
               _c(
                 "pagination",
                 {
-                  attrs: { align: "center", data: _vm.listaClientes, limit: 8 },
-                  on: { "pagination-change-page": _vm.listaClientes }
+                  attrs: { align: "center", data: _vm.listaCreditos, limit: 8 },
+                  on: { "pagination-change-page": _vm.listarCreditos }
                 },
                 [
                   _c(
@@ -45956,6 +46270,124 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Simulador.vue?vue&type=template&id=ce20d8e6&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Simulador.vue?vue&type=template&id=ce20d8e6& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "vue-simuladoro" } }, [
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "formCreditoModal",
+          tabindex: "-1",
+          "aria-labelledby": "formCreditoModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c(
+                "h5",
+                {
+                  staticClass: "modal-title",
+                  attrs: { id: "formCreditoModalLabel" }
+                },
+                [_vm._v("Creditos")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: {
+                    type: "button",
+                    "data-dismiss": "modal",
+                    "aria-label": "Close"
+                  },
+                  on: {
+                    click: function($event) {
+                      ;(_vm.editar = false), _vm.resetData()
+                    }
+                  }
+                },
+                [
+                  _c("span", { attrs: { "aria-hidden": "true" } }, [
+                    _vm._v("×")
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                [
+                  _c("vue-simulador", {
+                    attrs: { tasa: 16.0, capital: 1257.23, plazos: 9 }
+                  })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "button", "data-dismiss": "modal" },
+                  on: {
+                    click: function($event) {
+                      ;(_vm.editar = false), _vm.resetData()
+                    }
+                  }
+                },
+                [_vm._v("\n            Cerrar\n          ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary rounded",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      _vm.editar ? _vm.editarCredito() : _vm.crearCredito()
+                    }
+                  }
+                },
+                [_vm._v("\n            Guardar\n          ")]
+              )
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
