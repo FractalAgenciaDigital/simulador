@@ -58,12 +58,6 @@ export default {
           me.listadoCuotas = response.data;
         });
     },
-    abrirCuotas(credito) {
-      this.editar = true;
-      let me = this;
-      $("#formCuotasModal").modal("show");
-      me.formCuotas = credito;
-    },
   },
 };
 </script>

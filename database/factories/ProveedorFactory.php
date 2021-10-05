@@ -21,15 +21,8 @@ class ProveedorFactory extends Factory
      */
     public function definition()
     {
-      return [
-        'nombres' => $this->faker->firstName(),
-        'apellidos' => $this->faker->lastName(),
-        'tipo_documento' => $this->faker->boolean(),
-        'nro_documento' => $this->faker->randomNumber(),
-        'celular1' => $this->faker->phoneNumber(),
-        'celular2' => $this->faker->phoneNumber(),
-        'direccion' => $this->faker->address(),
-        'email' => $this->faker->email()
-		  ];
+        return [
+            //
+        ];
     }
 }
