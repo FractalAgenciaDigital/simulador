@@ -2738,6 +2738,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+// const buscar_cliente = document.querySelector("#buscar_cliente");
+// const boton = document.querySelector("#boton");
+// const filtrar = () => {
+//   // console.log(buscar_cliente.value);
+//   const texto = buscar_cliente.value.toLowerCase();
+//   for (let cliente of listaCreditos) {
+//     let nombre = cliente.nombres.toLowerCase();
+//     if (nombres.indexOf(texto) !== -1) {
+//     }
+//   }
+// };
+// boton.addEventListener("click", filtrar);
 
 
 
@@ -2745,6 +2765,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     CrearEditarCredito: _CrearEditarCredito_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    Simulador: _Simulador_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     CrearEditarCliente: _Clientes_CrearEditarCliente_vue__WEBPACK_IMPORTED_MODULE_2__.default,
     Cuotas: _Cuotas_vue__WEBPACK_IMPORTED_MODULE_3__.default
   },
@@ -2775,6 +2796,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     mostrarDatos: function mostrarDatos(credito) {
       this.$refs.CrearEditarCredito.abirEditarCredito(credito);
+    },
+    simularCredito: function simularCredito(credito) {
+      this.$refs.Simulador.abrirSimulador(credito);
     },
     mostrarCuotas: function mostrarCuotas(credito) {
       this.$refs.Cuotas.abrirCuotas(credito);
@@ -2889,8 +2913,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Simulador.vue?vue&type=script&lang=js& ***!
   \*************************************************************************************************************************************************************************************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 //
 //
 //
@@ -2947,7 +2976,238 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// Vue.component("vue-simuladoro", {
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  // capital monto total del prestamo
+  // tasa valor de tasa de interes que se compraria
+  // plazos numero de pagos
+  // props: ["capital", "plazos", "tasa"],
+  data: function data() {
+    return {
+      editar: false,
+      formSimulador: {},
+      item: {
+        capital: "",
+        plazos: "",
+        tasa: ""
+      },
+      lista: [],
+      newItem: {}
+    };
+  },
+  methods: {
+    crearSimulador: function crearSimulador() {
+      var me = this;
+      axios.post("api/creditos", this.item).then(function () {
+        $("#formCreditoModal").modal("hide");
+        me.resetData();
+        this.$emit("listar-clientes");
+      });
+    },
+    abrirSimulador: function abrirSimulador(credito) {
+      this.editar = true;
+      var me = this;
+      $("#formSimuladorModal").modal("show");
+      me.formSimulador = credito;
+    },
+    Initialize: function Initialize() {
+      this.Calcular();
+    },
+    addItem: function addItem() {
+      if (this.newItem) {
+        this.item.push({
+          capital: "",
+          plazos: "",
+          tasa: ""
+        });
+      }
+
+      this.lista = "";
+    },
+    Calcular: function Calcular() {
+      function humanizeNumber(n) {
+        n = n.toString();
+
+        while (true) {
+          var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, "$1,$2$3");
+          if (n == n2) break;
+          n = n2;
+        }
+
+        return n;
+      }
+
+      var formatter = new Intl.NumberFormat("es-COL", {
+        style: "currency",
+        currency: "COL",
+        minimumFractionDigits: 2
+      });
+      var montoPrestamo = parseFloat(this.capital);
+      var numPagos = parseInt(this.plazos);
+      var tasaAnual = parseFloat(this.tasa);
+      var iva = 0.16;
+      tasaAnual = tasaAnual / 100;
+      var tasaDiaria = tasaAnual * (1 + iva) / 360;
+      var quincena = tasaDiaria * 15;
+
+      var _descuento = montoPrestamo * quincena / (1 - Math.pow(1 + quincena, -numPagos));
+
+      var nuevoMontoPrestado = montoPrestamo; //TOTALES
+
+      this.totaldescuento = 0;
+      this.totalinteres = 0;
+      this.totalamortizacion = 0;
+      this.totalIva = 0;
+      this.totalImporte = 0; ///Primera iteración
+
+      var itemFirts = {
+        quincena: 0,
+        pagado: humanizeNumber(formatter.format(montoPrestamo.toFixed(2)))
+      };
+      this.lista.push(itemFirts); //añadimos el la variable item al array
+      ///Calculos
+
+      var i = 1;
+
+      while (i <= numPagos) {
+        var nuevoInteres = quincena * nuevoMontoPrestado / (1 + iva);
+        var ivaDesglose = nuevoInteres * iva;
+        var amortizacion = _descuento - (nuevoInteres + ivaDesglose);
+        var cuotaTOTAL = amortizacion + nuevoInteres + ivaDesglose;
+        nuevoMontoPrestado = nuevoMontoPrestado - amortizacion;
+        var item = {
+          quincena: i,
+          descuento: humanizeNumber(formatter.format(_descuento.toFixed(4))),
+          iva: humanizeNumber(formatter.format(ivaDesglose.toFixed(4))),
+          interes: humanizeNumber(formatter.format(nuevoInteres.toFixed(4))),
+          amortizacion: humanizeNumber(formatter.format(amortizacion.toFixed(4))),
+          pagado: humanizeNumber(formatter.format(nuevoMontoPrestado.toFixed(4))),
+          cuotaTotal: humanizeNumber(formatter.format(cuotaTOTAL.toFixed(4)))
+        };
+        this.lista.push(item); //añadimos el la variable item al array
+
+        i++; //SUMA TOTALES
+
+        this.totaldescuento = parseFloat(this.totaldescuento) + parseFloat(_descuento);
+        this.totalinteres = parseFloat(this.totalinteres) + parseFloat(nuevoInteres);
+        this.totalamortizacion = parseFloat(this.totalamortizacion) + parseFloat(amortizacion);
+        this.totalIva = parseFloat(this.totalIva) + parseFloat(ivaDesglose);
+        this.totalImporte = parseFloat(this.totalImporte) + parseFloat(cuotaTOTAL);
+      } //FORMATO MONEDA TOTALES
+
+
+      this.totaldescuento = humanizeNumber(formatter.format(this.totaldescuento.toFixed(2)));
+      this.totalinteres = humanizeNumber(formatter.format(this.totalinteres.toFixed(2)));
+      this.totalamortizacion = humanizeNumber(formatter.format(this.totalamortizacion.toFixed(2)));
+      this.totalIva = humanizeNumber(formatter.format(this.totalIva.toFixed(2)));
+      this.totalImporte = humanizeNumber(formatter.format(this.totalImporte.toFixed(2)));
+    }
+  },
+  computed: {},
+  created: function created() {
+    this.Initialize();
+  }
+}); // Vue.component("vue-simulador", {
 //   // capital monto total del prestamo
 //   // tasa valor de tasa de interes que se compraria
 //   // plazos numero de pagos
@@ -2963,44 +3223,6 @@ __webpack_require__.r(__webpack_exports__);
 //     };
 //   },
 //   template: `
-//             <div>
-//                 <input v-model="capital" type="text">
-//                 <table border="1" class="table table-striped- table-bordered table-hover table-checkable text-center" id="kt_table_2">
-//                     <caption  style="text-align:center">Tabla de amortizaciónes</caption>
-//                     <thead>
-//                     <tr >
-//                         <th class=""># Quincena</th>
-//                         <th class="">Saldo de Deuda</th>
-//                         <th class="">Amortización</th>
-//                         <th class="">Interés</th>
-//                         <th class="">Descuento</th>
-//                         <th class="">Iva</th>
-//                         <th class="">Descuento Total</th>
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-//                     <tr v-for="item in lista"> <!-- Recorremos nuestro array -->
-//                         <td class="quincena"> {{ item.quincena}}</td>
-//                         <td class="pagado"> {{ item.pagado }}</td>
-//                         <td class="capital"> {{ item.amortizacion }}</td>
-//                         <td class="interes"> {{ item.interes }}</td>
-//                         <td class="descuento"> {{ item.descuento }}</td>
-//                         <td class="iva"> {{ item.iva }}</td>
-//                         <td class="iva"> {{ item.cuotaTotal }}</td>
-//                     </tr>
-//                 </tbody>
-//                 <tfoot>
-//                     <tr>
-//                         <td colspan="2">Totales</td>
-//                         <td>{{ totalamortizacion }}</td>
-//                         <td>{{ totalinteres }}</td>
-//                         <td>{{ totaldescuento }}</td>
-//                         <td>{{ totalIva }}</td>
-//                         <td>{{ totalImporte }}</td>
-//                     </tr>
-//                 </tfoot>
-//             </table>
-//         </div>
 //                   `,
 //   methods: {
 //     Initialize: function () {
@@ -3111,9 +3333,8 @@ __webpack_require__.r(__webpack_exports__);
 //   },
 // });
 // var app = new Vue({
-//   el: "#vue-simuladoro",
+//   el: "#vue-simulador",
 // });
-//
 
 /***/ }),
 
@@ -43686,9 +43907,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Simulador_vue_vue_type_template_id_ce20d8e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Simulador.vue?vue&type=template&id=ce20d8e6& */ "./resources/js/components/Creditos/Simulador.vue?vue&type=template&id=ce20d8e6&");
 /* harmony import */ var _Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Simulador.vue?vue&type=script&lang=js& */ "./resources/js/components/Creditos/Simulador.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -43963,11 +44181,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Simulador.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Creditos/Simulador.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Simulador_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -44338,20 +44552,22 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-primary",
-                            on: {
-                              click: function($event) {
-                                return _vm.mostrarDatos(c)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "bi bi-pen" })]
-                        )
-                      ])
+                      c.estado == 1
+                        ? _c("td", { staticClass: "text-center" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-outline-primary",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.mostrarDatos(c)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "bi bi-pen" })]
+                            )
+                          ])
+                        : _vm._e()
                     ])
                   }),
                   0
@@ -45823,7 +46039,7 @@ var render = function() {
         [
           _c("div", { staticClass: "form-group col-8 m-auto" }, [
             _c("label", { attrs: { for: "buscar_cliente" } }, [
-              _vm._v("Buscar...")
+              _vm._v("Buscar Cliente...")
             ]),
             _vm._v(" "),
             _c("input", {
@@ -45875,157 +46091,168 @@ var render = function() {
                 [
                   _vm._m(1),
                   _vm._v(" "),
-                  _vm.buscar_cliente.length > 0
-                    ? _c(
-                        "tbody",
-                        _vm._l(_vm.listaCreditos.data, function(credito) {
-                          return _c("tr", { key: credito.cliente_id }, [
-                            _c("td", [_vm._v(_vm._s(credito.cliente_id))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(credito.nombres) +
-                                  " " +
-                                  _vm._s(credito.apellidos)
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(credito.nro_documento))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(credito.valor_credito))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(credito.valor_abonado))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(credito.cant_cuotas))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(credito.cant_cuotas_pagadas))
-                            ]),
-                            _vm._v(" "),
-                            credito.id_rol == 1
-                              ? _c("td", [_vm._v("Administrador")])
-                              : _vm._e(),
-                            _vm._v(" "),
-                            credito.id_rol == 2
-                              ? _c("td", [_vm._v("Operario")])
-                              : _vm._e(),
-                            _vm._v(" "),
-                            credito.estado == 1
-                              ? _c("td", [_vm._v("Activo")])
-                              : _vm._e(),
-                            _vm._v(" "),
-                            credito.estado == 0
-                              ? _c("td", [_vm._v("Inactivo")])
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-center" }, [
-                              credito.estado == 1
-                                ? _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-outline-primary",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.simularCredito(credito)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "bi bi-credit-card-2-back"
-                                      })
-                                    ]
-                                  )
-                                : _vm._e()
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-center" }, [
-                              credito.estado == 1
-                                ? _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-outline-primary",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.mostrarCuotas(credito)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "bi bi-eye" })]
-                                  )
-                                : _vm._e()
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-center" }, [
-                              credito.estado == 1
-                                ? _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-outline-primary",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.mostrarDatos(credito)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "bi bi-pen" })]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              credito.estado == 1
-                                ? _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-outline-danger",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.CambiarEstado(credito.id)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "bi bi-trash" })]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              credito.estado == 0
-                                ? _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-outline-success",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.CambiarEstado(credito.id)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "bi bi-check2-circle"
-                                      })
-                                    ]
-                                  )
-                                : _vm._e()
-                            ])
-                          ])
-                        }),
-                        0
-                      )
-                    : _c("div", [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "alert alert-danger",
-                            staticStyle: { margin: "2px auto", width: "30%" }
-                          },
-                          [
-                            _vm._v(
-                              "\n            No hay coincidencias para esta busqueda.\n          "
-                            )
-                          ]
-                        ),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.listaCreditos.data, function(credito) {
+                      return _c("tr", { key: credito.index }, [
+                        _c("td", [_vm._v(_vm._s(credito.cliente_id))]),
                         _vm._v(" "),
-                        _vm._m(2)
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(credito.nombres) +
+                              " " +
+                              _vm._s(credito.apellidos)
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(credito.nro_documento))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(credito.valor_credito))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(credito.valor_abonado))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(credito.cant_cuotas))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(credito.cant_cuotas_pagadas))]),
+                        _vm._v(" "),
+                        credito.id_rol == 1
+                          ? _c("td", [_vm._v("Administrador")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        credito.id_rol == 2
+                          ? _c("td", [_vm._v("Operario")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        credito.estado == 1
+                          ? _c("td", [_vm._v("Activo")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        credito.estado == 0
+                          ? _c("td", [_vm._v("Inactivo")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          credito.estado == 1
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-outline-primary",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.simularCredito(credito)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "bi bi-credit-card-2-back"
+                                  })
+                                ]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          credito.estado == 1
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-outline-primary",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.mostrarCuotas(credito)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "bi bi-eye" })]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          credito.estado == 1
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-outline-primary",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.mostrarDatos(credito)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "bi bi-pen" })]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          credito.estado == 1
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-outline-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.CambiarEstado(credito.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "bi bi-trash" })]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          credito.estado == 0
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-outline-success",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.CambiarEstado(credito.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "bi bi-check2-circle"
+                                  })
+                                ]
+                              )
+                            : _vm._e()
+                        ])
                       ])
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.buscar_cliente,
+                          expression: "buscar_cliente"
+                        }
+                      ]
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "alert alert-danger",
+                          staticStyle: { margin: "2px auto", width: "30%" }
+                        },
+                        [
+                          _vm._v(
+                            "\n            Si no encuentras el usuario deseado. Podrías crearlo.\n          "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm._m(2)
+                    ]
+                  )
                 ]
               ),
               _vm._v(" "),
@@ -46071,6 +46298,11 @@ var render = function() {
             return _vm.listarCreditos(1)
           }
         }
+      }),
+      _vm._v(" "),
+      _c("simulador", {
+        ref: "Simulador",
+        attrs: { capital: 9023323, plazos: 12, tasa: 2.3 }
       }),
       _vm._v(" "),
       _c("cuotas", {
@@ -46292,15 +46524,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "vue-simuladoro" } }, [
+  return _c("div", { attrs: { id: "vue-simulador" } }, [
     _c(
       "div",
       {
         staticClass: "modal fade",
         attrs: {
-          id: "formCreditoModal",
+          id: "formSimuladorModal",
           tabindex: "-1",
-          "aria-labelledby": "formCreditoModalLabel",
+          "aria-labelledby": "formSimuladorModalLabel",
           "aria-hidden": "true"
         }
       },
@@ -46312,9 +46544,9 @@ var render = function() {
                 "h5",
                 {
                   staticClass: "modal-title",
-                  attrs: { id: "formCreditoModalLabel" }
+                  attrs: { id: "formSimuladorModalLabel" }
                 },
-                [_vm._v("Creditos")]
+                [_vm._v("Simulador")]
               ),
               _vm._v(" "),
               _c(
@@ -46341,15 +46573,191 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
-              _c(
-                "form",
-                [
-                  _c("vue-simulador", {
-                    attrs: { tasa: 16.0, capital: 1257.23, plazos: 9 }
-                  })
-                ],
-                1
-              )
+              _c("form", [
+                _c("div", { attrs: { id: "app" } }, [
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-floating col-md-5" }, [
+                      _c("label", { attrs: { for: "floatingInput" } }, [
+                        _vm._v("Importe del préstamo:")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.item.capital,
+                            expression: "item.capital"
+                          }
+                        ],
+                        staticClass: "form-control col",
+                        attrs: {
+                          type: "number",
+                          id: "floatingInput",
+                          placeholder: ""
+                        },
+                        domProps: { value: _vm.item.capital },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.item, "capital", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-floating col-md-5" }, [
+                      _c("label", { attrs: { for: "floatingInput" } }, [
+                        _vm._v("Interés:")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.lista.tasa,
+                            expression: "lista.tasa"
+                          }
+                        ],
+                        staticClass: "form-control col",
+                        attrs: {
+                          type: "number",
+                          id: "floatingInput",
+                          placeholder: ""
+                        },
+                        domProps: { value: _vm.lista.tasa },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.lista, "tasa", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-floating col-md-5" }, [
+                      _c("label", { attrs: { for: "floatingInput" } }, [
+                        _vm._v("PLazo:")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.lista.plazos,
+                            expression: "lista.plazos"
+                          }
+                        ],
+                        staticClass: "form-control col",
+                        attrs: {
+                          type: "number",
+                          id: "floatingInput",
+                          placeholder: ""
+                        },
+                        domProps: { value: _vm.lista.plazos },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.lista, "plazos", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "table",
+                      {
+                        staticClass:
+                          "\n                    table\n                    table-striped-\n                    table-bordered\n                    table-hover\n                    table-checkable\n                    text-center\n                  ",
+                        attrs: { border: "1", id: "kt_table_2" }
+                      },
+                      [
+                        _c(
+                          "caption",
+                          { staticStyle: { "text-align": "center" } },
+                          [
+                            _vm._v(
+                              "\n                    Tabla de amortizaciónes\n                  "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          _vm._l(_vm.lista, function(item) {
+                            return _c("tr", { key: item.index }, [
+                              _c("td", { staticClass: "quincena" }, [
+                                _vm._v(_vm._s(item.quincena))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "pagado" }, [
+                                _vm._v(_vm._s(item.pagado))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "capital" }, [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(item.amortizacion) +
+                                    "\n                      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "interes" }, [
+                                _vm._v(_vm._s(item.interes))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "descuento" }, [
+                                _vm._v(_vm._s(item.descuento))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "iva" }, [
+                                _vm._v(_vm._s(item.iva))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "iva" }, [
+                                _vm._v(_vm._s(item.cuotaTotal))
+                              ])
+                            ])
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c("tfoot", [
+                          _c("tr", [
+                            _c("td", { attrs: { colspan: "2" } }, [
+                              _vm._v("Totales")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.totalamortizacion))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.totalinteres))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.totaldescuento))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.totalIva))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(_vm.totalImporte))])
+                          ])
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-footer" }, [
@@ -46374,7 +46782,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      _vm.editar ? _vm.editarCredito() : _vm.crearCredito()
+                      _vm.editar = _vm.crearSimulador()
                     }
                   }
                 },
@@ -46387,7 +46795,52 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-floating col-md-5" }, [
+      _c("label", { attrs: { for: "floatingSelect" } }, [
+        _vm._v("Sistema de amortización:")
+      ]),
+      _vm._v(" "),
+      _c(
+        "select",
+        { staticClass: "form-control col", attrs: { id: "floatingSelect" } },
+        [
+          _c("option", { attrs: { selected: "" } }, [_vm._v("--Select--")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "frances" } }, [
+            _vm._v("Sistema Frances")
+          ])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", {}, [_vm._v("# Quincena")]),
+        _vm._v(" "),
+        _c("th", {}, [_vm._v("Saldo de Deuda")]),
+        _vm._v(" "),
+        _c("th", {}, [_vm._v("Amortización")]),
+        _vm._v(" "),
+        _c("th", {}, [_vm._v("Interés")]),
+        _vm._v(" "),
+        _c("th", {}, [_vm._v("Descuento")]),
+        _vm._v(" "),
+        _c("th", {}, [_vm._v("Iva")]),
+        _vm._v(" "),
+        _c("th", {}, [_vm._v("Descuento Total")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

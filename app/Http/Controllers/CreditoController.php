@@ -20,39 +20,16 @@ class CreditoController extends Controller
         $clientes = Cliente::select();
         $sedes = Sede::select();
 
-        // if ($request->cliente && ($request->cliente != '')) {
-        //     $clientes = $clientes->join('clientes', 'clientes.id', 'creditos.cliente_id')->where('nro_documento', 'LIKE', "%$request->cliente%")
-        //         ->orWhere('nombres', 'LIKE', "%$request->cliente%")
-        //         ->orWhere('email', 'LIKE', "%$request->cliente%")
-        //         ->orWhere('apellidos', 'LIKE', "%$request->cliente%")
-        //         ->orWhere('cliente_id', 'LIKE', "%$request->credito%")
-        //         ->orWhere('deudor_id', 'LIKE', "%$request->credito%")
-        //         ->orWhere('sede_id', 'LIKE', "%$request->credito%");
-        // }
-
-
-
-        // if ($request->credito && ($request->credito != '')) {
-        //     $creditos = $creditos->join('clientes', 'creditos.cliente_id', '=', 'clientes.id')
-        //         ->select('creditos.cliente_id', 'clientes.id')->get();
-        // }
-        // $creditos = $creditos->paginate(4);
-
-        // return $creditos;
-
-        // if ($request->credito && ($request->credito != '')) {
-        //     $clientes  =     $creditos->lefjoin('clientes', 'creditos.cliente_id', '=', 'clientes.id')
-        //         ->select('creditos.cliente_id', 'clientes.id')->get();
-        // ->where('nro_documento', 'LIKE', "%$request->credito%")
-        // ->orWhere('cliente_id', 'LIKE', "%$request->credito%")
-        // ->orWhere('deudor_id', 'LIKE', "%$request->credito%")
-        // ->orWhere('sede_id', 'LIKE', "%$request->credito%");
-        // }
-        // $clientes = $clientes->paginate(5);
-
-        // return $clientes;
-
         if ($request->credito && ($request->credito != '')) {
+            $creditos  =     $creditos->leftjoin('clientes as c', 'c.id', 'creditos.cliente_id')
+                // ->where('cliente_id', 'LIKE', "%$request->credito%")
+                // ->orWhere('deudor_id', 'LIKE', "%$request->credito%")
+                // ->orWhere('sede_id', 'LIKE', "%$request->credito%")
+                ->where('nro_documento', 'LIKE', "%$request->credito%")
+                ->orWhere('nombres', 'LIKE', "%$request->credito%")
+                ->orWhere('email', 'LIKE', "%$request->credito%")
+                ->orWhere('apellidos', 'LIKE', "%$request->credito%");
+        } else {
             $creditos  =     $creditos->leftjoin('clientes as c', 'c.id', 'creditos.cliente_id')
                 // ->where('cliente_id', 'LIKE', "%$request->credito%")
                 // ->orWhere('deudor_id', 'LIKE', "%$request->credito%")
@@ -63,15 +40,6 @@ class CreditoController extends Controller
                 ->orWhere('apellidos', 'LIKE', "%$request->credito%");
         }
 
-        // if ($request->cliente && ($request->cliente != '')) {
-        //     $clientes = $clientes->leftjoin('clientes as c', 'c.id', 'creditos.id_cliente')
-        //         ->select('creditos.*', 'c.nombres as cliente');
-
-        // $creditos  = Cliente::leftjoin('clientes as c', 'c.id', 'creditos.cliente_id');
-        // ->where('cliente_id', 'LIKE', "%$request->credito%")
-        // ->orWhere('deudor_id', 'LIKE', "%$request->credito%")
-        // ->orWhere('sede_id', 'LIKE', "%$request->credito%");
-        // }
         $creditos = $creditos->paginate(5);
 
         return $creditos;

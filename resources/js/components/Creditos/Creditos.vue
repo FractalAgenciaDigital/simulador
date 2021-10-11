@@ -13,7 +13,7 @@
     </div>
     <div class="page-search d-flex justify-content-between p-4 border my-2">
       <div class="form-group col-8 m-auto">
-        <label for="buscar_cliente">Buscar...</label>
+        <label for="buscar_cliente">Buscar Cliente...</label>
         <input
           type="text"
           id="buscar_cliente"
@@ -44,9 +44,9 @@
               <th>Opciones</th>
             </tr>
           </thead>
-          <!-- <tbody> -->
-          <tbody v-if="buscar_cliente.length > 0">
-            <tr v-for="credito in listaCreditos.data" :key="credito.cliente_id">
+          <tbody>
+            <!-- <tbody v-if="buscar_cliente.length > 0"> -->
+            <tr v-for="credito in listaCreditos.data" :key="credito.index">
               <td>{{ credito.cliente_id }}</td>
               <td>{{ credito.nombres }} {{ credito.apellidos }}</td>
               <td>{{ credito.nro_documento }}</td>
@@ -103,12 +103,13 @@
               </td>
             </tr>
           </tbody>
-          <div v-else>
+          <!-- <div v-if="buscar_cliente.length > 0"> -->
+          <div v-show="buscar_cliente">
             <div
               class="alert alert-danger"
               style="margin: 2px auto; width: 30%"
             >
-              No hay coincidencias para esta busqueda.
+              Si no encuentras el usuario deseado. Podrías crearlo.
             </div>
             <div class="alert alert-info" style="margin: 2px auto; width: 30%">
               Crear un nuevo Cliente
@@ -143,17 +144,41 @@
       ref="CrearEditarCredito"
       @listar-creditos="listarCreditos(1)"
     />
+    <simulador
+      :capital="9023323"
+      :plazos="12"
+      :tasa="2.3"
+      ref="Simulador"
+    ></simulador>
+
     <cuotas ref="Cuotas" @mostrar-cuotas="mostrarCuotas(1)" />
   </div>
 </template>
 <script>
+// const buscar_cliente = document.querySelector("#buscar_cliente");
+// const boton = document.querySelector("#boton");
+
+// const filtrar = () => {
+//   // console.log(buscar_cliente.value);
+//   const texto = buscar_cliente.value.toLowerCase();
+
+//   for (let cliente of listaCreditos) {
+//     let nombre = cliente.nombres.toLowerCase();
+
+//     if (nombres.indexOf(texto) !== -1) {
+//     }
+//   }
+// };
+
+// boton.addEventListener("click", filtrar);
+
 import CrearEditarCredito from "./CrearEditarCredito.vue";
 import Simulador from "./Simulador.vue";
 import CrearEditarCliente from "./../Clientes/CrearEditarCliente.vue";
 import Cuotas from "./Cuotas.vue";
 
 export default {
-  components: { CrearEditarCredito, CrearEditarCliente, Cuotas },
+  components: { CrearEditarCredito, Simulador, CrearEditarCliente, Cuotas },
   data() {
     return {
       buscar_cliente: "",
@@ -184,6 +209,9 @@ export default {
     },
     mostrarDatos: function (credito) {
       this.$refs.CrearEditarCredito.abirEditarCredito(credito);
+    },
+    simularCredito: function (credito) {
+      this.$refs.Simulador.abrirSimulador(credito);
     },
     mostrarCuotas: function (credito) {
       this.$refs.Cuotas.abrirCuotas(credito);
