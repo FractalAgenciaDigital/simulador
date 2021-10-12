@@ -3832,10 +3832,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       editar: false,
+      listaSedes: [],
       formUsuario: {
         name: "",
         email: "",
@@ -3847,19 +3857,21 @@ __webpack_require__.r(__webpack_exports__);
         documento: 0,
         foto: "",
         estado: "1",
-        id_rol: "",
-        id_sede: ""
+        rol_id: "",
+        sede_id: ""
       }
     };
   },
   // Function crearUsuarios
+  created: function created() {
+    this.listarSedes(1);
+  },
   methods: {
     crearUsuario: function crearUsuario() {
       var me = this;
       axios.post("api/usuarios", this.formUsuario).then(function () {
         $("#formUsuarioModal").modal("hide");
-        me.resetData();
-        this.$emit("listar-usuarios");
+        me.$emit("listar-usuarios");
       });
     },
     abirEditarUsuario: function abirEditarUsuario(usuario) {
@@ -3872,15 +3884,21 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       axios.put("api/usuarios/" + this.formUsuario.id, this.formUsuario).then(function () {
         $("#formUsuarioModal").modal("hide");
-        me.resetData();
+        me.$emit("listar-usuarios");
       });
-      this.$emit("listar-usuarios");
       this.editar = false;
     },
     resetData: function resetData() {
       var me = this;
       Object.keys(this.formUsuario).forEach(function (key, index) {
         me.formUsuario[key] = "";
+      });
+    },
+    listarSedes: function listarSedes() {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var me = this;
+      axios.get("api/sedes?page=".concat(page)).then(function (response) {
+        me.listaSedes = response.data;
       });
     }
   }
@@ -3995,12 +4013,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -4008,7 +4020,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      buscar_usuario: "",
       listaUsuarios: {}
     };
   },
@@ -4019,29 +4030,17 @@ __webpack_require__.r(__webpack_exports__);
     listarUsuarios: function listarUsuarios() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var me = this;
-      axios.get("api/usuarios?page=".concat(page, "&usuario=").concat(this.buscar_usuario)).then(function (response) {
+      axios.get("api/usuarios?page=" + page).then(function (response) {
         me.listaUsuarios = response.data;
       });
     },
-    mostrarDatos: function mostrarDatos(usuario) {
-      this.$refs.CrearEditarUsuario.abirEditarUsuario(usuario);
+    mostrarDatos: function mostrarDatos(ususario) {
+      this.$refs.CrearEditarUsuario.abirEditarUsuario(ususario);
     },
     CambiarEstado: function CambiarEstado(id) {
       var me = this;
-      Swal.fire({
-        title: "¿Quieres cambiar el estado del usuario?",
-        showDenyButton: true,
-        denyButtonText: "Cancelar",
-        confirmButtonText: "Guardar"
-      }).then(function (result) {
-        if (result.isConfirmed) {
-          axios.post("api/usuarios/" + id + "/cambiar-estado", null, me.$root.config).then(function () {
-            me.listarUsuarios(1);
-          });
-          Swal.fire("Cambios realizados!", "", "success");
-        } else if (result.isDenied) {
-          Swal.fire("Operación no realizada", "", "info");
-        }
+      axios.post("api/usuarios/" + id + "/cambiar-estado", null, me.$root.config).then(function () {
+        me.listarUsuarios(1);
       });
     }
   }
@@ -47420,7 +47419,7 @@ var render = function() {
                   staticClass: "modal-title",
                   attrs: { id: "formUsuarioModalLabel" }
                 },
-                [_vm._v("Usuarios")]
+                [_vm._v("\n            Gestionar Usuario\n          ")]
               ),
               _vm._v(" "),
               _c(
@@ -47450,34 +47449,6 @@ var render = function() {
               _c("form", [
                 _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "name" } }, [
-                      _vm._v("Usuario")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formUsuario.name,
-                          expression: "formUsuario.name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", id: "name" },
-                      domProps: { value: _vm.formUsuario.name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.formUsuario, "name", $event.target.value)
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-4" }, [
                     _c("label", { attrs: { for: "nombre" } }, [
                       _vm._v("Nombre")
                     ]),
@@ -47487,13 +47458,13 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.formUsuario.nombre,
-                          expression: "formUsuario.nombre"
+                          value: _vm.formUsuario.nombres,
+                          expression: "formUsuario.nombres"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text", id: "nombre" },
-                      domProps: { value: _vm.formUsuario.nombre },
+                      domProps: { value: _vm.formUsuario.nombres },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
@@ -47501,7 +47472,39 @@ var render = function() {
                           }
                           _vm.$set(
                             _vm.formUsuario,
-                            "nombre",
+                            "nombres",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "name" } }, [
+                      _vm._v("Apellidos")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formUsuario.apellidos,
+                          expression: "formUsuario.apellidos"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "name" },
+                      domProps: { value: _vm.formUsuario.apellidos },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formUsuario,
+                            "apellidos",
                             $event.target.value
                           )
                         }
@@ -47686,7 +47689,7 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "id_rol" } }, [_vm._v("Rol")]),
+                    _c("label", { attrs: { for: "rol_id" } }, [_vm._v("Rol")]),
                     _vm._v(" "),
                     _c(
                       "select",
@@ -47695,12 +47698,12 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.formUsuario.id_rol,
-                            expression: "formUsuario.id_rol"
+                            value: _vm.formUsuario.rol_id,
+                            expression: "formUsuario.rol_id"
                           }
                         ],
                         staticClass: "custom-select",
-                        attrs: { name: "id_rol", id: "id_rol" },
+                        attrs: { name: "rol_id", id: "rol_id" },
                         on: {
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter
@@ -47713,7 +47716,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.formUsuario,
-                              "id_rol",
+                              "rol_id",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -47832,118 +47835,82 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {},
     [
       _vm._m(0),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "page-search d-flex justify-content-between p-4 border my-2"
-        },
-        [
-          _c("div", { staticClass: "form-group col-8 m-auto" }, [
-            _c("label", { attrs: { for: "buscar_usuario" } }, [
-              _vm._v("Buscar...")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.buscar_usuario,
-                  expression: "buscar_usuario"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "buscar_usuario",
-                name: "buscar_usuario",
-                placeholder: "Nombres | Documento"
-              },
-              domProps: { value: _vm.buscar_usuario },
-              on: {
-                keypress: function($event) {
-                  return _vm.listarUsuarios(1)
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.buscar_usuario = $event.target.value
-                }
-              }
-            })
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "page-content mt-4" }, [
+      _c("div", { staticClass: "page-content" }, [
         _c(
           "section",
-          {},
           [
             _c(
               "table",
-              { staticClass: "table table-sm table-bordered table-responsive" },
+              {
+                staticClass:
+                  "\n          table\n          table-sm\n          table-bordered\n          table-responsive\n          table-hover\n          table-striped\n        "
+              },
               [
                 _vm._m(1),
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.listaUsuarios.data, function(u) {
-                    return _c("tr", { key: u.id }, [
-                      _c("td", [_vm._v(_vm._s(u.id))]),
+                  _vm._l(_vm.listaUsuarios.data, function(usuario) {
+                    return _c("tr", { key: usuario.id }, [
+                      _c("td", [_vm._v(_vm._s(usuario.id))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(u.name))]),
+                      _c("td", [_vm._v(_vm._s(usuario.nombres))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(u.nombre))]),
+                      _c("td", [_vm._v(_vm._s(usuario.apellidos))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(u.email))]),
+                      _c("td", [_vm._v(_vm._s(usuario.email))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(u.documento))]),
+                      _c("td", [_vm._v(_vm._s(usuario.documento))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(u.celular))]),
+                      _c("td", [_vm._v(_vm._s(usuario.celular))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(u.id_sede))]),
+                      _c("td", [_vm._v(_vm._s(usuario.id_sede))]),
                       _vm._v(" "),
-                      u.id_rol == 1
+                      usuario.rol_id == 1
                         ? _c("td", [_vm._v("Administrador")])
                         : _vm._e(),
                       _vm._v(" "),
-                      u.id_rol == 2 ? _c("td", [_vm._v("Operario")]) : _vm._e(),
+                      usuario.rol_id == 2
+                        ? _c("td", [_vm._v("Operario")])
+                        : _vm._e(),
                       _vm._v(" "),
-                      u.estado == 1 ? _c("td", [_vm._v("Activo")]) : _vm._e(),
+                      usuario.estado == 1
+                        ? _c("td", [_vm._v("Activo")])
+                        : _vm._e(),
                       _vm._v(" "),
-                      u.estado == 0 ? _c("td", [_vm._v("Inactivo")]) : _vm._e(),
+                      usuario.estado == 0
+                        ? _c("td", [_vm._v("Inactivo")])
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-center" }, [
-                        u.estado == 1
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-outline-primary",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.mostrarDatos(u)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "bi bi-pen" })]
-                            )
-                          : _vm._e(),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-outline-primary",
+                            on: {
+                              click: function($event) {
+                                return _vm.mostrarDatos(usuario)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "bi bi-pen" })]
+                        ),
                         _vm._v(" "),
-                        u.estado == 1
+                        usuario.estado == 1
                           ? _c(
                               "button",
                               {
                                 staticClass: "btn btn-outline-danger",
+                                attrs: {
+                                  onclick:
+                                    "return confirm('¿Desea Desactivar?')"
+                                },
                                 on: {
                                   click: function($event) {
-                                    return _vm.CambiarEstado(u.id)
+                                    return _vm.CambiarEstado(usuario.id)
                                   }
                                 }
                               },
@@ -47951,14 +47918,17 @@ var render = function() {
                             )
                           : _vm._e(),
                         _vm._v(" "),
-                        u.estado == 0
+                        usuario.estado == 0
                           ? _c(
                               "button",
                               {
                                 staticClass: "btn btn-outline-success",
+                                attrs: {
+                                  onclick: "return confirm('¿Desea Activar?')"
+                                },
                                 on: {
                                   click: function($event) {
-                                    return _vm.CambiarEstado(u.id)
+                                    return _vm.CambiarEstado(usuario.id)
                                   }
                                 }
                               },
@@ -47994,14 +47964,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("crear-editar-usuario", {
-        ref: "CrearEditarUsuario",
-        on: {
-          "listar-usuarios": function($event) {
-            return _vm.listarUsuarios(1)
-          }
-        }
-      })
+      _c("crear-editar-usuario", { ref: "CrearEditarUsuario" })
     ],
     1
   )
@@ -48043,9 +48006,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("id")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Usuario")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Nombre")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Apellidos")]),
         _vm._v(" "),
         _c("th", [_vm._v("Correo")]),
         _vm._v(" "),

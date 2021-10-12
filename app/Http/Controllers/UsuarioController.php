@@ -69,7 +69,7 @@ class UsuarioController extends Controller
      */
     public function show(Usuario $usuario)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -80,7 +80,7 @@ class UsuarioController extends Controller
      */
     public function edit(Usuario $usuario)
     {
-        //
+        abort(404);
     }
 
     /**

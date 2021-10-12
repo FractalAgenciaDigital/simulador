@@ -10,7 +10,9 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="formUsuarioModalLabel">Usuarios</h5>
+            <h5 class="modal-title" id="formUsuarioModalLabel">
+              Gestionar Usuario
+            </h5>
             <button
               type="button"
               class="close"
@@ -25,21 +27,21 @@
             <form>
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  <label for="name">Usuario</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    v-model="formUsuario.name"
-                  />
-                </div>
-                <div class="form-group col-md-4">
                   <label for="nombre">Nombre</label>
                   <input
                     type="text"
                     class="form-control"
                     id="nombre"
-                    v-model="formUsuario.nombre"
+                    v-model="formUsuario.nombres"
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="name">Apellidos</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    v-model="formUsuario.apellidos"
                   />
                 </div>
                 <div class="form-group col-md-4">
@@ -87,14 +89,21 @@
                   <label for="sede_id">Sede</label>
                   <v-select :options="listaSedes.data" label="sede" :reduce="sede => sede.id" v-model="formUsuario.sede_id">
                   </v-select>
+
+                  <!-- <input
+                    type="number"
+                    class="form-control"
+                    id="sede_id"
+                    v-model="formUsuario.sede_id"
+                  /> -->
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="id_rol">Rol</label>
+                  <label for="rol_id">Rol</label>
                   <select
-                    name="id_rol"
-                    id="id_rol"
+                    name="rol_id"
+                    id="rol_id"
                     class="custom-select"
-                    v-model="formUsuario.id_rol"
+                    v-model="formUsuario.rol_id"
                   >
                     <option value="0" disabled>--Seleccionar--</option>
                     <option value="1">Administrador</option>
@@ -141,6 +150,7 @@ export default {
   data() {
     return {
       editar: false,
+      listaSedes : [],
       formUsuario: {
         name: "",
         email: "",
@@ -152,19 +162,21 @@ export default {
         documento: 0,
         foto: "",
         estado: "1",
-        id_rol: "",
-        id_sede: "",
+        rol_id: "",
+        sede_id: "",
       },
     };
   },
   // Function crearUsuarios
+  created() {
+    this.listarSedes(1);
+  },
   methods: {
     crearUsuario() {
       let me = this;
       axios.post("api/usuarios", this.formUsuario).then(function () {
         $("#formUsuarioModal").modal("hide");
-        me.resetData();
-        this.$emit("listar-usuarios");
+        me.$emit("listar-usuarios");
       });
     },
     abirEditarUsuario(usuario) {
@@ -179,10 +191,8 @@ export default {
         .put("api/usuarios/" + this.formUsuario.id, this.formUsuario)
         .then(function () {
           $("#formUsuarioModal").modal("hide");
-          me.resetData();
+          me.$emit("listar-usuarios");
         });
-      this.$emit("listar-usuarios");
-
       this.editar = false;
     },
     resetData() {
@@ -190,6 +200,15 @@ export default {
       Object.keys(this.formUsuario).forEach(function (key, index) {
         me.formUsuario[key] = "";
       });
+    },
+
+    listarSedes(page = 1) {
+      let me = this;
+      axios
+        .get(`api/sedes?page=${page}`)
+        .then(function (response) {
+          me.listaSedes = response.data;
+        });
     },
   },
 };
