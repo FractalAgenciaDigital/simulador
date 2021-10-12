@@ -17,8 +17,8 @@ class UsuarioController extends Controller
         $usuarios = Usuario::select();
         if ($request->usuario && ($request->usuario != '')) {
             $usuarios  =     $usuarios->where('documento', 'LIKE', "%$request->usuario%")
-                ->orWhere('name', 'LIKE', "%$request->usuario%")
-                ->orWhere('nombre', 'LIKE', "%$request->usuario%")
+                // ->orWhere('name', 'LIKE', "%$request->usuario%")
+                ->orWhere('nombres', 'LIKE', "%$request->usuario%")
                 ->orWhere('email', 'LIKE', "%$request->usuario%");
         }
         $usuarios = $usuarios->paginate(5);

@@ -4013,6 +4013,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -4020,6 +4035,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      buscar_usuario: "",
       listaUsuarios: {}
     };
   },
@@ -4030,7 +4046,7 @@ __webpack_require__.r(__webpack_exports__);
     listarUsuarios: function listarUsuarios() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var me = this;
-      axios.get("api/usuarios?page=" + page).then(function (response) {
+      axios.get("api/usuarios?page=".concat(page, "&usuario=").concat(this.buscar_usuario)).then(function (response) {
         me.listaUsuarios = response.data;
       });
     },
@@ -4039,8 +4055,20 @@ __webpack_require__.r(__webpack_exports__);
     },
     CambiarEstado: function CambiarEstado(id) {
       var me = this;
-      axios.post("api/usuarios/" + id + "/cambiar-estado", null, me.$root.config).then(function () {
-        me.listarUsuarios(1);
+      Swal.fire({
+        title: "¿Quieres cambiar el estado del usuario?",
+        showDenyButton: true,
+        denyButtonText: "Cancelar",
+        confirmButtonText: "Guardar"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios.post("api/usuarios/" + id + "/cambiar-estado", null, me.$root.config).then(function () {
+            me.listarUsuarios(1);
+          });
+          Swal.fire("Cambios realizados!", "", "success");
+        } else if (result.isDenied) {
+          Swal.fire("Operación no realizada", "", "info");
+        }
       });
     }
   }
@@ -47838,6 +47866,51 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "page-search d-flex justify-content-between p-4 border my-2"
+        },
+        [
+          _c("div", { staticClass: "form-group col-8 m-auto" }, [
+            _c("label", { attrs: { for: "buscar_usuario" } }, [
+              _vm._v("Buscar...")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.buscar_usuario,
+                  expression: "buscar_usuario"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                id: "buscar_usuario",
+                name: "buscar_usuario",
+                placeholder: "Nombres | Documento"
+              },
+              domProps: { value: _vm.buscar_usuario },
+              on: {
+                keypress: function($event) {
+                  return _vm.listarUsuarios(1)
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.buscar_usuario = $event.target.value
+                }
+              }
+            })
+          ])
+        ]
+      ),
+      _vm._v(" "),
       _c("div", { staticClass: "page-content" }, [
         _c(
           "section",
@@ -47885,29 +47958,27 @@ var render = function() {
                         ? _c("td", [_vm._v("Inactivo")])
                         : _vm._e(),
                       _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-primary",
-                            on: {
-                              click: function($event) {
-                                return _vm.mostrarDatos(usuario)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "bi bi-pen" })]
-                        ),
+                      _c("td", { staticClass: "text-right" }, [
+                        usuario.estado == 1
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-outline-primary",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.mostrarDatos(usuario)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "bi bi-pen" })]
+                            )
+                          : _vm._e(),
                         _vm._v(" "),
                         usuario.estado == 1
                           ? _c(
                               "button",
                               {
                                 staticClass: "btn btn-outline-danger",
-                                attrs: {
-                                  onclick:
-                                    "return confirm('¿Desea Desactivar?')"
-                                },
                                 on: {
                                   click: function($event) {
                                     return _vm.CambiarEstado(usuario.id)
@@ -47923,9 +47994,6 @@ var render = function() {
                               "button",
                               {
                                 staticClass: "btn btn-outline-success",
-                                attrs: {
-                                  onclick: "return confirm('¿Desea Activar?')"
-                                },
                                 on: {
                                   click: function($event) {
                                     return _vm.CambiarEstado(usuario.id)
@@ -47951,11 +48019,11 @@ var render = function() {
               },
               [
                 _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
-                  _vm._v("< Previous")
+                  _c("i", { staticClass: "bi bi-chevron-double-left" })
                 ]),
                 _vm._v(" "),
                 _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
-                  _vm._v("Next >")
+                  _c("i", { staticClass: "bi bi-chevron-double-right" })
                 ])
               ]
             )

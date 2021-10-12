@@ -11,6 +11,20 @@
         Crear Usuario
       </button>
     </div>
+    <div class="page-search d-flex justify-content-between p-4 border my-2">
+      <div class="form-group col-8 m-auto">
+        <label for="buscar_usuario">Buscar...</label>
+        <input
+          type="text"
+          id="buscar_usuario"
+          name="buscar_usuario"
+          class="form-control"
+          placeholder="Nombres | Documento"
+          @keypress="listarUsuarios(1)"
+          v-model="buscar_usuario"
+        />
+      </div>
+    </div>
     <div class="page-content">
       <section>
         <table
@@ -51,8 +65,9 @@
               <td v-if="usuario.estado == 1">Activo</td>
               <td v-if="usuario.estado == 0">Inactivo</td>
 
-              <td class="text-center">
+              <td class="text-right">
                 <button
+                  v-if="usuario.estado == 1"
                   class="btn btn-outline-primary"
                   @click="mostrarDatos(usuario)"
                 >
@@ -60,7 +75,6 @@
                 </button>
                 <button
                   v-if="usuario.estado == 1"
-                  onclick="return confirm('¿Desea Desactivar?')"
                   class="btn btn-outline-danger"
                   @click="CambiarEstado(usuario.id)"
                 >
@@ -68,7 +82,6 @@
                 </button>
                 <button
                   v-if="usuario.estado == 0"
-                  onclick="return confirm('¿Desea Activar?')"
                   class="btn btn-outline-success"
                   @click="CambiarEstado(usuario.id)"
                 >
@@ -84,8 +97,10 @@
           :limit="8"
           @pagination-change-page="listarUsuarios"
         >
-          <span slot="prev-nav">&lt; Previous</span>
-          <span slot="next-nav">Next &gt;</span>
+          <span slot="prev-nav"><i class="bi bi-chevron-double-left"></i></span>
+          <span slot="next-nav"
+            ><i class="bi bi-chevron-double-right"></i
+          ></span>
         </pagination>
       </section>
     </div>
@@ -99,6 +114,7 @@ export default {
   components: { CrearEditarUsuario },
   data() {
     return {
+      buscar_usuario: "",
       listaUsuarios: {},
     };
   },
@@ -108,20 +124,39 @@ export default {
   methods: {
     listarUsuarios(page = 1) {
       let me = this;
-      axios.get("api/usuarios?page=" + page).then(function (response) {
-        me.listaUsuarios = response.data;
-      });
+      axios
+        .get(`api/usuarios?page=${page}&usuario=${this.buscar_usuario}`)
+        .then(function (response) {
+          me.listaUsuarios = response.data;
+        });
     },
     mostrarDatos: function (ususario) {
       this.$refs.CrearEditarUsuario.abirEditarUsuario(ususario);
     },
     CambiarEstado: function (id) {
       let me = this;
-      axios
-        .post("api/usuarios/" + id + "/cambiar-estado", null, me.$root.config)
-        .then(function () {
-          me.listarUsuarios(1);
-        });
+
+      Swal.fire({
+        title: "¿Quieres cambiar el estado del usuario?",
+        showDenyButton: true,
+        denyButtonText: `Cancelar`,
+        confirmButtonText: `Guardar`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .post(
+              "api/usuarios/" + id + "/cambiar-estado",
+              null,
+              me.$root.config
+            )
+            .then(function () {
+              me.listarUsuarios(1);
+            });
+          Swal.fire("Cambios realizados!", "", "success");
+        } else if (result.isDenied) {
+          Swal.fire("Operación no realizada", "", "info");
+        }
+      });
     },
   },
 };
