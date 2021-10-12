@@ -89,13 +89,6 @@
                   <label for="sede_id">Sede</label>
                   <v-select :options="listaSedes.data" label="sede" :reduce="sede => sede.id" v-model="formUsuario.sede_id">
                   </v-select>
-
-                  <!-- <input
-                    type="number"
-                    class="form-control"
-                    id="sede_id"
-                    v-model="formUsuario.sede_id"
-                  /> -->
                 </div>
                 <div class="form-group col-md-4">
                   <label for="rol_id">Rol</label>

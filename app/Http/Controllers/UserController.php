@@ -26,6 +26,7 @@ class UserController extends Controller
      */
     public function create($id)
     {
+        abort(404);
     }
 
     /**
@@ -73,7 +74,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        abort(404);
     }
 
     /**
