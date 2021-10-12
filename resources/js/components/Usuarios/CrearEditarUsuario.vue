@@ -5,8 +5,7 @@
       id="formUsuarioModal"
       tabindex="-1"
       aria-labelledby="formUsuarioModalLabel"
-      aria-hidden="true"
-    >
+      aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -20,7 +19,7 @@
               @click="(editar = false), resetData()"
               aria-label="Close"
             >
-              <span aria-hidden="true">&times;</span>
+              <span aria-hidden="true" >&times;</span>
             </button>
           </div>
           <div class="modal-body">
@@ -56,7 +55,7 @@
                 <div class="form-group col-md-4">
                   <label for="celular">Celular</label>
                   <input
-                    type="number"
+                    type="date"
                     class="form-control"
                     id="celular"
                     v-model="formUsuario.celular"
@@ -68,8 +67,7 @@
                     name="tipo_documento"
                     id="tipo_documento"
                     class="custom-select"
-                    v-model="formUsuario.tipo_documento"
-                  >
+                    v-model="formUsuario.tipo_documento">
                     <option value="0" disabled>--Seleccionar--</option>
                     <option value="1">Cédula de ciudadanía</option>
                     <option value="2">Pasaporte</option>
@@ -179,11 +177,11 @@ export default {
         me.$emit("listar-usuarios");
       });
     },
-    abirEditarUsuario(usuario) {
+    abirEditarUsuario(cliente) {
       this.editar = true;
       let me = this;
       $("#formUsuarioModal").modal("show");
-      me.formUsuario = usuario;
+      me.formUsuario = cliente;
     },
     editarUsuario() {
       let me = this;

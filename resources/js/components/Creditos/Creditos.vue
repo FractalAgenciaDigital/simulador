@@ -127,11 +127,11 @@
         <pagination
           :align="'center'"
           :data="listaCreditos"
-          :limit="8"
+          :limit="2"
           @pagination-change-page="listarCreditos"
         >
-          <span slot="prev-nav">&lt; Previous</span>
-          <span slot="next-nav">Next &gt;</span>
+          <span slot="prev-nav"><i class="bi bi-chevron-double-left"></i></span>
+          <span slot="next-nav"><i class="bi bi-chevron-double-right"></i></span>
         </pagination>
       </section>
     </div>
@@ -155,23 +155,6 @@
   </div>
 </template>
 <script>
-// const buscar_cliente = document.querySelector("#buscar_cliente");
-// const boton = document.querySelector("#boton");
-
-// const filtrar = () => {
-//   // console.log(buscar_cliente.value);
-//   const texto = buscar_cliente.value.toLowerCase();
-
-//   for (let cliente of listaCreditos) {
-//     let nombre = cliente.nombres.toLowerCase();
-
-//     if (nombres.indexOf(texto) !== -1) {
-//     }
-//   }
-// };
-
-// boton.addEventListener("click", filtrar);
-
 import CrearEditarCredito from "./CrearEditarCredito.vue";
 import Simulador from "./Simulador.vue";
 import CrearEditarCliente from "./../Clientes/CrearEditarCliente.vue";

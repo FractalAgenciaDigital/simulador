@@ -23,6 +23,12 @@
                 <li class="nav-item">
                     <router-link class="nav-link" to="/sedes"> Sedes </router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link class="nav-link"  to="/proveedores"> Proveedores </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link"  to="/pagos"> Pagos </router-link>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

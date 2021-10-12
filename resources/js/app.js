@@ -38,6 +38,8 @@ const routes = [
     { path: '', component: require('./components/Clientes/Clientes.vue').default },
     { path: '/clientes', component: require('./components/Clientes/Clientes.vue').default },
     { path: '/usuarios', component: require('./components/Usuarios/Usuarios.vue').default },
+    { path: '/proveedores', component: require('./components/Proveedores/Proveedores.vue').default },
+    { path: '/pagos', component: require('./components/Pagos/Pagos.vue').default },
     { path: '/creditos', component: require('./components/Creditos/Creditos.vue').default },
     { path: '/creditos/:credito_id/cuotas', component: require('./components/Creditos/Cuotas.vue').default, props: true, name: 'cuotas' },
     { path: '/sedes', component: require('./components/Sedes/Sedes.vue').default },

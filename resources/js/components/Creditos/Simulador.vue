@@ -213,7 +213,7 @@ export default {
         return n;
       }
 
-      const formatter = new Intl.NumberFormat("es-COL", {
+      const formatter = new Intl.NumberFormat("es", {
         style: "currency",
         currency: "COL",
         minimumFractionDigits: 2,
