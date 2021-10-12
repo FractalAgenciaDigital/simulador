@@ -16,12 +16,12 @@ class CreateSedesTable extends Migration
         Schema::create('sedes', function (Blueprint $table) {
             $table->id();
             $table->string('sede');
-            $table->tinyInteger('estado_sede')->default(1);
-            $table->string('direccion');
-            $table->string('nit');
-            $table->string('correo_contacto');
-            $table->string('representante');
-            $table->string('celular_contacto');
+            $table->tinyInteger('estado')->default(1);
+            $table->string('direccion')->nullable();
+            $table->string('nit')->nullable();
+            $table->string('correo_contacto')->nullable();
+            $table->string('representante')->nullable();
+            $table->string('telefono_contacto')->nullable();
             $table->timestamps();
         });
     }

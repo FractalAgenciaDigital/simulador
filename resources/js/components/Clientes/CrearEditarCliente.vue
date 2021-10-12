@@ -10,9 +10,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="formClienteModalLabel">
-              Gestionar Cliente
-            </h5>
+            <h5 class="modal-title" id="formClienteModalLabel">Clientes</h5>
             <button
               type="button"
               class="close"
@@ -216,7 +214,7 @@
             <button
               type="button"
               class="btn btn-primary rounded"
-              @click="editar ? editarCliente() : crearCliente()"
+              @click="formCliente.id ? editarCliente() : crearCliente()"
             >
               Guardar
             </button>
@@ -256,7 +254,8 @@ export default {
       let me = this;
       axios.post("api/clientes", this.formCliente).then(function () {
         $("#formClienteModal").modal("hide");
-        this.$emit("listar-clientes");
+        me.resetData();
+        me.$emit("listar-clientes");
       });
     },
     abirEditarCliente(cliente) {
@@ -271,9 +270,11 @@ export default {
         .put("api/clientes/" + this.formCliente.id, this.formCliente)
         .then(function () {
           $("#formClienteModal").modal("hide");
+          me.resetData();
         });
-      this.$emit("listar-clientes");
-      this.editar = false;
+      me.$emit("listar-clientes");
+
+      me.editar = false;
     },
     resetData() {
       let me = this;

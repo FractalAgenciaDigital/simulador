@@ -60,7 +60,7 @@
                   <i class="bi bi-x-circle" v-if="c.estado == 0"></i>
                 </button>
               </td>
-              <td class="text-center">
+              <td v-if="c.estado == 1" class="text-center">
                 <button
                   class="btn btn-outline-primary"
                   @click="mostrarDatos(c)"
@@ -88,7 +88,6 @@
     />
   </div>
 </template>
-
 <script>
 import CrearEditarCliente from "./CrearEditarCliente.vue";
 export default {

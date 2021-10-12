@@ -1,11 +1,6 @@
 <?php
 
-use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\CreditoController;
-use App\Http\Controllers\SedeController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
 
 /*
 |--------------------------------------------------------------------------

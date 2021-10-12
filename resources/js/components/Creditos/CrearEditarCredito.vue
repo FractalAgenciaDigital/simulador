@@ -25,12 +25,162 @@
             <form>
               <div class="form-row">
                 <div class="form-group col-md-4">
-                  <label for="name">Credito</label>
+                  <label for="cliente_id">Cliente</label>
+                  <v-select
+                    :options="listaClientes.data"
+                    label="nro_documento"
+                    aria-logname="{}"
+                    :reduce="(nombres) => nombres.id"
+                    v-model="formCredito.cliente_id"
+                  >
+                  </v-select>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="sede_id">Sede</label>
+                  <v-select
+                    :options="listaSedes.data"
+                    label="sede"
+                    aria-logname="{}"
+                    :reduce="(sede) => sede.id"
+                    v-model="formCredito.sede_id"
+                  >
+                  </v-select>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="cant_cuotas">Cantidad Cuotas</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
-                    id="name"
-                    v-model="formCredito.name"
+                    id="cant_cuotas"
+                    v-model="formCredito.cant_cuotas"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="cant_cuotas_pagadas"
+                    >Cantidad Cuotas Pagadas</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="cant_cuotas_pagadas"
+                    v-model="formCredito.cant_cuotas_pagadas"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="dia_limite">Dia Limite</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="dia_limite"
+                    v-model="formCredito.dia_limite"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="deudor">Deudor</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="deudor"
+                    v-model="formCredito.deudor"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="fecha_inicio">Fecha Inicial</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="fecha_inicio"
+                    v-model="formCredito.fecha_inicio"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="interes_mensual">Interes Mensual</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="interes_mensual"
+                    v-model="formCredito.interes_mensual"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="porcent_interes_anual"
+                    >Porcentaje Interes Anual</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="porcent_interes_anual"
+                    v-model="formCredito.porcent_interes_anual"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="porcent_interes_mensual"
+                    >Porcentaje Interes Mensual</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="porcent_interes_mensual"
+                    v-model="formCredito.porcent_interes_mensual"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="valor_cuota">Valor Cuota</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="valor_cuota"
+                    v-model="formCredito.valor_cuota"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="valor_credito">Valor Credito</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="valor_credito"
+                    v-model="formCredito.valor_credito"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="valor_abonado">Valor Abonado</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="valor_abonado"
+                    v-model="formCredito.valor_abonado"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="valor_capital">Valor Capital</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="valor_capital"
+                    v-model="formCredito.valor_capital"
+                  />
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="valor_interes">Valor Interes</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="valor_interes"
+                    v-model="formCredito.valor_interes"
                   />
                 </div>
               </div>
@@ -64,10 +214,12 @@ export default {
   data() {
     return {
       editar: false,
+      listaSedes: [],
+      listaClientes: [],
       formCredito: {
-        id_cliente: "",
-        id_deudor: "",
-        id_sede: "",
+        cliente_id: "",
+        deudor_id: 2,
+        sede_id: "",
         cant_cuotas: "",
         cant_cuotas_pagadas: "",
         cant_cuotas_pagadas: "",
@@ -78,7 +230,7 @@ export default {
         interes_mensual: "",
         porcent_interes_anual: "",
         porcent_interes_mensual: "",
-        usu_crea: "",
+        usu_crea: 2,
         calor_cuota: "",
         valor_credito: "",
         valor_abonado: "",
@@ -87,8 +239,25 @@ export default {
       },
     };
   },
+  created() {
+    this.listarSedes(1);
+    this.listarClientes(1);
+  },
   // Function crearCreditos
   methods: {
+    listarSedes(page = 1) {
+      let me = this;
+      axios.get(`api/sedes?page=${page}`).then(function (response) {
+        me.listaSedes = response.data;
+      });
+    },
+
+    listarClientes(page = 1) {
+      let me = this;
+      axios.get(`api/clientes?page=${page}`).then(function (response) {
+        me.listaClientes = response.data;
+      });
+    },
     crearCredito() {
       let me = this;
       axios.post("api/creditos", this.formCredito).then(function () {

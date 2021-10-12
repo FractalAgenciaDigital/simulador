@@ -8,12 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Sede extends Model
 {
     use HasFactory;
-
-    // protected $table = 'sedes';
-
     protected $fillable = [
         'sede',
-        'estado_sede',
+        'estado',
         'direccion',
         'nit',
         'correo_contacto',
