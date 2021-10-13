@@ -3921,6 +3921,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -3945,8 +3960,23 @@ __webpack_require__.r(__webpack_exports__);
     mostrarDatos: function mostrarDatos(proveedor) {
       this.$refs.CrearEditarProveedor.abirEditarProveedor(proveedor);
     },
-    showAlert: function showAlert() {
-      this.$swal("Proveedores");
+    CambiarEstado: function CambiarEstado(id) {
+      var me = this;
+      Swal.fire({
+        title: "¿Quieres cambiar el estado del proveedor?",
+        showDenyButton: true,
+        denyButtonText: "Cancelar",
+        confirmButtonText: "Guardar"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios.post("api/proveedores/".concat(id, "/cambiar-estado"), null, me.$root.config).then(function () {
+            me.listarProveedores(1);
+          });
+          Swal.fire("Cambios realizados!", "", "success");
+        } else if (result.isDenied) {
+          Swal.fire("Operación no realizada", "", "info");
+        }
+      });
     }
   }
 });
@@ -48791,23 +48821,54 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(p.apellidos))]),
                       _vm._v(" "),
-                      p.tipo_documento == "1"
-                        ? _c("td", [_vm._v("Cèdula de ciudadania")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      p.tipo_documento == "2"
-                        ? _c("td", [_vm._v("Passaporte")])
-                        : _vm._e(),
+                      _c("td", [
+                        p.tipo_documento == "1"
+                          ? _c("span", [_vm._v("Cèdula de ciudadania")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        p.tipo_documento == "2"
+                          ? _c("span", [_vm._v("Passaporte")])
+                          : _vm._e()
+                      ]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(p.nro_documento))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(p.celular1))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(p.celular2) + " ")]),
+                      _c("td", [_vm._v(_vm._s(p.celular2))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(p.email))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(p.direccion))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn",
+                            class:
+                              p.estado == 1
+                                ? "btn-outline-success"
+                                : "btn-outline-danger",
+                            on: {
+                              click: function($event) {
+                                return _vm.CambiarEstado(p.id)
+                              }
+                            }
+                          },
+                          [
+                            p.estado == 1
+                              ? _c("i", {
+                                  staticClass: "bi bi-check-circle-fill"
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            p.estado == 0
+                              ? _c("i", { staticClass: "bi bi-x-circle" })
+                              : _vm._e()
+                          ]
+                        )
+                      ]),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-center" }, [
                         _c(
@@ -48821,9 +48882,7 @@ var render = function() {
                             }
                           },
                           [_c("i", { staticClass: "bi bi-pen" })]
-                        ),
-                        _vm._v(" "),
-                        _vm._m(2, true)
+                        )
                       ])
                     ])
                   }),
@@ -48838,7 +48897,7 @@ var render = function() {
                 attrs: {
                   align: "center",
                   data: _vm.listaProveedores,
-                  limit: 8
+                  limit: 10
                 },
                 on: { "pagination-change-page": _vm.listarProveedores }
               },
@@ -48915,16 +48974,10 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Dirección")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Estado")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Opciones")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-outline-danger" }, [
-      _c("i", { staticClass: "bi bi-trash" })
     ])
   }
 ]

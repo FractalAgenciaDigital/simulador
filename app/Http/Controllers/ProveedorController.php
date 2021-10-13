@@ -10,7 +10,7 @@ class ProveedorController extends Controller
 	public function index()
 	{
 		//
-		return Proveedor::paginate(15);
+		return Proveedor::paginate(5);
 	}
 
 	public function create($id)
@@ -64,8 +64,7 @@ class ProveedorController extends Controller
 	{
 		//
 		$c = Proveedor::find($proveedor->id);
-		// $proveedor->activo = '0';
-		$c->activo = !$c->activo;
+		$c->estado = !$c->estado;
 		$c->save();
 	}
 	public function destroy($id)

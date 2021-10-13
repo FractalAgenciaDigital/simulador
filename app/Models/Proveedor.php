@@ -19,6 +19,7 @@ class Proveedor extends Model
     'celular1',
     'celular2',
     'direccion',
-    'email'
+    'email',
+    'estado'
   ];
 }

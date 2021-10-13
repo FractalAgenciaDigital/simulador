@@ -25,6 +25,7 @@
               <th>Celular2</th>
               <th>Correo Electronico</th>
               <th>Dirección</th>
+              <th>Estado</th>
               <th>Opciones</th>
             </tr>
           </thead>
@@ -33,19 +34,33 @@
               <td>{{ p.id }}</td>
               <td>{{ p.nombres }}</td>
               <td>{{ p.apellidos }}</td>
-              <td v-if="p.tipo_documento == '1' ">Cèdula de ciudadania</td>
-              <td v-if="p.tipo_documento == '2' ">Passaporte</td>
+              <td>
+                <span v-if="p.tipo_documento == '1'">Cèdula de ciudadania</span>
+                <span v-if="p.tipo_documento == '2'">Passaporte</span>
+              </td>
               <td>{{ p.nro_documento }}</td>
               <td>{{ p.celular1 }}</td>
-              <td>{{ p.celular2 }} </td>
+              <td>{{ p.celular2 }}</td>
               <td>{{ p.email }}</td>
               <td>{{ p.direccion }}</td>
-              <td class="text-center">
-                <button class="btn btn-outline-primary" @click="mostrarDatos(p)">
-                  <i class="bi bi-pen"></i>
+              <td>
+                <button
+                  class="btn"
+                  :class="
+                    p.estado == 1 ? 'btn-outline-success' : 'btn-outline-danger'
+                  "
+                  @click="CambiarEstado(p.id)"
+                >
+                  <i class="bi bi-check-circle-fill" v-if="p.estado == 1"></i>
+                  <i class="bi bi-x-circle" v-if="p.estado == 0"></i>
                 </button>
-                <button class="btn btn-outline-danger">
-                  <i class="bi bi-trash"></i>
+              </td>
+              <td class="text-center">
+                <button
+                  class="btn btn-outline-primary"
+                  @click="mostrarDatos(p)"
+                >
+                  <i class="bi bi-pen"></i>
                 </button>
               </td>
             </tr>
@@ -54,7 +69,7 @@
         <pagination
           :align="'center'"
           :data="listaProveedores"
-          :limit="8"
+          :limit="10"
           @pagination-change-page="listarProveedores"
         >
           <span slot="prev-nav">&lt; Previous</span>
@@ -90,11 +105,31 @@ export default {
     mostrarDatos: function (proveedor) {
       this.$refs.CrearEditarProveedor.abirEditarProveedor(proveedor);
     },
-    showAlert() {
+    CambiarEstado: function (id) {
+      let me = this;
 
-      this.$swal("Proveedores");
+      Swal.fire({
+        title: "¿Quieres cambiar el estado del proveedor?",
+        showDenyButton: true,
+        denyButtonText: `Cancelar`,
+        confirmButtonText: `Guardar`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .post(
+              `api/proveedores/${id}/cambiar-estado`,
+              null,
+              me.$root.config
+            )
+            .then(function () {
+              me.listarProveedores(1);
+            });
+          Swal.fire("Cambios realizados!", "", "success");
+        } else if (result.isDenied) {
+          Swal.fire("Operación no realizada", "", "info");
+        }
+      });
     },
-
   },
 };
 </script>

@@ -24,7 +24,7 @@ class ProveedorFactory extends Factory
       return [
         'nombres' => $this->faker->firstName(),
         'apellidos' => $this->faker->lastName(),
-        'tipo_documento' => $this->faker->boolean(),
+        'tipo_documento' => $this->faker->numberBetween(1,2),
         'nro_documento' => $this->faker->randomNumber(),
         'celular1' => $this->faker->phoneNumber(),
         'celular2' => $this->faker->phoneNumber(),
