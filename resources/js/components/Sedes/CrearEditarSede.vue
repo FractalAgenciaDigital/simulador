@@ -33,21 +33,6 @@
                     v-model="formSede.sede"
                   />
                 </div>
-
-                <!-- <div class="form-group col-md-4">
-                  <label for="estado_sede">Estado</label>
-                  <select
-                    name="estado_sede"
-                    id="estado_sede"
-                    class="custom-select"
-                    v-model="formSede.estado"
-                  >
-                    <option value="" disabled>--Seleccionar--</option>
-                    <option value="1">Activo</option>
-                    <option value="0">Inactivo</option>
-                  </select>
-                </div> -->
-
                 <div class="form-group col-md-4">
                   <label for="direccion">Dirección</label>
                   <input
@@ -151,7 +136,7 @@ export default {
       axios.post("api/sedes", this.formSede).then(function () {
         $("#formSedeModal").modal("hide");
         me.resetData();
-        this.$emit("listar-usuarios");
+        me.$emit("listar-sedes");
       });
     },
     abirEditarSede(sede) {
@@ -163,14 +148,14 @@ export default {
     editarSede() {
       let me = this;
       axios
-        .put("api/sedes/" + this.formSede.id, this.formSede)
+        .put(`api/sedes/${this.formSede.id}`, this.formSede)
         .then(function () {
           $("#formSedeModal").modal("hide");
           me.resetData();
         });
-      this.$emit("listar-sedes");
+      me.$emit("listar-sedes");
 
-      this.editar = false;
+      me.editar = false;
     },
     resetData() {
       let me = this;

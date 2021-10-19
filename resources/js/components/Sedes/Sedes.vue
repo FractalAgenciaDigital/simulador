@@ -48,17 +48,7 @@
               <td>{{ sede.correo_contacto }}</td>
               <td>{{ sede.representante }}</td>
               <td>{{ sede.celular_contacto }}</td>
-              <td v-if="sede.estado == 1">Activo</td>
-              <td v-if="sede.estado == 0">Inactivo</td>
-
-              <td class="text-center">
-                <button
-                  v-if="sede.estado == 1"
-                  class="btn btn-outline-primary"
-                  @click="mostrarDatos(sede)"
-                >
-                  <i class="bi bi-pen"></i>
-                </button>
+              <td>
                 <button
                   v-if="sede.estado == 1"
                   class="btn btn-outline-danger"
@@ -72,6 +62,16 @@
                   @click="CambiarEstado(sede.id)"
                 >
                   <i class="bi bi-check2-circle"></i>
+                </button>
+              </td>
+
+              <td class="text-center">
+                <button
+                  v-if="sede.estado == 1"
+                  class="btn btn-outline-primary"
+                  @click="mostrarDatos(sede)"
+                >
+                  <i class="bi bi-pen"></i>
                 </button>
               </td>
             </tr>
@@ -127,7 +127,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .post("api/sedes/" + id + "/cambiar-estado", null, me.$root.config)
+            .post(`api/sedes/${id}/cambiar-estado`, null, me.$root.config)
             .then(function () {
               me.listarSedes(1);
             });

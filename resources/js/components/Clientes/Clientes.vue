@@ -125,7 +125,7 @@ export default {
         if (result.isConfirmed) {
           axios
             .post(
-              "api/clientes/" + id + "/cambiar-estado",
+              `api/clientes/${id}/cambiar-estado`,
               null,
               me.$root.config
             )

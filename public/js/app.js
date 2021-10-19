@@ -1970,7 +1970,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Guardar"
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios.post("api/clientes/" + id + "/cambiar-estado", null, me.$root.config).then(function () {
+          axios.post("api/clientes/".concat(id, "/cambiar-estado"), null, me.$root.config).then(function () {
             me.listarClientes(1);
           });
           Swal.fire("Cambios realizados!", "", "success");
@@ -4104,21 +4104,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -4146,7 +4131,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("api/sedes", this.formSede).then(function () {
         $("#formSedeModal").modal("hide");
         me.resetData();
-        this.$emit("listar-usuarios");
+        me.$emit("listar-sedes");
       });
     },
     abirEditarSede: function abirEditarSede(sede) {
@@ -4157,12 +4142,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     editarSede: function editarSede() {
       var me = this;
-      axios.put("api/sedes/" + this.formSede.id, this.formSede).then(function () {
+      axios.put("api/sedes/".concat(this.formSede.id), this.formSede).then(function () {
         $("#formSedeModal").modal("hide");
         me.resetData();
       });
-      this.$emit("listar-sedes");
-      this.editar = false;
+      me.$emit("listar-sedes");
+      me.editar = false;
     },
     resetData: function resetData() {
       var me = this;
@@ -4314,7 +4299,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Guardar"
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios.post("api/sedes/" + id + "/cambiar-estado", null, me.$root.config).then(function () {
+          axios.post("api/sedes/".concat(id, "/cambiar-estado"), null, me.$root.config).then(function () {
             me.listarSedes(1);
           });
           Swal.fire("Cambios realizados!", "", "success");
@@ -49373,30 +49358,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(sede.celular_contacto))]),
                       _vm._v(" "),
-                      sede.estado == 1
-                        ? _c("td", [_vm._v("Activo")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      sede.estado == 0
-                        ? _c("td", [_vm._v("Inactivo")])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        sede.estado == 1
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-outline-primary",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.mostrarDatos(sede)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "bi bi-pen" })]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
+                      _c("td", [
                         sede.estado == 1
                           ? _c(
                               "button",
@@ -49424,6 +49386,23 @@ var render = function() {
                                 }
                               },
                               [_c("i", { staticClass: "bi bi-check2-circle" })]
+                            )
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        sede.estado == 1
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-outline-primary",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.mostrarDatos(sede)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "bi bi-pen" })]
                             )
                           : _vm._e()
                       ])

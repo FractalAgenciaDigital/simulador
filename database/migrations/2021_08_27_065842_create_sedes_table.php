@@ -21,7 +21,7 @@ class CreateSedesTable extends Migration
             $table->string('nit')->nullable();
             $table->string('correo_contacto')->nullable();
             $table->string('representante')->nullable();
-            $table->string('telefono_contacto')->nullable();
+            $table->string('celular_contacto')->nullable();
             $table->timestamps();
         });
     }
