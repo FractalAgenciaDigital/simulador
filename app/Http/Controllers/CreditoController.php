@@ -162,9 +162,9 @@ class CreditoController extends Controller
         $cre->save();
     }
 
-    public function cuotas(Request $request, $id)
-    {
-        $credito = Credito::find($id);
-        return $credito->cuotas()->get();
-    }
+    // public function cuotas(Request $request, $id)
+    // {
+    //     $credito = Credito::find($id);
+    //     return $credito->cuotas()->get();
+    // }
 }
