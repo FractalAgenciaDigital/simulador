@@ -144,12 +144,7 @@
       ref="CrearEditarCredito"
       @listar-creditos="listarCreditos(1)"
     />
-    <simulador
-      :capital="9023323"
-      :plazos="12"
-      :tasa="2.3"
-      ref="Simulador"
-    ></simulador>
+    <simulador ref="Simulador"></simulador>
 
     <cuotas ref="Cuotas" @mostrar-cuotas="mostrarCuotas(1)" />
   </div>
@@ -179,6 +174,12 @@ import Cuotas from "./Cuotas.vue";
 
 export default {
   components: { CrearEditarCredito, Simulador, CrearEditarCliente, Cuotas },
+
+  props: {
+    cuotas: {
+      type: Object,
+    },
+  },
   data() {
     return {
       buscar_cliente: "",

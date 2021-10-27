@@ -19,10 +19,10 @@ class CreateCuotasTable extends Migration
             $table->integer('nro_cuota');
             $table->float('valor', 20, 4);
             $table->date('fecha_pago');
-            $table->float('dias_mora');
-            $table->float('valor_interes_mora', 20, 4);
-            $table->float('valor_pago_interes', 20, 4);
-            $table->float('valor_pago_capital', 20, 4);
+            $table->float('dias_mora')->nullable()->default(0);
+            $table->float('valor_interes_mora', 20, 4)->nullable()->default(0);
+            $table->float('valor_pago_interes', 20, 4)->nullable()->default(0);
+            $table->float('valor_pago_capital', 20, 4)->nullable()->default(0);
 
             $table->foreign('credito_id')
                 ->references('id')

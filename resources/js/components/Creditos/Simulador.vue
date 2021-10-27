@@ -34,7 +34,7 @@
                       type="number"
                       class="form-control"
                       id="monto"
-                      v-model="monto"
+                      v-model="cuotas.monto"
                       placeholder="Ingresar monto"
                     />
                   </div>
@@ -45,7 +45,7 @@
                       type="number"
                       class="form-control"
                       id="tiempo"
-                      v-model="tiempo"
+                      v-model="cuotas.tiempo"
                       placeholder="Ingresar cantidad de meses"
                     />
                   </div>
@@ -56,7 +56,7 @@
                       type="number"
                       class="form-control"
                       id="interes"
-                      v-model="interes"
+                      v-model="cuotas.interes"
                       placeholder="Ingresar tasa de interés mensual"
                     />
                   </div>
@@ -106,7 +106,7 @@
             <button
               type="button"
               class="btn btn-primary rounded"
-              @click="editar = crearSimulador()"
+              @click="editar = editarSimulador()"
             >
               Guardar
             </button>
@@ -125,41 +125,66 @@ export default {
   // capital monto total del prestamo
   // tasa valor de tasa de interes que se compraria
   // plazos numero de pagos
-  props: ["capital", "plazos", "tasa"],
-  data: function () {
+  data() {
     return {
       editar: false,
-      monto,
-      tiempo,
-      interes,
-      formSimulador: {},
-      item: {
-        capital: "",
-        plazos: "",
-        tasa: "",
+      cuotas: {
+        monto: "",
+        tiempo: "",
+        interes: "",
       },
-      lista: [],
-      newItem: {},
+      formCuotas: {},
     };
   },
   methods: {
     crearSimulador() {
       let me = this;
-      axios.post("api/creditos", this.item).then(function () {
-        $("#formCreditoModal").modal("hide");
+      axios.post("api/cuotas", this.cuotas).then(function () {
+        $("#formSimuladorModal").modal("hide");
         me.resetData();
-        this.$emit("listar-clientes");
+        this.$emit("listar-creditos");
       });
     },
+    abrirSimulador(credito) {
+      this.editar = true;
+      let me = this;
+      $("#formSimuladorModal").modal("show");
+      me.formSimulador = credito;
+    },
+    editarSimulador() {
+      let me = this;
+      axios.put("api/creditos/" + 4, this.cuotas).then(function () {
+        $("#formSimuladorModal").modal("hide");
+        me.resetData();
+      });
+      this.$emit("listar-creditos");
+
+      this.editar = false;
+    },
+    simular: function (id) {
+      let me = this;
+      axios
+        .post("api/creditos/" + id + "/cuotas", null, me.$root.config)
+        .then(function () {
+          me.listarCreditos(1);
+        });
+    },
+    resetData() {
+      let me = this;
+      Object.keys(this.cuotas).forEach(function (key, index) {
+        me.cuotas[key] = "";
+      });
+    },
+
     calcularCuota() {
       let me = this;
-      var monto = me.monto;
-      var interes = me.interes;
-      var tiempo = me.tiempo;
+      var monto = me.cuotas.monto;
+      var interes = me.cuotas.interes;
+      var tiempo = me.cuotas.tiempo;
 
-      console.log(monto);
-      console.log(interes);
-      console.log(tiempo);
+      console.log(me.cuotas.monto);
+      console.log(me.cuotas.interes);
+      console.log(me.cuotas.tiempo);
       const llenarTabla = document.querySelector("#lista-tabla tbody");
 
       while (llenarTabla.firstChild) {
@@ -189,6 +214,11 @@ export default {
         fechas[i] = mes_actual.format("DD-MM-YYYY");
         mes_actual.add(1, "month");
 
+        me.formCuotas.fechas = fechas;
+        me.formCuotas.pagoInteres = pagoInteres;
+        me.formCuotas.pagoCapital = pagoCapital;
+        me.formCuotas.nro_cuota = i + 1;
+
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${fechas[i]}</td>
@@ -200,266 +230,7 @@ export default {
         llenarTabla.appendChild(row);
       }
     },
-    abrirSimulador(credito) {
-      this.editar = true;
-      let me = this;
-      $("#formSimuladorModal").modal("show");
-      me.formSimulador = credito;
-    },
-    Initialize: function () {
-      this.Calcular();
-    },
-    addItem: function () {
-      if (this.newItem) {
-        this.item.push({
-          capital: "",
-          plazos: "",
-          tasa: "",
-        });
-      }
-      this.lista = "";
-    },
-    //   Calcular: function () {
-    //     function humanizeNumber(n) {
-    //       n = n.toString();
-    //       while (true) {
-    //         var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, "$1,$2$3");
-    //         if (n == n2) break;
-    //         n = n2;
-    //       }
-    //       return n;
-    //     }
-
-    //     const formatter = new Intl.NumberFormat("es-COL", {
-    //       style: "currency",
-    //       currency: "COL",
-    //       minimumFractionDigits: 2,
-    //     });
-
-    //     var montoPrestamo = parseFloat(this.capital);
-    //     var numPagos = parseInt(this.plazos);
-    //     var tasaAnual = parseFloat(this.tasa);
-    //     var iva = 0.16;
-
-    //     tasaAnual = tasaAnual / 100;
-    //     var tasaDiaria = (tasaAnual * (1 + iva)) / 360;
-
-    //     var quincena = tasaDiaria * 15;
-    //     var _descuento =
-    //       (montoPrestamo * quincena) / (1 - Math.pow(1 + quincena, -numPagos));
-
-    //     var nuevoMontoPrestado = montoPrestamo;
-    //     //TOTALES
-    //     this.totaldescuento = 0;
-    //     this.totalinteres = 0;
-    //     this.totalamortizacion = 0;
-    //     this.totalIva = 0;
-    //     this.totalImporte = 0;
-
-    //     ///Primera iteración
-    //     var itemFirts = {
-    //       quincena: 0,
-    //       pagado: humanizeNumber(formatter.format(montoPrestamo.toFixed(2))),
-    //     };
-    //     this.lista.push(itemFirts); //añadimos el la variable item al array
-    //     ///Calculos
-    //     var i = 1;
-    //     while (i <= numPagos) {
-    //       var nuevoInteres = (quincena * nuevoMontoPrestado) / (1 + iva);
-    //       var ivaDesglose = nuevoInteres * iva;
-
-    //       var amortizacion = _descuento - (nuevoInteres + ivaDesglose);
-
-    //       var cuotaTOTAL = amortizacion + nuevoInteres + ivaDesglose;
-    //       nuevoMontoPrestado = nuevoMontoPrestado - amortizacion;
-
-    //       var item = {
-    //         quincena: i,
-    //         descuento: humanizeNumber(formatter.format(_descuento.toFixed(4))),
-    //         iva: humanizeNumber(formatter.format(ivaDesglose.toFixed(4))),
-    //         interes: humanizeNumber(formatter.format(nuevoInteres.toFixed(4))),
-    //         amortizacion: humanizeNumber(
-    //           formatter.format(amortizacion.toFixed(4))
-    //         ),
-    //         pagado: humanizeNumber(
-    //           formatter.format(nuevoMontoPrestado.toFixed(4))
-    //         ),
-    //         cuotaTotal: humanizeNumber(formatter.format(cuotaTOTAL.toFixed(4))),
-    //       };
-    //       this.lista.push(item); //añadimos el la variable item al array
-    //       i++;
-    //       //SUMA TOTALES
-    //       this.totaldescuento =
-    //         parseFloat(this.totaldescuento) + parseFloat(_descuento);
-    //       this.totalinteres =
-    //         parseFloat(this.totalinteres) + parseFloat(nuevoInteres);
-    //       this.totalamortizacion =
-    //         parseFloat(this.totalamortizacion) + parseFloat(amortizacion);
-    //       this.totalIva = parseFloat(this.totalIva) + parseFloat(ivaDesglose);
-    //       this.totalImporte =
-    //         parseFloat(this.totalImporte) + parseFloat(cuotaTOTAL);
-    //     }
-    //     //FORMATO MONEDA TOTALES
-    //     this.totaldescuento = humanizeNumber(
-    //       formatter.format(this.totaldescuento.toFixed(2))
-    //     );
-    //     this.totalinteres = humanizeNumber(
-    //       formatter.format(this.totalinteres.toFixed(2))
-    //     );
-    //     this.totalamortizacion = humanizeNumber(
-    //       formatter.format(this.totalamortizacion.toFixed(2))
-    //     );
-    //     this.totalIva = humanizeNumber(
-    //       formatter.format(this.totalIva.toFixed(2))
-    //     );
-    //     this.totalImporte = humanizeNumber(
-    //       formatter.format(this.totalImporte.toFixed(2))
-    //     );
-    //   },
   },
   computed: {},
-  created() {
-    this.Initialize();
-  },
 };
-
-// Vue.component("vue-simulador", {
-//   // capital monto total del prestamo
-//   // tasa valor de tasa de interes que se compraria
-//   // plazos numero de pagos
-//   props: ["capital", "plazos", "tasa"],
-//   data: function () {
-//     return {
-//       item: {
-//         capital: "",
-//         plazos: "",
-//         tasa: "",
-//       },
-//       lista: [],
-//     };
-//   },
-//   template: `
-
-//                   `,
-//   methods: {
-//     Initialize: function () {
-//       this.Calcular();
-//     },
-//     // addItem: function () {
-//     //     if (this.newItem){
-//     //         this.item.push({
-//     //             capital: 2,
-//     //             plazos: 20,
-//     //             tasa: 2.0,
-//     //         });
-//     //     }
-//     //     this.lista = "";
-//     // },
-//     Calcular: function () {
-//       function humanizeNumber(n) {
-//         n = n.toString();
-//         while (true) {
-//           var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, "$1,$2$3");
-//           if (n == n2) break;
-//           n = n2;
-//         }
-//         return n;
-//       }
-
-//       const formatter = new Intl.NumberFormat("es-MX", {
-//         style: "currency",
-//         currency: "MXN",
-//         minimumFractionDigits: 2,
-//       });
-
-//       var montoPrestamo = parseFloat(this.capital);
-//       var numPagos = parseInt(this.plazos);
-//       var tasaAnual = parseFloat(this.tasa);
-//       var iva = 0.16;
-
-//       tasaAnual = tasaAnual / 100;
-//       var tasaDiaria = (tasaAnual * (1 + iva)) / 360;
-
-//       var quincena = tasaDiaria * 15;
-//       var _descuento =
-//         (montoPrestamo * quincena) / (1 - Math.pow(1 + quincena, -numPagos));
-
-//       var nuevoMontoPrestado = montoPrestamo;
-//       //TOTALES
-//       this.totaldescuento = 0;
-//       this.totalinteres = 0;
-//       this.totalamortizacion = 0;
-//       this.totalIva = 0;
-//       this.totalImporte = 0;
-
-//       ///Primera iteración
-//       var itemFirts = {
-//         quincena: 0,
-//         pagado: humanizeNumber(formatter.format(montoPrestamo.toFixed(2))),
-//       };
-//       this.lista.push(itemFirts); //añadimos el la variable item al array
-//       ///Calculos
-//       var i = 1;
-//       while (i <= numPagos) {
-//         var nuevoInteres = (quincena * nuevoMontoPrestado) / (1 + iva);
-//         var ivaDesglose = nuevoInteres * iva;
-
-//         var amortizacion = _descuento - (nuevoInteres + ivaDesglose);
-
-//         var cuotaTOTAL = amortizacion + nuevoInteres + ivaDesglose;
-//         nuevoMontoPrestado = nuevoMontoPrestado - amortizacion;
-
-//         var item = {
-//           quincena: i,
-//           descuento: humanizeNumber(formatter.format(_descuento.toFixed(4))),
-//           iva: humanizeNumber(formatter.format(ivaDesglose.toFixed(4))),
-//           interes: humanizeNumber(formatter.format(nuevoInteres.toFixed(4))),
-//           amortizacion: humanizeNumber(
-//             formatter.format(amortizacion.toFixed(4))
-//           ),
-//           pagado: humanizeNumber(
-//             formatter.format(nuevoMontoPrestado.toFixed(4))
-//           ),
-//           cuotaTotal: humanizeNumber(formatter.format(cuotaTOTAL.toFixed(4))),
-//         };
-//         this.lista.push(item); //añadimos el la variable item al array
-//         i++;
-//         //SUMA TOTALES
-//         this.totaldescuento =
-//           parseFloat(this.totaldescuento) + parseFloat(_descuento);
-//         this.totalinteres =
-//           parseFloat(this.totalinteres) + parseFloat(nuevoInteres);
-//         this.totalamortizacion =
-//           parseFloat(this.totalamortizacion) + parseFloat(amortizacion);
-//         this.totalIva = parseFloat(this.totalIva) + parseFloat(ivaDesglose);
-//         this.totalImporte =
-//           parseFloat(this.totalImporte) + parseFloat(cuotaTOTAL);
-//       }
-//       //FORMATO MONEDA TOTALES
-//       this.totaldescuento = humanizeNumber(
-//         formatter.format(this.totaldescuento.toFixed(2))
-//       );
-//       this.totalinteres = humanizeNumber(
-//         formatter.format(this.totalinteres.toFixed(2))
-//       );
-//       this.totalamortizacion = humanizeNumber(
-//         formatter.format(this.totalamortizacion.toFixed(2))
-//       );
-//       this.totalIva = humanizeNumber(
-//         formatter.format(this.totalIva.toFixed(2))
-//       );
-//       this.totalImporte = humanizeNumber(
-//         formatter.format(this.totalImporte.toFixed(2))
-//       );
-//     },
-//   },
-//   computed: {},
-//   created() {
-//     this.Initialize();
-//   },
-// });
-
-// var app = new Vue({
-//   el: "#vue-simulador",
-// });
 </script>

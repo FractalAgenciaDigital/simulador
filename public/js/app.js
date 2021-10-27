@@ -2495,15 +2495,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     var _formCredito;
@@ -2518,7 +2509,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         sede_id: "",
         cant_cuotas: "",
         cant_cuotas_pagadas: ""
-      }, _defineProperty(_formCredito, "cant_cuotas_pagadas", ""), _defineProperty(_formCredito, "dia_limite", ""), _defineProperty(_formCredito, "deudor", ""), _defineProperty(_formCredito, "estado", "1"), _defineProperty(_formCredito, "fecha_inicio", ""), _defineProperty(_formCredito, "interes_mensual", ""), _defineProperty(_formCredito, "porcent_interes_anual", ""), _defineProperty(_formCredito, "porcent_interes_mensual", ""), _defineProperty(_formCredito, "usu_crea", 2), _defineProperty(_formCredito, "calor_cuota", ""), _defineProperty(_formCredito, "valor_credito", ""), _defineProperty(_formCredito, "valor_abonado", ""), _defineProperty(_formCredito, "valor_capital", ""), _defineProperty(_formCredito, "valor_interes", ""), _formCredito)
+      }, _defineProperty(_formCredito, "cant_cuotas_pagadas", ""), _defineProperty(_formCredito, "dia_limite", ""), _defineProperty(_formCredito, "deudor", ""), _defineProperty(_formCredito, "estado", "1"), _defineProperty(_formCredito, "fecha_inicio", ""), _defineProperty(_formCredito, "interes", ""), _defineProperty(_formCredito, "porcentaje_interes_anual", ""), _defineProperty(_formCredito, "usu_crea", 2), _defineProperty(_formCredito, "calor_cuota", ""), _defineProperty(_formCredito, "valor_credito", ""), _defineProperty(_formCredito, "valor_abonado", ""), _defineProperty(_formCredito, "valor_capital", ""), _defineProperty(_formCredito, "valor_interes", ""), _formCredito)
     };
   },
   created: function created() {
@@ -2741,11 +2732,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 // const buscar_cliente = document.querySelector("#buscar_cliente");
 // const boton = document.querySelector("#boton");
 // const filtrar = () => {
@@ -2768,6 +2754,11 @@ __webpack_require__.r(__webpack_exports__);
     Simulador: _Simulador_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     CrearEditarCliente: _Clientes_CrearEditarCliente_vue__WEBPACK_IMPORTED_MODULE_2__.default,
     Cuotas: _Cuotas_vue__WEBPACK_IMPORTED_MODULE_3__.default
+  },
+  props: {
+    cuotas: {
+      type: Object
+    }
   },
   data: function data() {
     return {
@@ -3048,40 +3039,61 @@ __webpack_require__.r(__webpack_exports__);
   // capital monto total del prestamo
   // tasa valor de tasa de interes que se compraria
   // plazos numero de pagos
-  props: ["capital", "plazos", "tasa"],
   data: function data() {
     return {
       editar: false,
-      monto: monto,
-      tiempo: tiempo,
-      interes: interes,
-      formSimulador: {},
-      item: {
-        capital: "",
-        plazos: "",
-        tasa: ""
+      cuotas: {
+        monto: "",
+        tiempo: "",
+        interes: ""
       },
-      lista: [],
-      newItem: {}
+      formCuotas: {}
     };
   },
   methods: {
     crearSimulador: function crearSimulador() {
       var me = this;
-      axios.post("api/creditos", this.item).then(function () {
-        $("#formCreditoModal").modal("hide");
+      axios.post("api/cuotas", this.cuotas).then(function () {
+        $("#formSimuladorModal").modal("hide");
         me.resetData();
-        this.$emit("listar-clientes");
+        this.$emit("listar-creditos");
+      });
+    },
+    abrirSimulador: function abrirSimulador(credito) {
+      this.editar = true;
+      var me = this;
+      $("#formSimuladorModal").modal("show");
+      me.formSimulador = credito;
+    },
+    editarSimulador: function editarSimulador() {
+      var me = this;
+      axios.put("api/creditos/" + 4, this.cuotas).then(function () {
+        $("#formSimuladorModal").modal("hide");
+        me.resetData();
+      });
+      this.$emit("listar-creditos");
+      this.editar = false;
+    },
+    simular: function simular(id) {
+      var me = this;
+      axios.post("api/creditos/" + id + "/cuotas", null, me.$root.config).then(function () {
+        me.listarCreditos(1);
+      });
+    },
+    resetData: function resetData() {
+      var me = this;
+      Object.keys(this.cuotas).forEach(function (key, index) {
+        me.cuotas[key] = "";
       });
     },
     calcularCuota: function calcularCuota() {
       var me = this;
-      var monto = me.monto;
-      var interes = me.interes;
-      var tiempo = me.tiempo;
-      console.log(monto);
-      console.log(interes);
-      console.log(tiempo);
+      var monto = me.cuotas.monto;
+      var interes = me.cuotas.interes;
+      var tiempo = me.cuotas.tiempo;
+      console.log(me.cuotas.monto);
+      console.log(me.cuotas.interes);
+      console.log(me.cuotas.tiempo);
       var llenarTabla = document.querySelector("#lista-tabla tbody");
 
       while (llenarTabla.firstChild) {
@@ -3105,252 +3117,18 @@ __webpack_require__.r(__webpack_exports__);
 
         fechas[i] = mes_actual.format("DD-MM-YYYY");
         mes_actual.add(1, "month");
+        me.formCuotas.fechas = fechas;
+        me.formCuotas.pagoInteres = pagoInteres;
+        me.formCuotas.pagoCapital = pagoCapital;
+        me.formCuotas.nro_cuota = i + 1;
         var row = document.createElement("tr");
         row.innerHTML = "\n            <td>".concat(fechas[i], "</td>\n            <td>").concat(cuota.toFixed(2), "</td>\n            <td>").concat(pagoCapital.toFixed(2), "</td>\n            <td>").concat(pagoInteres.toFixed(2), "</td>\n            <td>").concat(monto.toFixed(2), "</td>\n        ");
         llenarTabla.appendChild(row);
       }
-    },
-    abrirSimulador: function abrirSimulador(credito) {
-      this.editar = true;
-      var me = this;
-      $("#formSimuladorModal").modal("show");
-      me.formSimulador = credito;
-    },
-    Initialize: function Initialize() {
-      this.Calcular();
-    },
-    addItem: function addItem() {
-      if (this.newItem) {
-        this.item.push({
-          capital: "",
-          plazos: "",
-          tasa: ""
-        });
-      }
-
-      this.lista = "";
-    } //   Calcular: function () {
-    //     function humanizeNumber(n) {
-    //       n = n.toString();
-    //       while (true) {
-    //         var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, "$1,$2$3");
-    //         if (n == n2) break;
-    //         n = n2;
-    //       }
-    //       return n;
-    //     }
-    //     const formatter = new Intl.NumberFormat("es-COL", {
-    //       style: "currency",
-    //       currency: "COL",
-    //       minimumFractionDigits: 2,
-    //     });
-    //     var montoPrestamo = parseFloat(this.capital);
-    //     var numPagos = parseInt(this.plazos);
-    //     var tasaAnual = parseFloat(this.tasa);
-    //     var iva = 0.16;
-    //     tasaAnual = tasaAnual / 100;
-    //     var tasaDiaria = (tasaAnual * (1 + iva)) / 360;
-    //     var quincena = tasaDiaria * 15;
-    //     var _descuento =
-    //       (montoPrestamo * quincena) / (1 - Math.pow(1 + quincena, -numPagos));
-    //     var nuevoMontoPrestado = montoPrestamo;
-    //     //TOTALES
-    //     this.totaldescuento = 0;
-    //     this.totalinteres = 0;
-    //     this.totalamortizacion = 0;
-    //     this.totalIva = 0;
-    //     this.totalImporte = 0;
-    //     ///Primera iteración
-    //     var itemFirts = {
-    //       quincena: 0,
-    //       pagado: humanizeNumber(formatter.format(montoPrestamo.toFixed(2))),
-    //     };
-    //     this.lista.push(itemFirts); //añadimos el la variable item al array
-    //     ///Calculos
-    //     var i = 1;
-    //     while (i <= numPagos) {
-    //       var nuevoInteres = (quincena * nuevoMontoPrestado) / (1 + iva);
-    //       var ivaDesglose = nuevoInteres * iva;
-    //       var amortizacion = _descuento - (nuevoInteres + ivaDesglose);
-    //       var cuotaTOTAL = amortizacion + nuevoInteres + ivaDesglose;
-    //       nuevoMontoPrestado = nuevoMontoPrestado - amortizacion;
-    //       var item = {
-    //         quincena: i,
-    //         descuento: humanizeNumber(formatter.format(_descuento.toFixed(4))),
-    //         iva: humanizeNumber(formatter.format(ivaDesglose.toFixed(4))),
-    //         interes: humanizeNumber(formatter.format(nuevoInteres.toFixed(4))),
-    //         amortizacion: humanizeNumber(
-    //           formatter.format(amortizacion.toFixed(4))
-    //         ),
-    //         pagado: humanizeNumber(
-    //           formatter.format(nuevoMontoPrestado.toFixed(4))
-    //         ),
-    //         cuotaTotal: humanizeNumber(formatter.format(cuotaTOTAL.toFixed(4))),
-    //       };
-    //       this.lista.push(item); //añadimos el la variable item al array
-    //       i++;
-    //       //SUMA TOTALES
-    //       this.totaldescuento =
-    //         parseFloat(this.totaldescuento) + parseFloat(_descuento);
-    //       this.totalinteres =
-    //         parseFloat(this.totalinteres) + parseFloat(nuevoInteres);
-    //       this.totalamortizacion =
-    //         parseFloat(this.totalamortizacion) + parseFloat(amortizacion);
-    //       this.totalIva = parseFloat(this.totalIva) + parseFloat(ivaDesglose);
-    //       this.totalImporte =
-    //         parseFloat(this.totalImporte) + parseFloat(cuotaTOTAL);
-    //     }
-    //     //FORMATO MONEDA TOTALES
-    //     this.totaldescuento = humanizeNumber(
-    //       formatter.format(this.totaldescuento.toFixed(2))
-    //     );
-    //     this.totalinteres = humanizeNumber(
-    //       formatter.format(this.totalinteres.toFixed(2))
-    //     );
-    //     this.totalamortizacion = humanizeNumber(
-    //       formatter.format(this.totalamortizacion.toFixed(2))
-    //     );
-    //     this.totalIva = humanizeNumber(
-    //       formatter.format(this.totalIva.toFixed(2))
-    //     );
-    //     this.totalImporte = humanizeNumber(
-    //       formatter.format(this.totalImporte.toFixed(2))
-    //     );
-    //   },
-
+    }
   },
-  computed: {},
-  created: function created() {
-    this.Initialize();
-  }
-}); // Vue.component("vue-simulador", {
-//   // capital monto total del prestamo
-//   // tasa valor de tasa de interes que se compraria
-//   // plazos numero de pagos
-//   props: ["capital", "plazos", "tasa"],
-//   data: function () {
-//     return {
-//       item: {
-//         capital: "",
-//         plazos: "",
-//         tasa: "",
-//       },
-//       lista: [],
-//     };
-//   },
-//   template: `
-//                   `,
-//   methods: {
-//     Initialize: function () {
-//       this.Calcular();
-//     },
-//     // addItem: function () {
-//     //     if (this.newItem){
-//     //         this.item.push({
-//     //             capital: 2,
-//     //             plazos: 20,
-//     //             tasa: 2.0,
-//     //         });
-//     //     }
-//     //     this.lista = "";
-//     // },
-//     Calcular: function () {
-//       function humanizeNumber(n) {
-//         n = n.toString();
-//         while (true) {
-//           var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, "$1,$2$3");
-//           if (n == n2) break;
-//           n = n2;
-//         }
-//         return n;
-//       }
-//       const formatter = new Intl.NumberFormat("es-MX", {
-//         style: "currency",
-//         currency: "MXN",
-//         minimumFractionDigits: 2,
-//       });
-//       var montoPrestamo = parseFloat(this.capital);
-//       var numPagos = parseInt(this.plazos);
-//       var tasaAnual = parseFloat(this.tasa);
-//       var iva = 0.16;
-//       tasaAnual = tasaAnual / 100;
-//       var tasaDiaria = (tasaAnual * (1 + iva)) / 360;
-//       var quincena = tasaDiaria * 15;
-//       var _descuento =
-//         (montoPrestamo * quincena) / (1 - Math.pow(1 + quincena, -numPagos));
-//       var nuevoMontoPrestado = montoPrestamo;
-//       //TOTALES
-//       this.totaldescuento = 0;
-//       this.totalinteres = 0;
-//       this.totalamortizacion = 0;
-//       this.totalIva = 0;
-//       this.totalImporte = 0;
-//       ///Primera iteración
-//       var itemFirts = {
-//         quincena: 0,
-//         pagado: humanizeNumber(formatter.format(montoPrestamo.toFixed(2))),
-//       };
-//       this.lista.push(itemFirts); //añadimos el la variable item al array
-//       ///Calculos
-//       var i = 1;
-//       while (i <= numPagos) {
-//         var nuevoInteres = (quincena * nuevoMontoPrestado) / (1 + iva);
-//         var ivaDesglose = nuevoInteres * iva;
-//         var amortizacion = _descuento - (nuevoInteres + ivaDesglose);
-//         var cuotaTOTAL = amortizacion + nuevoInteres + ivaDesglose;
-//         nuevoMontoPrestado = nuevoMontoPrestado - amortizacion;
-//         var item = {
-//           quincena: i,
-//           descuento: humanizeNumber(formatter.format(_descuento.toFixed(4))),
-//           iva: humanizeNumber(formatter.format(ivaDesglose.toFixed(4))),
-//           interes: humanizeNumber(formatter.format(nuevoInteres.toFixed(4))),
-//           amortizacion: humanizeNumber(
-//             formatter.format(amortizacion.toFixed(4))
-//           ),
-//           pagado: humanizeNumber(
-//             formatter.format(nuevoMontoPrestado.toFixed(4))
-//           ),
-//           cuotaTotal: humanizeNumber(formatter.format(cuotaTOTAL.toFixed(4))),
-//         };
-//         this.lista.push(item); //añadimos el la variable item al array
-//         i++;
-//         //SUMA TOTALES
-//         this.totaldescuento =
-//           parseFloat(this.totaldescuento) + parseFloat(_descuento);
-//         this.totalinteres =
-//           parseFloat(this.totalinteres) + parseFloat(nuevoInteres);
-//         this.totalamortizacion =
-//           parseFloat(this.totalamortizacion) + parseFloat(amortizacion);
-//         this.totalIva = parseFloat(this.totalIva) + parseFloat(ivaDesglose);
-//         this.totalImporte =
-//           parseFloat(this.totalImporte) + parseFloat(cuotaTOTAL);
-//       }
-//       //FORMATO MONEDA TOTALES
-//       this.totaldescuento = humanizeNumber(
-//         formatter.format(this.totaldescuento.toFixed(2))
-//       );
-//       this.totalinteres = humanizeNumber(
-//         formatter.format(this.totalinteres.toFixed(2))
-//       );
-//       this.totalamortizacion = humanizeNumber(
-//         formatter.format(this.totalamortizacion.toFixed(2))
-//       );
-//       this.totalIva = humanizeNumber(
-//         formatter.format(this.totalIva.toFixed(2))
-//       );
-//       this.totalImporte = humanizeNumber(
-//         formatter.format(this.totalImporte.toFixed(2))
-//       );
-//     },
-//   },
-//   computed: {},
-//   created() {
-//     this.Initialize();
-//   },
-// });
-// var app = new Vue({
-//   el: "#vue-simulador",
-// });
+  computed: {}
+});
 
 /***/ }),
 
@@ -66950,7 +66728,8 @@ var render = function() {
                           "aria-logname": "{}",
                           reduce: function(nombres) {
                             return nombres.id
-                          }
+                          },
+                          placeholder: "Buscar por Documento"
                         },
                         model: {
                           value: _vm.formCredito.cliente_id,
@@ -66963,6 +66742,38 @@ var render = function() {
                     ],
                     1
                   ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "deudor" } }, [
+                      _vm._v("Deudor")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formCredito.deudor,
+                          expression: "formCredito.deudor"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", id: "deudor" },
+                      domProps: { value: _vm.formCredito.deudor },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formCredito,
+                            "deudor",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -67072,7 +66883,12 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "number", id: "dia_limite" },
+                      attrs: {
+                        type: "number",
+                        min: "1",
+                        max: "30",
+                        id: "dia_limite"
+                      },
                       domProps: { value: _vm.formCredito.dia_limite },
                       on: {
                         input: function($event) {
@@ -67082,38 +66898,6 @@ var render = function() {
                           _vm.$set(
                             _vm.formCredito,
                             "dia_limite",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "deudor" } }, [
-                      _vm._v("Deudor")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formCredito.deudor,
-                          expression: "formCredito.deudor"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "number", id: "deudor" },
-                      domProps: { value: _vm.formCredito.deudor },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formCredito,
-                            "deudor",
                             $event.target.value
                           )
                         }
@@ -67154,8 +66938,8 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "interes_mensual" } }, [
-                      _vm._v("Interes Mensual")
+                    _c("label", { attrs: { for: "interes" } }, [
+                      _vm._v("Interes")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -67163,13 +66947,13 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.formCredito.interes_mensual,
-                          expression: "formCredito.interes_mensual"
+                          value: _vm.formCredito.interes,
+                          expression: "formCredito.interes"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "number", id: "interes_mensual" },
-                      domProps: { value: _vm.formCredito.interes_mensual },
+                      attrs: { type: "number", id: "interes" },
+                      domProps: { value: _vm.formCredito.interes },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
@@ -67177,7 +66961,7 @@ var render = function() {
                           }
                           _vm.$set(
                             _vm.formCredito,
-                            "interes_mensual",
+                            "interes",
                             $event.target.value
                           )
                         }
@@ -67186,23 +66970,25 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "porcent_interes_anual" } }, [
-                      _vm._v("Porcentaje Interes Anual")
-                    ]),
+                    _c(
+                      "label",
+                      { attrs: { for: "porcentaje_interes_anual" } },
+                      [_vm._v("Porcentaje Interes Anual")]
+                    ),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.formCredito.porcent_interes_anual,
-                          expression: "formCredito.porcent_interes_anual"
+                          value: _vm.formCredito.porcentaje_interes_anual,
+                          expression: "formCredito.porcentaje_interes_anual"
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "number", id: "porcent_interes_anual" },
+                      attrs: { type: "number", id: "porcentaje_interes_anual" },
                       domProps: {
-                        value: _vm.formCredito.porcent_interes_anual
+                        value: _vm.formCredito.porcentaje_interes_anual
                       },
                       on: {
                         input: function($event) {
@@ -67211,41 +66997,7 @@ var render = function() {
                           }
                           _vm.$set(
                             _vm.formCredito,
-                            "porcent_interes_anual",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "porcent_interes_mensual" } }, [
-                      _vm._v("Porcentaje Interes Mensual")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.formCredito.porcent_interes_mensual,
-                          expression: "formCredito.porcent_interes_mensual"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "number", id: "porcent_interes_mensual" },
-                      domProps: {
-                        value: _vm.formCredito.porcent_interes_mensual
-                      },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.formCredito,
-                            "porcent_interes_mensual",
+                            "porcentaje_interes_anual",
                             $event.target.value
                           )
                         }
@@ -67750,10 +67502,7 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("simulador", {
-        ref: "Simulador",
-        attrs: { capital: 9023323, plazos: 12, tasa: 2.3 }
-      }),
+      _c("simulador", { ref: "Simulador" }),
       _vm._v(" "),
       _c("cuotas", {
         ref: "Cuotas",
@@ -68038,8 +67787,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.monto,
-                            expression: "monto"
+                            value: _vm.cuotas.monto,
+                            expression: "cuotas.monto"
                           }
                         ],
                         staticClass: "form-control",
@@ -68049,13 +67798,13 @@ var render = function() {
                           id: "monto",
                           placeholder: "Ingresar monto"
                         },
-                        domProps: { value: _vm.monto },
+                        domProps: { value: _vm.cuotas.monto },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.monto = $event.target.value
+                            _vm.$set(_vm.cuotas, "monto", $event.target.value)
                           }
                         }
                       })
@@ -68071,8 +67820,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.tiempo,
-                            expression: "tiempo"
+                            value: _vm.cuotas.tiempo,
+                            expression: "cuotas.tiempo"
                           }
                         ],
                         staticClass: "form-control",
@@ -68082,13 +67831,13 @@ var render = function() {
                           id: "tiempo",
                           placeholder: "Ingresar cantidad de meses"
                         },
-                        domProps: { value: _vm.tiempo },
+                        domProps: { value: _vm.cuotas.tiempo },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.tiempo = $event.target.value
+                            _vm.$set(_vm.cuotas, "tiempo", $event.target.value)
                           }
                         }
                       })
@@ -68104,8 +67853,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.interes,
-                            expression: "interes"
+                            value: _vm.cuotas.interes,
+                            expression: "cuotas.interes"
                           }
                         ],
                         staticClass: "form-control",
@@ -68115,13 +67864,13 @@ var render = function() {
                           id: "interes",
                           placeholder: "Ingresar tasa de interés mensual"
                         },
-                        domProps: { value: _vm.interes },
+                        domProps: { value: _vm.cuotas.interes },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.interes = $event.target.value
+                            _vm.$set(_vm.cuotas, "interes", $event.target.value)
                           }
                         }
                       })
@@ -68169,7 +67918,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      _vm.editar = _vm.crearSimulador()
+                      _vm.editar = _vm.editarSimulador()
                     }
                   }
                 },
