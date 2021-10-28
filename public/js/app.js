@@ -67325,168 +67325,159 @@ var render = function() {
                 [
                   _vm._m(1),
                   _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.listaCreditos.data, function(credito) {
-                      return _c("tr", { key: credito.index }, [
-                        _c("td", [_vm._v(_vm._s(credito.cliente_id))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(credito.nombres) +
-                              " " +
-                              _vm._s(credito.apellidos)
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(credito.nro_documento))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(credito.valor_credito))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(credito.valor_abonado))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(credito.cant_cuotas))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(credito.cant_cuotas_pagadas))]),
-                        _vm._v(" "),
-                        credito.id_rol == 1
-                          ? _c("td", [_vm._v("Administrador")])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        credito.id_rol == 2
-                          ? _c("td", [_vm._v("Operario")])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        credito.estado == 1
-                          ? _c("td", [_vm._v("Activo")])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        credito.estado == 0
-                          ? _c("td", [_vm._v("Inactivo")])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-center" }, [
-                          credito.estado == 1
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-outline-primary",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.simularCredito(credito)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "bi bi-credit-card-2-back"
-                                  })
-                                ]
-                              )
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-center" }, [
-                          credito.estado == 1
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-outline-primary",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.mostrarCuotas(credito)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "bi bi-eye" })]
-                              )
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-center" }, [
-                          credito.estado == 1
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-outline-primary",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.mostrarDatos(credito)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "bi bi-pen" })]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          credito.estado == 1
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-outline-danger",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.CambiarEstado(credito.id)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "bi bi-trash" })]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          credito.estado == 0
-                            ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-outline-success",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.CambiarEstado(credito.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "bi bi-check2-circle"
-                                  })
-                                ]
-                              )
-                            : _vm._e()
-                        ])
-                      ])
-                    }),
-                    0
-                  ),
+                  _c("tbody"),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.buscar_cliente,
-                          expression: "buscar_cliente"
-                        }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "alert alert-danger",
-                          staticStyle: { margin: "2px auto", width: "30%" }
-                        },
-                        [
-                          _vm._v(
-                            "\n            Si no encuentras el usuario deseado. Podrías crearlo.\n          "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _vm._m(2)
-                    ]
-                  )
+                  _vm.listaCreditos.data.length > 0
+                    ? _c(
+                        "tbody",
+                        _vm._l(_vm.listaCreditos.data, function(credito) {
+                          return _c("tr", { key: credito.index }, [
+                            _c("td", [_vm._v(_vm._s(credito.cliente_id))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(credito.nombres) +
+                                  " " +
+                                  _vm._s(credito.apellidos)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(credito.nro_documento))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(credito.valor_credito))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(credito.valor_abonado))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(credito.cant_cuotas))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(credito.cant_cuotas_pagadas))
+                            ]),
+                            _vm._v(" "),
+                            credito.id_rol == 1
+                              ? _c("td", [_vm._v("Administrador")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            credito.id_rol == 2
+                              ? _c("td", [_vm._v("Operario")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            credito.estado == 1
+                              ? _c("td", [_vm._v("Activo")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            credito.estado == 0
+                              ? _c("td", [_vm._v("Inactivo")])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-center" }, [
+                              credito.estado == 1
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-outline-primary",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.simularCredito(credito)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "bi bi-credit-card-2-back"
+                                      })
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-center" }, [
+                              credito.estado == 1
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-outline-primary",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.mostrarCuotas(credito)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "bi bi-eye" })]
+                                  )
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-center" }, [
+                              credito.estado == 1
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-outline-primary",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.mostrarDatos(credito)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "bi bi-pen" })]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              credito.estado == 1
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-outline-danger",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.CambiarEstado(credito.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "bi bi-trash" })]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              credito.estado == 0
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-outline-success",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.CambiarEstado(credito.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "bi bi-check2-circle"
+                                      })
+                                    ]
+                                  )
+                                : _vm._e()
+                            ])
+                          ])
+                        }),
+                        0
+                      )
+                    : _c("div", [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "alert alert-danger",
+                            staticStyle: { margin: "2px auto", width: "30%" }
+                          },
+                          [
+                            _vm._v(
+                              "\n            Si no encuentras el usuario deseado. Podrías crearlo.\n          "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm._m(2)
+                      ])
                 ]
               ),
               _vm._v(" "),

@@ -44,8 +44,8 @@
               <th>Opciones</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- <tbody v-if="buscar_cliente.length > 0"> -->
+          <tbody></tbody>
+          <tbody v-if="listaCreditos.data.length > 0">
             <tr v-for="credito in listaCreditos.data" :key="credito.index">
               <td>{{ credito.cliente_id }}</td>
               <td>{{ credito.nombres }} {{ credito.apellidos }}</td>
@@ -103,8 +103,8 @@
               </td>
             </tr>
           </tbody>
-          <!-- <div v-if="buscar_cliente.length > 0"> -->
-          <div v-show="buscar_cliente">
+          <div v-else>
+            <!-- <div v-show="buscar_cliente"> -->
             <div
               class="alert alert-danger"
               style="margin: 2px auto; width: 30%"
