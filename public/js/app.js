@@ -3036,16 +3036,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  // capital monto total del prestamo
+  // capital valor total del prestamo
   // tasa valor de tasa de interes que se compraria
   // plazos numero de pagos
   data: function data() {
     return {
       editar: false,
       cuotas: {
-        monto: "",
-        tiempo: "",
-        interes: ""
+        credito_id: "1",
+        fecha_pago: "1986-11-18",
+        dias_mora: "2",
+        valor_interes_mora: "2",
+        valor_pago_interes: "",
+        valor_pago_capital: "2",
+        valor: "",
+        nro_cuota: ""
       },
       formCuotas: {}
     };
@@ -3086,43 +3091,70 @@ __webpack_require__.r(__webpack_exports__);
         me.cuotas[key] = "";
       });
     },
+    capturar: function capturar() {
+      function Cuotass(valor, tiempo, valor_pago_interes) {
+        this.valor = valor;
+        this.valor_pago_interes = valor_pago_interes;
+        this.tiempo = tiempo;
+      }
+
+      var valorCapturar = document.getElementById("valor").value;
+      var tiempoCapturar = document.getElementById("tiempo").value;
+      var valor_pago_interesCapturar = document.getElementById("valor_pago_interes").value;
+      var newCuota = new Cuotass(valorCapturar, tiempoCapturar, valor_pago_interesCapturar);
+      console.log(newCuota);
+    },
+    agregar: function (_agregar) {
+      function agregar() {
+        return _agregar.apply(this, arguments);
+      }
+
+      agregar.toString = function () {
+        return _agregar.toString();
+      };
+
+      return agregar;
+    }(function () {
+      this.formCuotas.push(newCuota);
+      console.log(agregar);
+    }),
     calcularCuota: function calcularCuota() {
       var me = this;
-      var monto = me.cuotas.monto;
-      var interes = me.cuotas.interes;
-      var tiempo = me.cuotas.tiempo;
-      console.log(me.cuotas.monto);
-      console.log(me.cuotas.interes);
-      console.log(me.cuotas.tiempo);
+      var valor = me.cuotas.valor;
+      var valor_pago_interes = me.cuotas.valor_pago_interes;
+      var nro_cuota = me.cuotas.nro_cuota; // console.log(me.cuotas.valor);
+      // console.log(me.cuotas.valor_pago_interes);
+      // console.log(me.cuotas.nro_cuota);
+
       var llenarTabla = document.querySelector("#lista-tabla tbody");
 
       while (llenarTabla.firstChild) {
         llenarTabla.removeChild(llenarTabla.firstChild);
       }
 
-      var fechas = [];
+      var fecha_pago = [];
       var fechaActual = Date.now();
       var mes_actual = moment__WEBPACK_IMPORTED_MODULE_0___default()(fechaActual);
       mes_actual.add(1, "month");
-      var pagoInteres = 0,
-          pagoCapital = 0,
-          cuota = 0;
-      cuota = monto * (Math.pow(1 + interes / 100, tiempo) * interes / 100) / (Math.pow(1 + interes / 100, tiempo) - 1);
-      console.log(cuota);
+      var pagoInteres = [];
+      var pagoCapital = [];
+      var cuota = [];
+      cuota = valor * (Math.pow(1 + valor_pago_interes / 100, nro_cuota) * valor_pago_interes / 100) / (Math.pow(1 + valor_pago_interes / 100, nro_cuota) - 1); // console.log(cuota);
 
-      for (var i = 1; i <= tiempo; i++) {
-        pagoInteres = parseFloat(monto * (interes / 100));
+      for (var i = 1; i <= nro_cuota; i++) {
+        pagoInteres = parseFloat(valor * (valor_pago_interes / 100));
         pagoCapital = cuota - pagoInteres;
-        monto = parseFloat(monto - pagoCapital); //Formato fechas
+        valor = parseFloat(valor - pagoCapital);
+        console.log(pagoCapital); //Formato fecha_pago
 
-        fechas[i] = mes_actual.format("DD-MM-YYYY");
+        fecha_pago[i] = mes_actual.format("DD-MM-YYYY");
         mes_actual.add(1, "month");
-        me.formCuotas.fechas = fechas;
+        me.formCuotas.fecha_pago = fecha_pago;
         me.formCuotas.pagoInteres = pagoInteres;
-        me.formCuotas.pagoCapital = pagoCapital;
-        me.formCuotas.nro_cuota = i + 1;
+        me.formCuotas.pagoCapital = pagoCapital; // me.formCuotas.nro_cuota = i;
+
         var row = document.createElement("tr");
-        row.innerHTML = "\n            <td>".concat(fechas[i], "</td>\n            <td>").concat(cuota.toFixed(2), "</td>\n            <td>").concat(pagoCapital.toFixed(2), "</td>\n            <td>").concat(pagoInteres.toFixed(2), "</td>\n            <td>").concat(monto.toFixed(2), "</td>\n        ");
+        row.innerHTML = "\n            <td>".concat(fecha_pago[i], "</td>\n            <td>").concat(cuota.toFixed(2), "</td>\n            <td>").concat(pagoCapital.toFixed(2), "</td>\n            <td>").concat(pagoInteres.toFixed(2), "</td>\n            <td>").concat(valor.toFixed(2), "</td>\n        ");
         llenarTabla.appendChild(row);
       }
     }
@@ -67778,7 +67810,7 @@ var render = function() {
                     _c("h2", [_vm._v("Calcular amortización método francés")]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "monto" } }, [
+                      _c("label", { attrs: { for: "valor" } }, [
                         _vm._v("Monto")
                       ]),
                       _vm._v(" "),
@@ -67787,31 +67819,31 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.cuotas.monto,
-                            expression: "cuotas.monto"
+                            value: _vm.cuotas.valor,
+                            expression: "cuotas.valor"
                           }
                         ],
                         staticClass: "form-control",
                         attrs: {
                           required: "",
                           type: "number",
-                          id: "monto",
-                          placeholder: "Ingresar monto"
+                          id: "valor",
+                          placeholder: "Ingresar valor"
                         },
-                        domProps: { value: _vm.cuotas.monto },
+                        domProps: { value: _vm.cuotas.valor },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.cuotas, "monto", $event.target.value)
+                            _vm.$set(_vm.cuotas, "valor", $event.target.value)
                           }
                         }
                       })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "tiempo" } }, [
+                      _c("label", { attrs: { for: "nro_cuota" } }, [
                         _vm._v("Tiempo en Meses")
                       ]),
                       _vm._v(" "),
@@ -67820,31 +67852,35 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.cuotas.tiempo,
-                            expression: "cuotas.tiempo"
+                            value: _vm.cuotas.nro_cuota,
+                            expression: "cuotas.nro_cuota"
                           }
                         ],
                         staticClass: "form-control",
                         attrs: {
                           required: "",
                           type: "number",
-                          id: "tiempo",
+                          id: "nro_cuota",
                           placeholder: "Ingresar cantidad de meses"
                         },
-                        domProps: { value: _vm.cuotas.tiempo },
+                        domProps: { value: _vm.cuotas.nro_cuota },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.cuotas, "tiempo", $event.target.value)
+                            _vm.$set(
+                              _vm.cuotas,
+                              "nro_cuota",
+                              $event.target.value
+                            )
                           }
                         }
                       })
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "interes" } }, [
+                      _c("label", { attrs: { for: "valor_pago_interes" } }, [
                         _vm._v("Interés Mensual")
                       ]),
                       _vm._v(" "),
@@ -67853,24 +67889,28 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.cuotas.interes,
-                            expression: "cuotas.interes"
+                            value: _vm.cuotas.valor_pago_interes,
+                            expression: "cuotas.valor_pago_interes"
                           }
                         ],
                         staticClass: "form-control",
                         attrs: {
                           required: "",
                           type: "number",
-                          id: "interes",
+                          id: "valor_pago_interes",
                           placeholder: "Ingresar tasa de interés mensual"
                         },
-                        domProps: { value: _vm.cuotas.interes },
+                        domProps: { value: _vm.cuotas.valor_pago_interes },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.cuotas, "interes", $event.target.value)
+                            _vm.$set(
+                              _vm.cuotas,
+                              "valor_pago_interes",
+                              $event.target.value
+                            )
                           }
                         }
                       })
@@ -67918,7 +67958,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      _vm.editar = _vm.editarSimulador()
+                      _vm.editar = _vm.crearSimulador()
                     }
                   }
                 },

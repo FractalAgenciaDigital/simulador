@@ -28,35 +28,35 @@
                 <div class="col-4">
                   <h2>Calcular amortización método francés</h2>
                   <div class="form-group">
-                    <label for="monto">Monto</label>
+                    <label for="valor">Monto</label>
                     <input
                       required
                       type="number"
                       class="form-control"
-                      id="monto"
-                      v-model="cuotas.monto"
-                      placeholder="Ingresar monto"
+                      id="valor"
+                      v-model="cuotas.valor"
+                      placeholder="Ingresar valor"
                     />
                   </div>
                   <div class="form-group">
-                    <label for="tiempo">Tiempo en Meses</label>
+                    <label for="nro_cuota">Tiempo en Meses</label>
                     <input
                       required
                       type="number"
                       class="form-control"
-                      id="tiempo"
-                      v-model="cuotas.tiempo"
+                      id="nro_cuota"
+                      v-model="cuotas.nro_cuota"
                       placeholder="Ingresar cantidad de meses"
                     />
                   </div>
                   <div class="form-group">
-                    <label for="interes">Interés Mensual</label>
+                    <label for="valor_pago_interes">Interés Mensual</label>
                     <input
                       required
                       type="number"
                       class="form-control"
-                      id="interes"
-                      v-model="cuotas.interes"
+                      id="valor_pago_interes"
+                      v-model="cuotas.valor_pago_interes"
                       placeholder="Ingresar tasa de interés mensual"
                     />
                   </div>
@@ -106,7 +106,7 @@
             <button
               type="button"
               class="btn btn-primary rounded"
-              @click="editar = editarSimulador()"
+              @click="editar = crearSimulador()"
             >
               Guardar
             </button>
@@ -122,16 +122,21 @@
 <script>
 import moment from "moment";
 export default {
-  // capital monto total del prestamo
+  // capital valor total del prestamo
   // tasa valor de tasa de interes que se compraria
   // plazos numero de pagos
   data() {
     return {
       editar: false,
       cuotas: {
-        monto: "",
-        tiempo: "",
-        interes: "",
+        credito_id: "1",
+        fecha_pago: "1986-11-18",
+        dias_mora: "2",
+        valor_interes_mora: "2",
+        valor_pago_interes: "",
+        valor_pago_capital: "2",
+        valor: "",
+        nro_cuota: "",
       },
       formCuotas: {},
     };
@@ -175,57 +180,86 @@ export default {
         me.cuotas[key] = "";
       });
     },
+    capturar() {
+      function Cuotass(valor, tiempo, valor_pago_interes) {
+        this.valor = valor;
+        this.valor_pago_interes = valor_pago_interes;
+        this.tiempo = tiempo;
+      }
+
+      var valorCapturar = document.getElementById("valor").value;
+      var tiempoCapturar = document.getElementById("tiempo").value;
+      var valor_pago_interesCapturar =
+        document.getElementById("valor_pago_interes").value;
+
+      let newCuota = new Cuotass(
+        valorCapturar,
+        tiempoCapturar,
+        valor_pago_interesCapturar
+      );
+
+      console.log(newCuota);
+    },
+    agregar() {
+      this.formCuotas.push(newCuota);
+      console.log(agregar);
+    },
 
     calcularCuota() {
       let me = this;
-      var monto = me.cuotas.monto;
-      var interes = me.cuotas.interes;
-      var tiempo = me.cuotas.tiempo;
+      var valor = me.cuotas.valor;
+      var valor_pago_interes = me.cuotas.valor_pago_interes;
+      var nro_cuota = me.cuotas.nro_cuota;
 
-      console.log(me.cuotas.monto);
-      console.log(me.cuotas.interes);
-      console.log(me.cuotas.tiempo);
+      // console.log(me.cuotas.valor);
+      // console.log(me.cuotas.valor_pago_interes);
+      // console.log(me.cuotas.nro_cuota);
       const llenarTabla = document.querySelector("#lista-tabla tbody");
 
       while (llenarTabla.firstChild) {
         llenarTabla.removeChild(llenarTabla.firstChild);
       }
 
-      let fechas = [];
+      let fecha_pago = [];
       let fechaActual = Date.now();
       let mes_actual = moment(fechaActual);
       mes_actual.add(1, "month");
 
-      let pagoInteres = 0,
-        pagoCapital = 0,
-        cuota = 0;
+      let pagoInteres = [];
+      let pagoCapital = [];
+      let cuota = [];
 
       cuota =
-        (monto * ((Math.pow(1 + interes / 100, tiempo) * interes) / 100)) /
-        (Math.pow(1 + interes / 100, tiempo) - 1);
+        (valor *
+          ((Math.pow(1 + valor_pago_interes / 100, nro_cuota) *
+            valor_pago_interes) /
+            100)) /
+        (Math.pow(1 + valor_pago_interes / 100, nro_cuota) - 1);
 
-      console.log(cuota);
-      for (let i = 1; i <= tiempo; i++) {
-        pagoInteres = parseFloat(monto * (interes / 100));
+      // console.log(cuota);
+      for (let i = 1; i <= nro_cuota; i++) {
+        pagoInteres = parseFloat(valor * (valor_pago_interes / 100));
         pagoCapital = cuota - pagoInteres;
-        monto = parseFloat(monto - pagoCapital);
+        valor = parseFloat(valor - pagoCapital);
 
-        //Formato fechas
-        fechas[i] = mes_actual.format("DD-MM-YYYY");
+        console.log(pagoCapital);
+
+        //Formato fecha_pago
+        fecha_pago[i] = mes_actual.format("DD-MM-YYYY");
         mes_actual.add(1, "month");
 
-        me.formCuotas.fechas = fechas;
+        me.formCuotas.fecha_pago = fecha_pago;
         me.formCuotas.pagoInteres = pagoInteres;
         me.formCuotas.pagoCapital = pagoCapital;
-        me.formCuotas.nro_cuota = i + 1;
+        // me.formCuotas.nro_cuota = i;
 
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${fechas[i]}</td>
+            <td>${fecha_pago[i]}</td>
             <td>${cuota.toFixed(2)}</td>
             <td>${pagoCapital.toFixed(2)}</td>
             <td>${pagoInteres.toFixed(2)}</td>
-            <td>${monto.toFixed(2)}</td>
+            <td>${valor.toFixed(2)}</td>
         `;
         llenarTabla.appendChild(row);
       }
