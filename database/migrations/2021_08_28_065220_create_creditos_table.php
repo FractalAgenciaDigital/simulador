@@ -25,9 +25,8 @@ class CreateCreditosTable extends Migration
             $table->boolean('deudor')->comment('Solo se confirma si tiene deudor');
             $table->tinyInteger('estado')->default(0)->nullable();
             $table->date('fecha_inicio');
-            $table->float('interes_mensual', 20, 2);
+            $table->float('interes', 20, 2);
             $table->float('porcentaje_interes_anual', 20, 4);
-            $table->float('porcentaje_interes_mensual', 20, 4);
             $table->float('valor_cuota', 20, 4);
             $table->float('valor_credito', 20, 4);
             $table->float('valor_abonado', 20, 4)->nullable();

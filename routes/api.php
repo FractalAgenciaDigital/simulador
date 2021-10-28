@@ -41,4 +41,5 @@ Route::resource('/sedes',  SedeController::class);
 Route::post('/sedes/{sede}/cambiar-estado',  [SedeController::class, 'cambiarEstado']);
 
 Route::resource('/creditos', CreditoController::class);
+Route::post('/creditos/{credito}/cambiar-estado',  [CreditoController::class, 'cambiarEstado']);
 Route::get('/creditos/{credito}/cuotas', [CreditoController::class, 'cuotas']);
