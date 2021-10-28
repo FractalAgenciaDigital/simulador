@@ -1,137 +1,49 @@
 <template>
-    <div id="vue-simulador">
-        <div
-            class="modal fade"
-            id="formSimuladorModal"
-            tabindex="-1"
-            aria-labelledby="formSimuladorModalLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="formSimuladorModalLabel">
-                            Simulador
-                        </h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            @click="(editar = false), resetData()"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- --------------------------- -->
-                        <div id="app">
-                            <div class="row">
-                                <div class="col-4">
-                                    <h2>
-                                        Calcular amortización método francés
-                                    </h2>
-                                    <div class="form-group">
-                                        <label for="monto">Monto</label>
-                                        <input
-                                            required
-                                            type="number"
-                                            class="form-control"
-                                            id="monto"
-                                            v-model="cuotas.monto"
-                                            placeholder="Ingresar monto"
-                                        />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tiempo"
-                                            >Tiempo en Meses</label
-                                        >
-                                        <input
-                                            required
-                                            type="number"
-                                            class="form-control"
-                                            id="tiempo"
-                                            v-model="cuotas.tiempo"
-                                            placeholder="Ingresar cantidad de meses"
-                                        />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="interes"
-                                            >Interés Mensual</label
-                                        >
-                                        <input
-                                            required
-                                            type="number"
-                                            class="form-control"
-                                            id="interes"
-                                            v-model="cuotas.interes"
-                                            placeholder="Ingresar tasa de interés mensual"
-                                        />
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        class="btn btn-primary"
-                                        id="btnCalcular"
-                                        @click="calcularCuota()"
-                                    >
-                                        Calcular
-                                    </button>
-                                </div>
-                                <div class="col-8">
-                                    <table id="lista-tabla" class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Fecha</th>
-                                                <th>Cuota</th>
-                                                <th>Capital</th>
-                                                <th>Interés</th>
-                                                <th>Saldo</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- --------------------------- -->
-                        <!-- <simulador
-                :tasa="16.0"
-                :capital="1257.23"
-                :plazos="9"
-                ref="Simulador"
-                @simular-credito="simularCredito(1)"
-              /> -->
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal"
-                            @click="(editar = false), resetData()"
-                        >
-                            Cerrar
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-primary rounded"
-                            @click="editar = editarSimulador()"
-                        >
-                            Guardar
-                        </button>
-                    </div>
+    <div class="">
+        <div class="card-body">
+            <div>
+                <div class="">
+                    <button
+                        type="submit"
+                        class="btn btn-primary col-md-3 offset-9 mb-5"
+                        id="btnCalcular"
+                        @click="calcularCuota()"
+                    >
+                        Calcular
+                    </button>
+
+                    <table id="lista-tabla" class="table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Cuota</th>
+                                <th>Capital</th>
+                                <th>Interés</th>
+                                <th>Saldo</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
+        <div class="modal-footer">
+            <button
+                type="button"
+                class="btn btn-primary rounded"
+                @click="editar = editarSimulador()"
+            >
+                Guardar
+            </button>
+        </div>
     </div>
-    <!-- <script src="./_simulador.js"></script> -->
 </template>
 
 <script>
 import moment from "moment";
+
 export default {
-    // capital monto total del prestamo
-    // tasa valor de tasa de interes que se compraria
-    // plazos numero de pagos
+    props: ["interes", "nro_cuotas", "capital"],
     data() {
         return {
             editar: false,
@@ -152,11 +64,10 @@ export default {
                 this.$emit("listar-creditos");
             });
         },
-        abrirSimulador(credito) {
+        abrirSimulador() {
             this.editar = true;
             let me = this;
             $("#formSimuladorModal").modal("show");
-            me.formSimulador = credito;
         },
         editarSimulador() {
             let me = this;
@@ -203,10 +114,10 @@ export default {
 
         calcularCuota() {
             let me = this;
-            var monto = me.cuotas.monto;
-            var interes = me.cuotas.interes;
-            var tiempo = me.cuotas.tiempo;
-            
+            var monto = me.capital;
+            var interes = me.interes;
+            var tiempo = me.nro_cuotas;
+
             const llenarTabla = document.querySelector("#lista-tabla tbody");
 
             while (llenarTabla.firstChild) {

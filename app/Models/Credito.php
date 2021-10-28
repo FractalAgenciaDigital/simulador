@@ -21,7 +21,7 @@ class Credito extends Model
         'deudor',
         'estado',
         'fecha_inicio',
-        'interes_mensual',
+        'interes',
         'porcentaje_interes_anual',
         'porcentaje_interes_mensual',
         'usu_crea',

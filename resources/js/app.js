@@ -35,7 +35,7 @@ window.Swal = Swal
 
 
 const routes = [
-    { path: '', component: require('./components/Clientes/Clientes.vue').default },
+    { path: '', component: require('./components/Front/Home.vue').default },
     { path: '/clientes', component: require('./components/Clientes/Clientes.vue').default },
     { path: '/usuarios', component: require('./components/Usuarios/Usuarios.vue').default },
     { path: '/proveedores', component: require('./components/Proveedores/Proveedores.vue').default },
