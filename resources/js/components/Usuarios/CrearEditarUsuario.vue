@@ -5,7 +5,8 @@
       id="formUsuarioModal"
       tabindex="-1"
       aria-labelledby="formUsuarioModalLabel"
-      aria-hidden="true">
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -19,7 +20,7 @@
               @click="(editar = false), resetData()"
               aria-label="Close"
             >
-              <span aria-hidden="true" >&times;</span>
+              <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
@@ -67,7 +68,8 @@
                     name="tipo_documento"
                     id="tipo_documento"
                     class="custom-select"
-                    v-model="formUsuario.tipo_documento">
+                    v-model="formUsuario.tipo_documento"
+                  >
                     <option value="0" disabled>--Seleccionar--</option>
                     <option value="1">Cédula de ciudadanía</option>
                     <option value="2">Pasaporte</option>
@@ -85,7 +87,12 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="sede_id">Sede</label>
-                  <v-select :options="listaSedes.data" label="sede" :reduce="sede => sede.id" v-model="formUsuario.sede_id">
+                  <v-select
+                    :options="listaSedes.data"
+                    label="sede"
+                    :reduce="(sede) => sede.id"
+                    v-model="formUsuario.sede_id"
+                  >
                   </v-select>
 
                   <!-- <input
@@ -125,7 +132,7 @@
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
-              @click="(editar = false), resetData()"
+              @click="editar = false"
             >
               Cerrar
             </button>
@@ -148,7 +155,7 @@ export default {
   data() {
     return {
       editar: false,
-      listaSedes : [],
+      listaSedes: [],
       formUsuario: {
         name: "",
         email: "",
@@ -202,11 +209,9 @@ export default {
 
     listarSedes(page = 1) {
       let me = this;
-      axios
-        .get(`api/sedes?page=${page}`)
-        .then(function (response) {
-          me.listaSedes = response.data;
-        });
+      axios.get(`api/sedes?page=${page}`).then(function (response) {
+        me.listaSedes = response.data;
+      });
     },
   },
 };

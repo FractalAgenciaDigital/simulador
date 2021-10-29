@@ -5,7 +5,8 @@
       id="formClienteModal"
       tabindex="-1"
       aria-labelledby="formClienteModalLabel"
-      aria-hidden="true">
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">

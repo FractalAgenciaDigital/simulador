@@ -90,7 +90,7 @@
               type="button"
               class="btn btn-secondary"
               data-dismiss="modal"
-              @click="(editar = false), resetData()"
+              @click="editar = false"
             >
               Cerrar
             </button>
