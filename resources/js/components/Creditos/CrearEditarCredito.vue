@@ -32,8 +32,19 @@
                     aria-logname="{}"
                     :reduce="(nombres) => nombres.id"
                     v-model="formCredito.cliente_id"
+                    placeholder="Buscar por Documento"
                   >
                   </v-select>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label for="deudor">Deudor</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="deudor"
+                    v-model="formCredito.deudor"
+                  />
                 </div>
 
                 <div class="form-group col-md-4">
@@ -74,19 +85,11 @@
                   <label for="dia_limite">Dia Limite</label>
                   <input
                     type="number"
+                    min="1"
+                    max="30"
                     class="form-control"
                     id="dia_limite"
                     v-model="formCredito.dia_limite"
-                  />
-                </div>
-
-                <div class="form-group col-md-4">
-                  <label for="deudor">Deudor</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="deudor"
-                    v-model="formCredito.deudor"
                   />
                 </div>
 
@@ -101,36 +104,24 @@
                 </div>
 
                 <div class="form-group col-md-4">
-                  <label for="interes_mensual">Interes Mensual</label>
+                  <label for="interes">Interes</label>
                   <input
                     type="number"
                     class="form-control"
-                    id="interes_mensual"
-                    v-model="formCredito.interes_mensual"
+                    id="interes"
+                    v-model="formCredito.interes"
                   />
                 </div>
 
                 <div class="form-group col-md-4">
-                  <label for="porcent_interes_anual"
+                  <label for="porcentaje_interes_anual"
                     >Porcentaje Interes Anual</label
                   >
                   <input
                     type="number"
                     class="form-control"
-                    id="porcent_interes_anual"
-                    v-model="formCredito.porcent_interes_anual"
-                  />
-                </div>
-
-                <div class="form-group col-md-4">
-                  <label for="porcent_interes_mensual"
-                    >Porcentaje Interes Mensual</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="porcent_interes_mensual"
-                    v-model="formCredito.porcent_interes_mensual"
+                    id="porcentaje_interes_anual"
+                    v-model="formCredito.porcentaje_interes_anual"
                   />
                 </div>
 
@@ -227,9 +218,8 @@ export default {
         deudor: "",
         estado: "1",
         fecha_inicio: "",
-        interes_mensual: "",
-        porcent_interes_anual: "",
-        porcent_interes_mensual: "",
+        interes: "",
+        porcentaje_interes_anual: "",
         usu_crea: 2,
         calor_cuota: "",
         valor_credito: "",

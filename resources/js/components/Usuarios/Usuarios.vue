@@ -25,7 +25,7 @@
         />
       </div>
     </div>
-    <div class="page-content">
+    <div class="page-content mt-4">
       <section>
         <table
           class="

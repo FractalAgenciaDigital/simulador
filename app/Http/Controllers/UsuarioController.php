@@ -48,10 +48,10 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         $usuario = new Usuario();
-        $usuario->name = $request['name'];
+        $usuario->nombres = $request['nombres'];
+        $usuario->apellidos = $request['apellidos'];
         $usuario->email = $request['email'];
         $usuario->password = $request['password'];
-        $usuario->nombre = $request['nombre'];
         $usuario->celular = $request['celular'];
         $usuario->direccion = $request['direccion'];
         $usuario->tipo_documento = $request['tipo_documento'];
@@ -92,10 +92,10 @@ class UsuarioController extends Controller
     public function update(Request $request, Usuario $usuario)
     {
         $usuario = Usuario::find($request->id);
-        $usuario->name = $request['name'];
+        $usuario->nombres = $request['nombres'];
+        $usuario->apellidos = $request['apellidos'];
         $usuario->email = $request['email'];
         $usuario->password = $request['password'];
-        $usuario->nombre = $request['nombre'];
         $usuario->celular = $request['celular'];
         $usuario->direccion = $request['direccion'];
         $usuario->tipo_documento = $request['tipo_documento'];

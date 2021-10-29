@@ -27,7 +27,16 @@
     </div>
     <div class="page-content mt-4">
       <section class="">
-        <table class="table table-sm table-bordered table-responsive">
+        <table
+          class="
+            table
+            table-sm
+            table-bordered
+            table-responsive
+            table-hover
+            table-striped
+          "
+        >
           <thead>
             <tr>
               <th>id</th>
@@ -124,11 +133,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .post(
-              `api/clientes/${id}/cambiar-estado`,
-              null,
-              me.$root.config
-            )
+            .post(`api/clientes/${id}/cambiar-estado`, null, me.$root.config)
             .then(function () {
               me.listarClientes(1);
             });

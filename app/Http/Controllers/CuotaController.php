@@ -15,6 +15,7 @@ class CuotaController extends Controller
     public function index()
     {
         //
+        $creditos = Cuota::select();
     }
 
     /**
@@ -36,6 +37,16 @@ class CuotaController extends Controller
     public function store(Request $request)
     {
         //
+        $cuota = new Cuota();
+        $cuota->credito_id = $request['credito_id'];
+        $cuota->nro_cuota = $request['nro_cuota'];
+        $cuota->valor = $request['valor'];
+        $cuota->fecha_pago = $request['fecha_pago'];
+        $cuota->dias_mora = $request['dias_mora'];
+        $cuota->valor_interes_mora = $request['valor_interes_mora'];
+        $cuota->valor_pago_interes = $request['valor_pago_interes'];
+        $cuota->valor_pago_capital = $request['valor_pago_capital'];
+        $cuota->save();
     }
 
     /**
@@ -70,6 +81,16 @@ class CuotaController extends Controller
     public function update(Request $request, Cuota $cuota)
     {
         //
+        $cuota = new Cuota();
+        $cuota->credito_id = $request['credito_id'];
+        $cuota->nro_cuota = $request['nro_cuota'];
+        $cuota->valor = $request['valor'];
+        $cuota->fecha_pago = $request['fecha_pago'];
+        $cuota->dias_mora = $request['dias_mora'];
+        $cuota->valor_interes_mora = $request['valor_interes_mora'];
+        $cuota->valor_pago_interes = $request['valor_pago_interes'];
+        $cuota->valor_pago_capital = $request['valor_pago_capital'];
+        $cuota->save();
     }
 
     /**

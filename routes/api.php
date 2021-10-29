@@ -5,6 +5,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\CreditoController;
 use App\Http\Controllers\SedeController;
+use App\Http\Controllers\CuotaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,7 @@ Route::resource('/sedes',  SedeController::class);
 Route::post('/sedes/{sede}/cambiar-estado',  [SedeController::class, 'cambiarEstado']);
 
 Route::resource('/creditos', CreditoController::class);
+Route::post('/creditos/{credito}/cambiar-estado',  [CreditoController::class, 'cambiarEstado']);
 Route::get('/creditos/{credito}/cuotas', [CreditoController::class, 'cuotas']);
+
+Route::resource('/cuotas', CuotaController::class);
