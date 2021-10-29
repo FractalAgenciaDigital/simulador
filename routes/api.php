@@ -33,8 +33,8 @@ Route::get('/clientes/{cliente}/creditos', [ClienteController::class, 'creditos'
 Route::resource('/proveedores',  ProveedorController::class);
 Route::post('/proveedores/{proveedor}/cambiar-estado',  [ProveedorController::class, 'cambiarEstado']);
 
-Route::resource('/pagos',  PagoController::class);
-Route::post('/pagos/{pago}/cambiar-estado',  [PagoController::class, 'cambiarEstado']);
+// Route::resource('/pagos',  PagoController::class);
+// Route::post('/pagos/{pago}/cambiar-estado',  [PagoController::class, 'cambiarEstado']);
 Route::resource('/usuarios',  UsuarioController::class);
 Route::post('/usuarios/{usuario}/cambiar-estado',  [UsuarioController::class, 'cambiarEstado']);
 
@@ -44,5 +44,7 @@ Route::post('/sedes/{sede}/cambiar-estado',  [SedeController::class, 'cambiarEst
 Route::resource('/creditos', CreditoController::class);
 Route::post('/creditos/{credito}/cambiar-estado',  [CreditoController::class, 'cambiarEstado']);
 Route::get('/creditos/{credito}/cuotas', [CreditoController::class, 'cuotas']);
+Route::get('/cuotas/calcular-cuotas', [CuotaController::class, 'calcularCuotas']);
 
 Route::resource('/cuotas', CuotaController::class);
+

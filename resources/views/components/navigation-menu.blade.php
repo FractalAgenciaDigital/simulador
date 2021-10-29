@@ -1,7 +1,8 @@
-<nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            {{-- {{ config('app.name', 'Laravel') }} --}}
+            <img src="{{ asset('img/logo.jpg') }}" alt="" srcset="" width="100" height="100">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -12,22 +13,22 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/clientes"> Clientes </router-link>
+                    <router-link class="nav-link text-white" to="/clientes"> Clientes </router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/usuarios"> Usuarios </router-link>
+                    <router-link class="nav-link text-white" to="/usuarios"> Usuarios </router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/creditos"> Creditos </router-link>
+                    <router-link class="nav-link text-white" to="/creditos"> Creditos </router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/sedes"> Sedes </router-link>
+                    <router-link class="nav-link text-white" to="/sedes"> Sedes </router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link"  to="/proveedores"> Proveedores </router-link>
+                    <router-link class="nav-link text-white"  to="/proveedores"> Proveedores </router-link>
                 </li>
                 {{-- <li class="nav-item">
-                    <router-link class="nav-link"  to="/pagos"> Pagos </router-link>
+                    <router-link class="nav-link text-white"  to="/pagos"> Pagos </router-link>
                 </li> --}}
             </ul>
 

@@ -103,4 +103,56 @@ class CuotaController extends Controller
     {
         //
     }
+
+    public function calcularCuotas(Request $request)
+    {
+        $capital = $request->valor_credito;
+        $interes = $request->interes;
+        $nro_cuotas = $request->nro_cuotas;
+
+        $valor = $capital;
+        $valor_pago_interes = $interes;
+        $nro_cuota = $nro_cuotas;
+
+
+        $fecha_pago = [];
+        $fechaActual = date('Y-m-d');
+        $mes_actual =  (date("d-m-Y", strtotime($fechaActual . "+ 1 months")));
+
+        $listadoCuotas = [];
+        $pagoInteres = [];
+        $pagoCapital = [];
+
+        $cuota =
+            ($valor *
+                ((pow(1 + $valor_pago_interes / 100, $nro_cuota) *
+                    $valor_pago_interes) /
+                    100)) /
+            (pow(1 + $valor_pago_interes / 100, $nro_cuota) - 1);
+
+        for ($i = 0; $i < $nro_cuotas; $i++) {
+
+            $fecha_pago[$i] = (date("Y-m-d", strtotime($mes_actual . "+ $i months")));
+
+            $pagoInteres[$i] = ($valor * ($valor_pago_interes / 100));
+            $pagoCapital[$i] = $cuota - $pagoInteres[$i];
+            $valor = ($valor - $pagoCapital[$i]);
+
+            foreach ($pagoCapital as $pc) {
+                $listadoCuotas[$i]['pagoCapital'] = (float) number_format($pc, 2, '.', '');
+            }
+            foreach ($pagoInteres as $key => $pi) {
+                $listadoCuotas[$i]['pagoInteres'] = (float) number_format($pi, 2, '.', '');
+            }
+            foreach ($fecha_pago as $fp) {
+                $listadoCuotas[$i]['fecha_pago'] = (date($fp));
+                $listadoCuotas[$i]['saldo_capital'] = (float) number_format($valor, 2, '.', '');
+                $listadoCuotas[$i]['valor_cuota'] = (float) number_format($cuota, 2, '.', '');
+                
+            }
+            $listadoCuotas[$i]['nro_cuota'] = $i+1;
+        }
+
+        return ['listadoCuotas' => $listadoCuotas, 'cuota' => (float) number_format($cuota, 2, '.', '')];
+    }
 }

@@ -15509,3 +15509,23 @@ body {
     max-width: 95%;
   }
 }
+h1,
+h2,
+h3 {
+  color: #3490dc;
+}
+
+.page {
+  width: 100%;
+  padding: 1rem;
+}
+
+.page-header,
+.page-search,
+.page-content {
+  width: 100%;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #dee2e6 !important;
+}

@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="page">
         <div class="page-header d-flex justify-content-between p-4 border my-2">
             <h3>Creditos</h3>
             <button
