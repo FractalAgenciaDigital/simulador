@@ -50,7 +50,7 @@
                             v-for="credito in listaCreditos.data"
                             :key="credito.index"
                         >
-                            <td>{{ credito.cliente_id }}</td>
+                            <td>{{ credito.id }}</td>
                             <td>
                                 {{ credito.nombres }} {{ credito.apellidos }}
                             </td>
@@ -64,7 +64,7 @@
                             <td v-if="credito.id_rol == 2">Operario</td>
                             <td v-if="credito.estado == 1">Activo</td>
                             <td v-if="credito.estado == 0">Inactivo</td>
-<!-- 
+                            <!-- 
                             <td class="text-center">
                                 <button
                                     v-if="credito.estado == 1"
@@ -76,9 +76,11 @@
                             </td> -->
                             <td class="text-center">
                                 <button
+                                    data-toggle="modal"
+                                    data-target="#cuotasModal"
                                     v-if="credito.estado == 1"
                                     class="btn btn-outline-primary"
-                                    @click="mostrarCuotas(credito)"
+                                    @click="mostrarCuotas(credito.id)"
                                 >
                                     <i class="bi bi-eye"></i>
                                 </button>
@@ -159,7 +161,7 @@
         />
         <!-- <simulador ref="Simulador"></simulador> -->
 
-        <!-- <cuotas ref="Cuotas" @mostrar-cuotas="mostrarCuotas(1)" /> -->
+        <cuotas ref="Cuotas" />
     </div>
 </template>
 <script>
@@ -211,7 +213,7 @@ export default {
             this.$refs.Simulador.abrirSimulador();
         },
         mostrarCuotas: function(credito) {
-            this.$refs.Cuotas.abrirCuotas(credito);
+            this.$refs.Cuotas.listarCuotasCredito(14);
         },
         mostrarDatosCliente: function(cliente) {
             this.$refs.CrearEditarCliente.abirEditarCliente(cliente);

@@ -24,7 +24,7 @@
                         type="number"
                         class="form-control"
                         id="tiempo"
-                        v-model="nro_cuotas"
+                        v-model="cant_cuotas"
                         placeholder="Ingresar cantidad de meses"
                     />
                 </div>
@@ -44,7 +44,7 @@
             <simulador
                 :capital="capital"
                 :interes="interes"
-                :nro_cuotas="nro_cuotas"
+                :cant_cuotas="cant_cuotas"
                 ref="Simulador"
             ></simulador>
         </div>
@@ -59,7 +59,7 @@ export default {
         return {
             interes: 3,
             capital: 500000,
-            nro_cuotas: 12
+            cant_cuotas: 12
         };
     },
     methods: {

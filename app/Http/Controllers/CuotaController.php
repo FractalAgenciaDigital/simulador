@@ -39,7 +39,7 @@ class CuotaController extends Controller
         //
         $cuota = new Cuota();
         $cuota->credito_id = $request['credito_id'];
-        $cuota->nro_cuota = $request['nro_cuota'];
+        $cuota->cant_cuota = $request['cant_cuota'];
         $cuota->valor = $request['valor'];
         $cuota->fecha_pago = $request['fecha_pago'];
         $cuota->dias_mora = $request['dias_mora'];
@@ -83,7 +83,7 @@ class CuotaController extends Controller
         //
         $cuota = new Cuota();
         $cuota->credito_id = $request['credito_id'];
-        $cuota->nro_cuota = $request['nro_cuota'];
+        $cuota->cant_cuota = $request['cant_cuota'];
         $cuota->valor = $request['valor'];
         $cuota->fecha_pago = $request['fecha_pago'];
         $cuota->dias_mora = $request['dias_mora'];
@@ -108,12 +108,14 @@ class CuotaController extends Controller
     {
         $capital = $request->valor_credito;
         $interes = $request->interes;
-        $nro_cuotas = $request->nro_cuotas;
+        $cant_cuotas = $request->cant_cuotas;
 
         $valor = $capital;
         $valor_pago_interes = $interes;
-        $nro_cuota = $nro_cuotas;
+        $cant_cuota = $cant_cuotas;
 
+
+        // var_dump($cant_cuotas);
 
         $fecha_pago = [];
         $fechaActual = date('Y-m-d');
@@ -122,15 +124,15 @@ class CuotaController extends Controller
         $listadoCuotas = [];
         $pagoInteres = [];
         $pagoCapital = [];
-
+        // exit;
         $cuota =
             ($valor *
-                ((pow(1 + $valor_pago_interes / 100, $nro_cuota) *
+                ((pow(1 + $valor_pago_interes / 100, $cant_cuota) *
                     $valor_pago_interes) /
                     100)) /
-            (pow(1 + $valor_pago_interes / 100, $nro_cuota) - 1);
+            (pow(1 + $valor_pago_interes / 100, $cant_cuota) - 1);
 
-        for ($i = 0; $i < $nro_cuotas; $i++) {
+        for ($i = 0; $i < $cant_cuotas; $i++) {
 
             $fecha_pago[$i] = (date("Y-m-d", strtotime($mes_actual . "+ $i months")));
 
@@ -148,9 +150,8 @@ class CuotaController extends Controller
                 $listadoCuotas[$i]['fecha_pago'] = (date($fp));
                 $listadoCuotas[$i]['saldo_capital'] = (float) number_format($valor, 2, '.', '');
                 $listadoCuotas[$i]['valor_cuota'] = (float) number_format($cuota, 2, '.', '');
-                
             }
-            $listadoCuotas[$i]['nro_cuota'] = $i+1;
+            $listadoCuotas[$i]['cant_cuota'] = $i + 1;
         }
 
         return ['listadoCuotas' => $listadoCuotas, 'cuota' => (float) number_format($cuota, 2, '.', '')];

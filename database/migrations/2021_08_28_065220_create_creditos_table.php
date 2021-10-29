@@ -20,13 +20,13 @@ class CreateCreditosTable extends Migration
             $table->unsignedBigInteger('sede_id');
             $table->unsignedBigInteger('usu_crea');
             $table->integer('cant_cuotas');
-            $table->integer('cant_cuotas_pagadas');
-            $table->integer('dia_limite');
+            $table->integer('cant_cuotas_pagadas')->nullable()->default(0);
+            $table->integer('dia_limite')->nullable();
             $table->boolean('deudor')->comment('Solo se confirma si tiene deudor');
             $table->tinyInteger('estado')->default(0)->nullable();
             $table->date('fecha_inicio');
             $table->float('interes', 20, 2);
-            $table->float('porcentaje_interes_anual', 20, 4);
+            $table->float('porcentaje_interes_anual', 20, 4)->nullable();
             $table->float('valor_cuota', 20, 4);
             $table->float('valor_credito', 20, 4);
             $table->float('valor_abonado', 20, 4)->nullable();

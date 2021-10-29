@@ -2772,6 +2772,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2820,7 +2822,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.Simulador.abrirSimulador();
     },
     mostrarCuotas: function mostrarCuotas(credito) {
-      this.$refs.Cuotas.abrirCuotas(credito);
+      this.$refs.Cuotas.listarCuotasCredito(14);
     },
     mostrarDatosCliente: function mostrarDatosCliente(cliente) {
       this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
@@ -2900,6 +2902,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["credito_id"],
   data: function data() {
@@ -2907,21 +2949,13 @@ __webpack_require__.r(__webpack_exports__);
       listadoCuotas: []
     };
   },
-  created: function created() {
-    this.listarCuotasCredito();
-  },
   methods: {
-    listarCuotasCredito: function listarCuotasCredito() {
+    listarCuotasCredito: function listarCuotasCredito(credito_id) {
+      console.log(credito_id);
       var me = this;
-      axios.get("api/creditos/".concat(this.credito_id, "/cuotas")).then(function (response) {
+      axios.get("api/creditos/".concat(credito_id, "/cuotas")).then(function (response) {
         me.listadoCuotas = response.data;
       });
-    },
-    abrirCuotas: function abrirCuotas(credito) {
-      this.editar = true;
-      var me = this;
-      $("#formCuotasModal").modal("show");
-      me.formCuotas = credito;
     }
   }
 });
@@ -3007,7 +3041,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["nro_cuotas", "interes", "capital"],
+  props: ["cant_cuotas", "interes", "capital"],
   // capital valor total del prestamo
   // tasa valor de tasa de interes que se compraria
   // plazos numero de pagos
@@ -3071,7 +3105,7 @@ __webpack_require__.r(__webpack_exports__);
     }),
     simularCuotas: function simularCuotas() {
       var me = this;
-      axios.get("api/cuotas/calcular-cuotas?valor_credito=".concat(this.capital, "&interes=").concat(this.interes, "&nro_cuotas=").concat(this.nro_cuotas)).then(function (response) {
+      axios.get("api/cuotas/calcular-cuotas?valor_credito=".concat(this.capital, "&interes=").concat(this.interes, "&cant_cuotas=").concat(this.cant_cuotas)).then(function (response) {
         return me.listadoCuotas = response.data.listadoCuotas, me.valor_cuota = response.data.cuota;
       });
     }
@@ -3156,7 +3190,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       interes: 3,
       capital: 500000,
-      nro_cuotas: 12
+      cant_cuotas: 12
     };
   },
   methods: {
@@ -68264,7 +68298,7 @@ var render = function() {
                     attrs: {
                       capital: _vm.formCredito.valor_credito,
                       interes: _vm.formCredito.interes,
-                      nro_cuotas: _vm.formCredito.cant_cuotas
+                      cant_cuotas: _vm.formCredito.cant_cuotas
                     }
                   }),
                   _vm._v(" "),
@@ -68409,15 +68443,15 @@ var render = function() {
                     "tbody",
                     _vm._l(_vm.listaCreditos.data, function(credito) {
                       return _c("tr", { key: credito.index }, [
-                        _c("td", [_vm._v(_vm._s(credito.cliente_id))]),
+                        _c("td", [_vm._v(_vm._s(credito.id))]),
                         _vm._v(" "),
                         _c("td", [
                           _vm._v(
-                            "\n                                " +
+                            "\n                            " +
                               _vm._s(credito.nombres) +
                               " " +
                               _vm._s(credito.apellidos) +
-                              "\n                            "
+                              "\n                        "
                           )
                         ]),
                         _vm._v(" "),
@@ -68453,9 +68487,13 @@ var render = function() {
                                 "button",
                                 {
                                   staticClass: "btn btn-outline-primary",
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#cuotasModal"
+                                  },
                                   on: {
                                     click: function($event) {
-                                      return _vm.mostrarCuotas(credito)
+                                      return _vm.mostrarCuotas(credito.id)
                                     }
                                   }
                                 },
@@ -68540,7 +68578,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                            Si no encuentras el usuario deseado. Podrías\n                            crearlo.\n                        "
+                            "\n                        Si no encuentras el usuario deseado. Podrías\n                        crearlo.\n                    "
                           )
                         ]
                       ),
@@ -68593,7 +68631,9 @@ var render = function() {
             return _vm.listarCreditos(1)
           }
         }
-      })
+      }),
+      _vm._v(" "),
+      _c("cuotas", { ref: "Cuotas" })
     ],
     1
   )
@@ -68622,7 +68662,7 @@ var staticRenderFns = [
               "data-target": "#formCreditoModal"
             }
           },
-          [_vm._v("\n                Crear Credito\n            ")]
+          [_vm._v("\n            Crear Credito\n        ")]
         )
       ]
     )
@@ -68667,7 +68707,7 @@ var staticRenderFns = [
       },
       [
         _vm._v(
-          "\n                            Crear un nuevo Cliente\n                            "
+          "\n                        Crear un nuevo Cliente\n                        "
         ),
         _c(
           "button",
@@ -68681,7 +68721,7 @@ var staticRenderFns = [
           },
           [
             _vm._v(
-              "\n                                Crear Cliente\n                            "
+              "\n                            Crear Cliente\n                        "
             )
           ]
         )
@@ -68711,47 +68751,95 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "page-header" }),
-    _vm._v(" "),
-    _c("div", { staticClass: "page-content" }, [
-      _c("section", [
-        _c("table", { staticClass: "table" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.listadoCuotas, function(c, index) {
-              return _c("tr", { key: c.id }, [
-                _c("th", { attrs: { scope: "row" } }, [
-                  _vm._v(_vm._s(index + 1))
-                ]),
-                _vm._v(" "),
-                _c("th", [_vm._v(_vm._s(c.fecha_pago))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(c.nro_cuota))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(c.valor))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(c.valor_pago_capital))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(c.valor_pago_interes))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(c.valor_interes_mora))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(c.dias_mora))]),
-                _vm._v(" "),
-                _vm._m(1, true)
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "cuotasModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "cuotasModalLabel",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("section", [
+                _c("table", { staticClass: "table" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.listadoCuotas, function(c, index) {
+                      return _c("tr", { key: c.id }, [
+                        _c("th", { attrs: { scope: "row" } }, [
+                          _vm._v(_vm._s(index + 1))
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v(_vm._s(c.fecha_pago))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(c.nro_cuota))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(c.valor))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(c.valor_pago_capital))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(c.valor_pago_interes))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(c.valor_interes_mora))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(c.dias_mora))]),
+                        _vm._v(" "),
+                        _vm._m(2, true)
+                      ])
+                    }),
+                    0
+                  )
+                ])
               ])
-            }),
-            0
-          )
-        ])
-      ])
-    ])
-  ])
+            ]),
+            _vm._v(" "),
+            _vm._m(3)
+          ])
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "cuotasModalLabel" } },
+        [_vm._v("\n                    Listado de Cuotas\n                ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -68783,7 +68871,32 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [
-      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Pagar")])
+      _c("button", { staticClass: "btn btn-success" }, [
+        _vm._v(
+          "\n                                        Pagar\n                                    "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("\n                    Close\n                ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("\n                    Save changes\n                ")]
+      )
     ])
   }
 ]
@@ -68982,8 +69095,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.nro_cuotas,
-                  expression: "nro_cuotas"
+                  value: _vm.cant_cuotas,
+                  expression: "cant_cuotas"
                 }
               ],
               staticClass: "form-control",
@@ -68993,13 +69106,13 @@ var render = function() {
                 id: "tiempo",
                 placeholder: "Ingresar cantidad de meses"
               },
-              domProps: { value: _vm.nro_cuotas },
+              domProps: { value: _vm.cant_cuotas },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.nro_cuotas = $event.target.value
+                  _vm.cant_cuotas = $event.target.value
                 }
               }
             })
@@ -69044,7 +69157,7 @@ var render = function() {
           attrs: {
             capital: _vm.capital,
             interes: _vm.interes,
-            nro_cuotas: _vm.nro_cuotas
+            cant_cuotas: _vm.cant_cuotas
           }
         })
       ],

@@ -194,7 +194,7 @@
                             <simulador
                                 :capital="formCredito.valor_credito"
                                 :interes="formCredito.interes"
-                                :nro_cuotas="formCredito.cant_cuotas"
+                                :cant_cuotas="formCredito.cant_cuotas"
                                 ref="Simulador"
                             ></simulador>
                             <button

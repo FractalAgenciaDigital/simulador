@@ -57,6 +57,6 @@ class Credito extends Model
     }
     public function cuotas()
     {
-        return $this->hasMany(Cuota::class);
+        return $this->hasMany(Cuota::class, 'credito_id', 'id');
     }
 }

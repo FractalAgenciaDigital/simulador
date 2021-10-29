@@ -66,7 +66,7 @@
 import moment from "moment";
 
 export default {
-    props: ["nro_cuotas", "interes", "capital"],
+    props: ["cant_cuotas", "interes", "capital"],
     // capital valor total del prestamo
     // tasa valor de tasa de interes que se compraria
     // plazos numero de pagos
@@ -125,7 +125,7 @@ export default {
             let me = this;
             axios
                 .get(
-                    `api/cuotas/calcular-cuotas?valor_credito=${this.capital}&interes=${this.interes}&nro_cuotas=${this.nro_cuotas}`
+                    `api/cuotas/calcular-cuotas?valor_credito=${this.capital}&interes=${this.interes}&cant_cuotas=${this.cant_cuotas}`
                 )
                 .then(
                     response => (
