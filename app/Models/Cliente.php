@@ -24,7 +24,7 @@ class Cliente extends Model
     'lugar_trabajo',
     'cargo',
     'independiente',
-    'foto'
+    'foto', 'activo'
   ];
 
   public function creditos()

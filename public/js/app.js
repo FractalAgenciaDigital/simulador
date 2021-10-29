@@ -66871,7 +66871,7 @@ var render = function() {
                           {
                             staticClass: "btn",
                             class:
-                              c.estado == 1
+                              c.activo == 1
                                 ? "btn-outline-success"
                                 : "btn-outline-danger",
                             on: {
@@ -66881,20 +66881,20 @@ var render = function() {
                             }
                           },
                           [
-                            c.estado == 1
+                            c.activo == 1
                               ? _c("i", {
                                   staticClass: "bi bi-check-circle-fill"
                                 })
                               : _vm._e(),
                             _vm._v(" "),
-                            c.estado == 0
+                            c.activo == 0
                               ? _c("i", { staticClass: "bi bi-x-circle" })
                               : _vm._e()
                           ]
                         )
                       ]),
                       _vm._v(" "),
-                      c.estado == 1
+                      c.activo == 1
                         ? _c("td", { staticClass: "text-center" }, [
                             _c(
                               "button",

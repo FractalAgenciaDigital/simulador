@@ -134,7 +134,7 @@ class ClienteController extends Controller
 		//
 		$c = Cliente::find($cliente->id);
 		// $cliente->estado = '0';
-		$c->estado = !$c->estado;
+		$c->activo = !$c->activo;
 		$c->save();
 	}
 
