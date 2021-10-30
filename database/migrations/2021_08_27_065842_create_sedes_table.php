@@ -22,6 +22,7 @@ class CreateSedesTable extends Migration
             $table->string('correo_contacto')->nullable();
             $table->string('representante')->nullable();
             $table->string('celular_contacto')->nullable();
+            $table->string('impresora_pos')->default('POS-80');
             $table->timestamps();
         });
     }

@@ -82,8 +82,7 @@ class CuotaController extends Controller
     {
         //
         $cuota = new Cuota();
-        $cuota->credito_id = $request['credito_id'];
-        $cuota->cant_cuota = $request['cant_cuota'];
+        $cuota->nro_cuota = $request['nro_cuota'];
         $cuota->valor = $request['valor'];
         $cuota->fecha_pago = $request['fecha_pago'];
         $cuota->dias_mora = $request['dias_mora'];
@@ -155,5 +154,12 @@ class CuotaController extends Controller
         }
 
         return ['listadoCuotas' => $listadoCuotas, 'cuota' => (float) number_format($cuota, 2, '.', '')];
+    }
+
+    public function pagarCuota($id)
+    {
+        $cuota = Cuota::findOrFail($id);
+        $cuota->estado = '1';
+        $cuota->save();
     }
 }

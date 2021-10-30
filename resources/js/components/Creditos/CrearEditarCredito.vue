@@ -64,6 +64,7 @@
                     type="number"
                     class="form-control"
                     id="valor_credito"
+                    step="any"
                     v-model="formCredito.valor_credito"
                   />
                 </div>
@@ -74,6 +75,7 @@
                     class="form-control"
                     id="interes"
                     v-model="formCredito.interes"
+                    step="any"
                   />
                 </div>
 
@@ -130,6 +132,7 @@
                     class="form-control"
                     id="porcentaje_interes_anual"
                     v-model="formCredito.porcentaje_interes_anual"
+                    step="any"
                   />
                 </div>
 
@@ -140,6 +143,7 @@
                     class="form-control"
                     id="valor_cuota"
                     v-model="formCredito.valor_cuota"
+                    step="any"
                   />
                 </div>
 
@@ -150,6 +154,7 @@
                     class="form-control"
                     id="valor_abonado"
                     v-model="formCredito.valor_abonado"
+                    step="any"
                   />
                 </div>
 
@@ -160,6 +165,7 @@
                     class="form-control"
                     id="valor_capital"
                     v-model="formCredito.valor_capital"
+                    step="any"
                   />
                 </div>
 
@@ -170,6 +176,7 @@
                     class="form-control"
                     id="valor_interes"
                     v-model="formCredito.valor_interes"
+                    step="any"
                   />
                 </div>
               </div>

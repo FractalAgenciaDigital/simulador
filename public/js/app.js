@@ -2499,6 +2499,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2744,6 +2751,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2768,13 +2789,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.listarCreditos(1); // this.listarClientes(1);
+    this.listarCreditos(1);
   },
   methods: {
     listarCreditos: function listarCreditos() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var me = this;
       axios.get("api/creditos?page=".concat(page, "&credito=").concat(this.buscar_cliente)).then(function (response) {
+        console.log(response);
         me.listaCreditos = response.data;
       });
     },
@@ -2792,7 +2814,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.Simulador.abrirSimulador();
     },
     mostrarCuotas: function mostrarCuotas(credito) {
-      this.$refs.Cuotas.listarCuotasCredito(14);
+      this.$refs.Cuotas.listarCuotasCredito(credito);
     },
     mostrarDatosCliente: function mostrarDatosCliente(cliente) {
       this.$refs.CrearEditarCliente.abirEditarCliente(cliente);
@@ -2912,19 +2934,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["credito_id"],
+  // props: ["credito_id"],
   data: function data() {
     return {
+      id_credito: 0,
       listadoCuotas: []
     };
   },
   methods: {
     listarCuotasCredito: function listarCuotasCredito(credito_id) {
-      console.log(credito_id);
+      this.id_credito = credito_id;
       var me = this;
       axios.get("api/creditos/".concat(credito_id, "/cuotas")).then(function (response) {
         me.listadoCuotas = response.data;
+      });
+    },
+    pagarCuota: function pagarCuota(id) {
+      var me = this;
+      axios.post("api/cuota/".concat(id, "/pagar-cuota")).then(function (response) {
+        me.listarCuotasCredito(me.id_credito);
       });
     }
   }
@@ -3098,6 +3141,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Creditos_Simulador_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Creditos/Simulador.vue */ "./resources/js/components/Creditos/Simulador.vue");
+//
+//
 //
 //
 //
@@ -3966,6 +4011,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3982,7 +4046,8 @@ __webpack_require__.r(__webpack_exports__);
         foto: "",
         estado: "1",
         id_rol: "",
-        id_sede: ""
+        sede_id: "",
+        impresora_pos: ""
       }
     };
   },
@@ -67912,7 +67977,11 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number", id: "valor_credito" },
+                        attrs: {
+                          type: "number",
+                          id: "valor_credito",
+                          step: "any"
+                        },
                         domProps: { value: _vm.formCredito.valor_credito },
                         on: {
                           input: function($event) {
@@ -67944,7 +68013,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number", id: "interes" },
+                        attrs: { type: "number", id: "interes", step: "any" },
                         domProps: { value: _vm.formCredito.interes },
                         on: {
                           input: function($event) {
@@ -68115,7 +68184,8 @@ var render = function() {
                         staticClass: "form-control",
                         attrs: {
                           type: "number",
-                          id: "porcentaje_interes_anual"
+                          id: "porcentaje_interes_anual",
+                          step: "any"
                         },
                         domProps: {
                           value: _vm.formCredito.porcentaje_interes_anual
@@ -68150,7 +68220,11 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number", id: "valor_cuota" },
+                        attrs: {
+                          type: "number",
+                          id: "valor_cuota",
+                          step: "any"
+                        },
                         domProps: { value: _vm.formCredito.valor_cuota },
                         on: {
                           input: function($event) {
@@ -68182,7 +68256,11 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number", id: "valor_abonado" },
+                        attrs: {
+                          type: "number",
+                          id: "valor_abonado",
+                          step: "any"
+                        },
                         domProps: { value: _vm.formCredito.valor_abonado },
                         on: {
                           input: function($event) {
@@ -68214,7 +68292,11 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number", id: "valor_capital" },
+                        attrs: {
+                          type: "number",
+                          id: "valor_capital",
+                          step: "any"
+                        },
                         domProps: { value: _vm.formCredito.valor_capital },
                         on: {
                           input: function($event) {
@@ -68246,7 +68328,11 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number", id: "valor_interes" },
+                        attrs: {
+                          type: "number",
+                          id: "valor_interes",
+                          step: "any"
+                        },
                         domProps: { value: _vm.formCredito.valor_interes },
                         on: {
                           input: function($event) {
@@ -68402,7 +68488,7 @@ var render = function() {
                 [
                   _vm._m(1),
                   _vm._v(" "),
-                  _vm.listaCreditos.data.length > 0
+                  _vm.listaCreditos.data && _vm.listaCreditos.data.length > 0
                     ? _c(
                         "tbody",
                         _vm._l(_vm.listaCreditos.data, function(credito) {
@@ -68411,9 +68497,11 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(
-                                _vm._s(credito.nombres) +
+                                "\n                            " +
+                                  _vm._s(credito.nombres) +
                                   " " +
-                                  _vm._s(credito.apellidos)
+                                  _vm._s(credito.apellidos) +
+                                  "\n                        "
                               )
                             ]),
                             _vm._v(" "),
@@ -68529,7 +68617,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n            Si no encuentras el usuario deseado. Podrías crearlo.\n          "
+                              "\n                        Si no encuentras el usuario deseado. Podrías\n                        crearlo.\n                    "
                             )
                           ]
                         ),
@@ -68612,7 +68700,7 @@ var staticRenderFns = [
               "data-target": "#formCreditoModal"
             }
           },
-          [_vm._v("\n      Crear Credito\n    ")]
+          [_vm._v("\n            Crear Credito\n        ")]
         )
       ]
     )
@@ -68656,7 +68744,9 @@ var staticRenderFns = [
         staticStyle: { margin: "2px auto", width: "30%" }
       },
       [
-        _vm._v("\n            Crear un nuevo Cliente\n            "),
+        _vm._v(
+          "\n                        Crear un nuevo Cliente\n                        "
+        ),
         _c(
           "button",
           {
@@ -68667,7 +68757,11 @@ var staticRenderFns = [
               "data-target": "#formClienteModal"
             }
           },
-          [_vm._v("\n              Crear Cliente\n            ")]
+          [
+            _vm._v(
+              "\n                            Crear Cliente\n                        "
+            )
+          ]
         )
       ]
     )
@@ -68724,10 +68818,6 @@ var render = function() {
                     "tbody",
                     _vm._l(_vm.listadoCuotas, function(c, index) {
                       return _c("tr", { key: c.id }, [
-                        _c("th", { attrs: { scope: "row" } }, [
-                          _vm._v(_vm._s(index + 1))
-                        ]),
-                        _vm._v(" "),
                         _c("th", [_vm._v(_vm._s(c.fecha_pago))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(c.nro_cuota))]),
@@ -68742,7 +68832,42 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(c.dias_mora))]),
                         _vm._v(" "),
-                        _vm._m(2, true)
+                        _c("td", [
+                          c.estado == 0
+                            ? _c(
+                                "span",
+                                { staticClass: " badge badge-secondary" },
+                                [_vm._v("Pendiente")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          c.estado == 1
+                            ? _c(
+                                "span",
+                                { staticClass: "badge badge-success" },
+                                [_vm._v("Pagado")]
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success",
+                              on: {
+                                click: function($event) {
+                                  return _vm.pagarCuota(c.id)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        Pagar\n                                    "
+                              )
+                            ]
+                          )
+                        ])
                       ])
                     }),
                     0
@@ -68751,7 +68876,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(3)
+            _vm._m(2)
           ])
         ]
       )
@@ -68790,8 +68915,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Fecha de vencimiento")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Nro. Cuota")]),
@@ -68806,19 +68929,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Dias de mora")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Estado")]),
+        _vm._v(" "),
         _c("th")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn btn-success" }, [
-        _vm._v(
-          "\n                                        Pagar\n                                    "
-        )
       ])
     ])
   },
@@ -68834,12 +68947,6 @@ var staticRenderFns = [
           attrs: { type: "button", "data-dismiss": "modal" }
         },
         [_vm._v("\n                    Close\n                ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
-        [_vm._v("\n                    Save changes\n                ")]
       )
     ])
   }
@@ -69015,6 +69122,7 @@ var render = function() {
                 required: "",
                 type: "number",
                 id: "monto",
+                step: "any",
                 placeholder: "Ingresar monto"
               },
               domProps: { value: _vm.capital },
@@ -69081,6 +69189,7 @@ var render = function() {
                 required: "",
                 type: "number",
                 id: "interes",
+                step: "any",
                 placeholder: "Ingresar tasa de interés mensual"
               },
               domProps: { value: _vm.interes },
@@ -70353,7 +70462,11 @@ var render = function() {
                   staticClass: "modal-title",
                   attrs: { id: "formSedeModalLabel" }
                 },
-                [_vm._v("Sedes")]
+                [
+                  _vm._v(
+                    "\n                        Sedes\n                    "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -70560,6 +70673,38 @@ var render = function() {
                         }
                       }
                     })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "impresora_pos" } }, [
+                      _vm._v("Impresora POS")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formSede.impresora_pos,
+                          expression: "formSede.impresora_pos"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "email", id: "impresora_pos" },
+                      domProps: { value: _vm.formSede.impresora_pos },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formSede,
+                            "impresora_pos",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
                   ])
                 ])
               ])
@@ -70577,7 +70722,11 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Cerrar\n          ")]
+                [
+                  _vm._v(
+                    "\n                        Cerrar\n                    "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -70591,7 +70740,11 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Guardar\n          ")]
+                [
+                  _vm._v(
+                    "\n                        Guardar\n                    "
+                  )
+                ]
               )
             ])
           ])
@@ -70681,7 +70834,9 @@ var render = function() {
           [
             _c(
               "table",
-              { staticClass: "table table-sm table-bordered table-responsive" },
+              {
+                staticClass: "table table-sm table-bordered table-sm-responsive"
+              },
               [
                 _vm._m(1),
                 _vm._v(" "),
@@ -71380,7 +71535,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(usuario.celular))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(usuario.id_sede))]),
+                      _c("td", [_vm._v(_vm._s(usuario.sede_id))]),
                       _vm._v(" "),
                       usuario.rol_id == 1
                         ? _c("td", [_vm._v("Administrador")])

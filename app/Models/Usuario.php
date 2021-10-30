@@ -11,9 +11,9 @@ class Usuario extends Model
   protected $table = "users";
 
   protected $fillable = [
-    'id', 'name', 'email', 'password', 'nombre', 'celular', 'direccion', 'tipo_documento', 'documento', 'foto', 'id_sede', 'id_rol', 'estado'
+    'id', 'name', 'email', 'password', 'nombre', 'celular', 'direccion', 'tipo_documento', 'documento', 'foto', 'sede_id', 'id_rol', 'estado'
   ];
-  
+
   /**
    * The attributes that should be hidden for serialization.
    *
@@ -32,4 +32,9 @@ class Usuario extends Model
   protected $casts = [
     'email_verified_at' => 'datetime',
   ];
+
+  public function sede()
+  {
+    return $this->belongsTo(Sede::class, 'sede_id');
+  }
 }

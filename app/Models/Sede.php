@@ -15,6 +15,7 @@ class Sede extends Model
         'nit',
         'correo_contacto',
         'representante',
-        'celular_contacto'
+        'celular_contacto',
+        'impresora_pos'
     ];
 }

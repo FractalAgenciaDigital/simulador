@@ -27,7 +27,7 @@
     </div>
     <div class="page-content mt-4">
       <section class="">
-        <table class="table table-sm table-bordered table-responsive">
+        <table class="table table-sm table-bordered table-sm-responsive">
           <thead>
             <tr>
               <th>id</th>

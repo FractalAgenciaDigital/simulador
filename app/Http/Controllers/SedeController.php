@@ -55,6 +55,7 @@ class SedeController extends Controller
 		$sede->nit = $request['nit'];
 		$sede->correo_contacto = $request['correo_contacto'];
 		$sede->representante = $request['representante'];
+		$sede->impresora_pos = $request['impresora_pos'];
 		$sede->celular_contacto = $request['celular_contacto'];
 		$sede->save();
 	}
@@ -97,6 +98,7 @@ class SedeController extends Controller
 		$sede->nit = $request['nit'];
 		$sede->correo_contacto = $request['correo_contacto'];
 		$sede->representante = $request['representante'];
+		$sede->impresora_pos = $request['impresora_pos'];
 		$sede->celular_contacto = $request['celular_contacto'];
 		$sede->save();
 	}
@@ -120,3 +122,4 @@ class SedeController extends Controller
 		$sd->save();
 	}
 }
+

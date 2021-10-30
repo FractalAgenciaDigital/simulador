@@ -18,10 +18,12 @@ class Cuota extends Model
     'dias_mora',
     'valor_interes_mora',
     'valor_pago_interes',
-    'valor_pago_capital'
+    'valor_pago_capital',
+    'registro_pago',
+    'estado'
   ];
 
-  public function deudor()
+  public function credito()
   {
     return $this->belongsTo(Credito::class, 'credito_id');
   }

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\CreditoController;
 use App\Http\Controllers\SedeController;
 use App\Http\Controllers\CuotaController;
+use App\Http\Controllers\ImprimirTicketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,8 @@ Route::resource('/creditos', CreditoController::class);
 Route::post('/creditos/{credito}/cambiar-estado',  [CreditoController::class, 'cambiarEstado']);
 Route::get('/creditos/{credito}/cuotas', [CreditoController::class, 'cuotas']);
 Route::get('/cuotas/calcular-cuotas', [CuotaController::class, 'calcularCuotas']);
+Route::post('/cuota/{id}/pagar-cuota', [CuotaController::class, 'pagarCuota']);
+
+Route::get('/imprimir-cuota', [ImprimirTicketController::class, 'imprimirCuota']);
 
 Route::resource('/cuotas', CuotaController::class);
-

@@ -28,7 +28,8 @@ class SedeFactory extends Factory
             'nit' => $this->faker->ean13(),
             'correo_contacto' => $this->faker->email(),
             'representante' => $this->faker->lastName(),
-            'celular_contacto' => $this->faker->phoneNumber()
+            'celular_contacto' => $this->faker->phoneNumber(),
+            'impresora_pos' => 'POS-80'
         ];
     }
 }

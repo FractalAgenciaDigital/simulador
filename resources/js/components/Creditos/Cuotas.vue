@@ -28,7 +28,6 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
                                     <th>Fecha de vencimiento</th>
                                     <th scope="col">Nro. Cuota</th>
                                     <th scope="col">Valor</th>
@@ -36,6 +35,7 @@
                                     <th>Interés</th>
                                     <th>Mora</th>
                                     <th>Dias de mora</th>
+                                    <th>Estado</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -44,7 +44,6 @@
                                     v-for="(c, index) in listadoCuotas"
                                     :key="c.id"
                                 >
-                                    <th scope="row">{{ index + 1 }}</th>
                                     <th>{{ c.fecha_pago }}</th>
                                     <td>{{ c.nro_cuota }}</td>
                                     <td>{{ c.valor }}</td>
@@ -53,7 +52,22 @@
                                     <td>{{ c.valor_interes_mora }}</td>
                                     <td>{{ c.dias_mora }}</td>
                                     <td>
-                                        <button class="btn btn-success">
+                                        <span
+                                            v-if="c.estado == 0"
+                                            class=" badge badge-secondary"
+                                            >Pendiente</span
+                                        >
+                                        <span
+                                            v-if="c.estado == 1"
+                                            class="badge badge-success"
+                                            >Pagado</span
+                                        >
+                                    </td>
+                                    <td>
+                                        <button
+                                            @click="pagarCuota(c.id)"
+                                            class="btn btn-success"
+                                        >
                                             Pagar
                                         </button>
                                     </td>
@@ -70,9 +84,9 @@
                     >
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary">
+                    <!-- <button type="button" class="btn btn-primary">
                         Save changes
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </div>
@@ -80,21 +94,29 @@
 </template>
 <script>
 export default {
-    props: ["credito_id"],
+    // props: ["credito_id"],
     data() {
         return {
+            id_credito: 0,
             listadoCuotas: []
         };
     },
     methods: {
         listarCuotasCredito(credito_id) {
-            console.log(credito_id);
+            this.id_credito = credito_id;
             let me = this;
             axios
                 .get(`api/creditos/${credito_id}/cuotas`)
                 .then(function(response) {
                     me.listadoCuotas = response.data;
                 });
+        },
+
+        pagarCuota(id) {
+            let me = this;
+            axios.post(`api/cuota/${id}/pagar-cuota`).then(function(response) {
+                me.listarCuotasCredito(me.id_credito);
+            });
         }
     }
 };

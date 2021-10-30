@@ -14,6 +14,7 @@
                         class="form-control"
                         id="monto"
                         v-model="capital"
+                        step="any"
                         placeholder="Ingresar monto"
                     />
                 </div>
@@ -36,6 +37,7 @@
                         class="form-control"
                         id="interes"
                         v-model="interes"
+                        step="any"
                         placeholder="Ingresar tasa de interés mensual"
                     />
                 </div>

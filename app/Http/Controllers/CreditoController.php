@@ -174,7 +174,7 @@ class CreditoController extends Controller
     public function cuotas(Request $request, $id)
     {
         
-        $credito = Credito::find($id);
+        $credito = Credito::findOrFail($id);
         return $credito->cuotas()->get();
     }
 }

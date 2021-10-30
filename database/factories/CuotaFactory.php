@@ -29,7 +29,10 @@ class CuotaFactory extends Factory
       'dias_mora' => $this->faker->numberBetween(1, 10),
       'valor_interes_mora' =>  $this->faker->randomFloat(4, 10, 60000),
       'valor_pago_interes' => $this->faker->randomFloat(4, 10, 60000),
-      'valor_pago_capital' => $this->faker->randomFloat(4, 10, 60000)
+      'valor_pago_capital' => $this->faker->randomFloat(4, 10, 60000),
+      'registro_pago' => $this->faker->date('Y-m-d', 'now'),
+      'estado' => $this->faker->boolean(),
+
     ];
   }
 }

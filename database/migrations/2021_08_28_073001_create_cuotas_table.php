@@ -23,7 +23,8 @@ class CreateCuotasTable extends Migration
             $table->float('valor_interes_mora', 20, 4)->nullable()->default(0);
             $table->float('valor_pago_interes', 20, 4)->nullable()->default(0);
             $table->float('valor_pago_capital', 20, 4)->nullable()->default(0);
-
+            $table->tinyText('estado')->default(0);
+            $table->date('registro_pago')->nullable();
             $table->foreign('credito_id')
                 ->references('id')
                 ->on('creditos')
