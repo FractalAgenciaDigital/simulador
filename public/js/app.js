@@ -2423,89 +2423,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -67840,7 +67757,11 @@ var render = function() {
                   staticClass: "modal-title",
                   attrs: { id: "formCreditoModalLabel" }
                 },
-                [_vm._v("Creditos")]
+                [
+                  _vm._v(
+                    "\n                        Creditos\n                    "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -68060,293 +67981,6 @@ var render = function() {
                           }
                         }
                       })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-4" }, [
-                      _c("label", { attrs: { for: "cant_cuotas_pagadas" } }, [
-                        _vm._v("Cantidad Cuotas Pagadas")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formCredito.cant_cuotas_pagadas,
-                            expression: "formCredito.cant_cuotas_pagadas"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "number", id: "cant_cuotas_pagadas" },
-                        domProps: {
-                          value: _vm.formCredito.cant_cuotas_pagadas
-                        },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formCredito,
-                              "cant_cuotas_pagadas",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-4" }, [
-                      _c("label", { attrs: { for: "dia_limite" } }, [
-                        _vm._v("Dia Limite")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formCredito.dia_limite,
-                            expression: "formCredito.dia_limite"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          min: "1",
-                          max: "30",
-                          id: "dia_limite"
-                        },
-                        domProps: { value: _vm.formCredito.dia_limite },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formCredito,
-                              "dia_limite",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-4" }, [
-                      _c("label", { attrs: { for: "fecha_inicio" } }, [
-                        _vm._v("Fecha Inicial")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formCredito.fecha_inicio,
-                            expression: "formCredito.fecha_inicio"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "date", id: "fecha_inicio" },
-                        domProps: { value: _vm.formCredito.fecha_inicio },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formCredito,
-                              "fecha_inicio",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-4" }, [
-                      _c(
-                        "label",
-                        { attrs: { for: "porcentaje_interes_anual" } },
-                        [_vm._v("Porcentaje Interes Anual")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formCredito.porcentaje_interes_anual,
-                            expression: "formCredito.porcentaje_interes_anual"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          id: "porcentaje_interes_anual",
-                          step: "any"
-                        },
-                        domProps: {
-                          value: _vm.formCredito.porcentaje_interes_anual
-                        },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formCredito,
-                              "porcentaje_interes_anual",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-4" }, [
-                      _c("label", { attrs: { for: "valor_cuota" } }, [
-                        _vm._v("Valor Cuota")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formCredito.valor_cuota,
-                            expression: "formCredito.valor_cuota"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          id: "valor_cuota",
-                          step: "any"
-                        },
-                        domProps: { value: _vm.formCredito.valor_cuota },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formCredito,
-                              "valor_cuota",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-4" }, [
-                      _c("label", { attrs: { for: "valor_abonado" } }, [
-                        _vm._v("Valor Abonado")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formCredito.valor_abonado,
-                            expression: "formCredito.valor_abonado"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          id: "valor_abonado",
-                          step: "any"
-                        },
-                        domProps: { value: _vm.formCredito.valor_abonado },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formCredito,
-                              "valor_abonado",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-4" }, [
-                      _c("label", { attrs: { for: "valor_capital" } }, [
-                        _vm._v("Valor Capital")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formCredito.valor_capital,
-                            expression: "formCredito.valor_capital"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          id: "valor_capital",
-                          step: "any"
-                        },
-                        domProps: { value: _vm.formCredito.valor_capital },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formCredito,
-                              "valor_capital",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group col-md-4" }, [
-                      _c("label", { attrs: { for: "valor_interes" } }, [
-                        _vm._v("Valor Interes")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formCredito.valor_interes,
-                            expression: "formCredito.valor_interes"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          id: "valor_interes",
-                          step: "any"
-                        },
-                        domProps: { value: _vm.formCredito.valor_interes },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.formCredito,
-                              "valor_interes",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
                     ])
                   ]),
                   _vm._v(" "),
@@ -68370,7 +68004,11 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n              Cerrar\n            ")]
+                    [
+                      _vm._v(
+                        "\n                            Cerrar\n                        "
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _c(
@@ -68384,7 +68022,11 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n              Guardar\n            ")]
+                    [
+                      _vm._v(
+                        "\n                            Guardar\n                        "
+                      )
+                    ]
                   )
                 ],
                 1
