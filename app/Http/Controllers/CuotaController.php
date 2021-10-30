@@ -160,6 +160,10 @@ class CuotaController extends Controller
     {
         $cuota = Cuota::findOrFail($id);
         $cuota->estado = '1';
+        $cuota->fecha_pago = date('Y-m-d');
         $cuota->save();
+
+        $imprimir_cuota = new ImprimirTicketController;
+        $imprimir_cuota = $imprimir_cuota->imprimirCuota($id);
     }
 }

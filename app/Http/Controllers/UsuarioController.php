@@ -17,7 +17,6 @@ class UsuarioController extends Controller
         $usuarios = Usuario::select();
         if ($request->usuario && ($request->usuario != '')) {
             $usuarios  =     $usuarios->where('documento', 'LIKE', "%$request->usuario%")
-                // ->orWhere('name', 'LIKE', "%$request->usuario%")
                 ->orWhere('nombres', 'LIKE', "%$request->usuario%")
                 ->orWhere('email', 'LIKE', "%$request->usuario%");
         }
@@ -48,10 +47,10 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         $usuario = new Usuario();
-        $usuario->name = $request['name'];
         $usuario->email = $request['email'];
         $usuario->password = $request['password'];
-        $usuario->nombre = $request['nombre'];
+        $usuario->nombres = $request['nombres'];
+        $usuario->apellidos = $request['apellidos'];
         $usuario->celular = $request['celular'];
         $usuario->direccion = $request['direccion'];
         $usuario->tipo_documento = $request['tipo_documento'];
@@ -92,10 +91,11 @@ class UsuarioController extends Controller
     public function update(Request $request, Usuario $usuario)
     {
         $usuario = Usuario::find($request->id);
-        $usuario->name = $request['name'];
+        
         $usuario->email = $request['email'];
         $usuario->password = $request['password'];
-        $usuario->nombre = $request['nombre'];
+        $usuario->nombres = $request['nombres'];
+        $usuario->apellidos = $request['apellidos'];
         $usuario->celular = $request['celular'];
         $usuario->direccion = $request['direccion'];
         $usuario->tipo_documento = $request['tipo_documento'];

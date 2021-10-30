@@ -26,17 +26,12 @@
 
 <body class="bg-gray">
     <div id="app">
-        @if (Route::has('login'))
 
-            @auth
-
-                @component('components.navigation-menu')@endcomponent
-            @else
-                @component('components.main-menu')@endcomponent
-            @endauth
-
-        @endif
-
+        @guest
+        @component('components.main-menu')@endcomponent
+        @else
+        @component('components.navigation-menu')@endcomponent
+        @endguest
 
         <main class="p-4 bg-light container">
             @yield('content')
