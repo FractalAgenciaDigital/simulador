@@ -225,8 +225,8 @@ export default {
         fecha_inicio: "",
         interes: "",
         porcentaje_interes_anual: "",
-        usu_crea: 2,
-        calor_cuota: "",
+        usu_crea: "",
+        valor_cuota: "",
         valor_credito: "",
         valor_abonado: "",
         valor_capital: "",
@@ -259,6 +259,10 @@ export default {
         $("#formCreditoModal").modal("hide");
         me.resetData();
         this.$emit("listar-creditos");
+
+        $http.get("api/user").then((response) => {
+          console.log(response.body);
+        });
       });
     },
     abirEditarCredito(credito) {

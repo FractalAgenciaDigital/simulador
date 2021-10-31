@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Cliente;
 use App\Models\Sede;
 use App\Models\Credito;
 use App\Models\Cuota;
+use App\Models\Usuario;
+
 use Illuminate\Http\Request;
 
 class CreditoController extends Controller
@@ -63,6 +67,7 @@ class CreditoController extends Controller
      */
     public function store(Request $request)
     {
+        $credito = Usuario::select();
 
         $listadoCuotas = new CuotaController();
         $listadoCuotas = $listadoCuotas->calcularCuotas($request);
@@ -79,7 +84,15 @@ class CreditoController extends Controller
         $credito->fecha_inicio = $request['fecha_inicio'];
         $credito->interes = $request['interes'];
         $credito->porcentaje_interes_anual = $request['porcentaje_interes_anual'];
-        $credito->usu_crea = $request['usu_crea'];
+        // $credito->usu_crea = $request['usu_crea'];
+        $credito->usu_crea = Auth::user()->id;
+        // $$credito->usu_crea = Usuario::with(['usuario'])->get();
+
+        // $credito->usu_crea = Usuario::find($request->id);
+
+        var_dump(Auth::user());
+
+        // $credito->usu_crea = Auth::user();
         $credito->valor_credito = $request['valor_credito'];
         $credito->valor_abonado = $request['valor_abonado'];
         $credito->valor_capital = $request['valor_capital'];
@@ -142,7 +155,12 @@ class CreditoController extends Controller
         $credito->fecha_inicio = $request['fecha_inicio'];
         $credito->interes = $request['interes'];
         $credito->porcentaje_interes_anual = $request['porcentaje_interes_anual'];
-        $credito->usu_crea = $request['usu_crea'];
+        // $credito->usu_crea = $request['usu_crea'];
+        $credito->usu_crea = Auth::user()->id;
+        // $$credito->usu_crea = Usuario::with(['usuario'])->get();
+
+        // $credito->usu_crea = Usuario::find($request->id);
+
         $credito->valor_cuota = $request['valor_cuota'];
         $credito->valor_credito = $request['valor_credito'];
         $credito->valor_abonado = $request['valor_abonado'];
@@ -173,7 +191,7 @@ class CreditoController extends Controller
 
     public function cuotas(Request $request, $id)
     {
-        
+
         $credito = Credito::find($id);
         return $credito->cuotas()->get();
     }

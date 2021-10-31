@@ -25,7 +25,7 @@
                     <router-link class="nav-link text-white" to="/sedes"> Sedes </router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link text-white"  to="/proveedores"> Proveedores </router-link>
+                    <router-link class="nav-link text-white" to="/proveedores"> Proveedores </router-link>
                 </li>
                 {{-- <li class="nav-item">
                     <router-link class="nav-link text-white"  to="/pagos"> Pagos </router-link>
@@ -56,7 +56,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
+                                                     document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
 

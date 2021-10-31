@@ -23,6 +23,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                // if (Auth::attempt(['email' => $email, 'password' => $password, 'estado' => 1])) {
                 return redirect(RouteServiceProvider::HOME);
             }
         }

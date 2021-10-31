@@ -2517,7 +2517,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         sede_id: "",
         cant_cuotas: "",
         cant_cuotas_pagadas: ""
-      }, _defineProperty(_formCredito, "cant_cuotas_pagadas", ""), _defineProperty(_formCredito, "dia_limite", ""), _defineProperty(_formCredito, "deudor", ""), _defineProperty(_formCredito, "estado", "1"), _defineProperty(_formCredito, "fecha_inicio", ""), _defineProperty(_formCredito, "interes", ""), _defineProperty(_formCredito, "porcentaje_interes_anual", ""), _defineProperty(_formCredito, "usu_crea", 2), _defineProperty(_formCredito, "calor_cuota", ""), _defineProperty(_formCredito, "valor_credito", ""), _defineProperty(_formCredito, "valor_abonado", ""), _defineProperty(_formCredito, "valor_capital", ""), _defineProperty(_formCredito, "valor_interes", ""), _formCredito)
+      }, _defineProperty(_formCredito, "cant_cuotas_pagadas", ""), _defineProperty(_formCredito, "dia_limite", ""), _defineProperty(_formCredito, "deudor", ""), _defineProperty(_formCredito, "estado", "1"), _defineProperty(_formCredito, "fecha_inicio", ""), _defineProperty(_formCredito, "interes", ""), _defineProperty(_formCredito, "porcentaje_interes_anual", ""), _defineProperty(_formCredito, "usu_crea", ""), _defineProperty(_formCredito, "valor_cuota", ""), _defineProperty(_formCredito, "valor_credito", ""), _defineProperty(_formCredito, "valor_abonado", ""), _defineProperty(_formCredito, "valor_capital", ""), _defineProperty(_formCredito, "valor_interes", ""), _formCredito)
     };
   },
   created: function created() {
@@ -2546,6 +2546,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         $("#formCreditoModal").modal("hide");
         me.resetData();
         this.$emit("listar-creditos");
+        $http.get("api/user").then(function (response) {
+          console.log(response.body);
+        });
       });
     },
     abirEditarCredito: function abirEditarCredito(credito) {

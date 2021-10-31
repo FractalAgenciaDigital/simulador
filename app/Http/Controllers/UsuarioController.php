@@ -33,7 +33,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+        // //
         $usuario = Usuario::findOrFail($id);
         Usuario::destroy($id);
         return redirect('usuario')->with('mensaje', 'Usuario eliminado correctamente');
